@@ -1,0 +1,12 @@
+.navbar.navbar-inverse.navbar-fixed-top
+  .navbar-inner
+    .container
+      %button.btn.btn-navbar{ type: 'button',  :'data-toggle' => 'collapse', :'data-target' => '.nav-collapse'}
+        %span.icon-bar
+        %span.icon-bar
+        %span.icon-bar
+      =link_to 'YARB', root_path, class: 'brand'
+      .nav-collapse.collapse
+        %ul.nav
+          %li.active= link_to t(:home), root_path
+

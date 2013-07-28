@@ -1,0 +1,17 @@
+.DS_Store
+.ruby-*
+/coverage
+/doc
+/log
+/.bundle
+
+# Ignore the default SQLite database.
+/db/*.sqlite3
+/db/*.sqlite3-journal
+
+# Ignore PStore-files
+/db/*.pstore
+
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
