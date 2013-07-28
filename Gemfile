@@ -28,6 +28,7 @@ end
 gem 'haml-rails'
 gem 'redcarpet'
 gem 'pygments.rb'
+gem 'github-markdown', '~> 0.5.3'
 gem 'syntax'
 
 gem 'thin'

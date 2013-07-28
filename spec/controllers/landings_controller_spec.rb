@@ -10,9 +10,7 @@ describe LandingsController do
 
   it 'displays a welcome message on the root_path' do
     within '#container.container' do
-      within 'h1' do
-        page.should have_content 'Welcome'
-      end
+      page.should have_css('h1', :text => 'Welcome')
     end
   end
 
@@ -20,7 +18,12 @@ describe LandingsController do
     within '.alert.alert-success' do
       page.should have_content 'Welcome to YARB YetAnotherRubyBootstrap'
     end
+  end
 
+  it 'renders the REAMDE.md file with markdown' do
+    within('article') do
+      page.should have_css('h1', :text => 'HOW TO START')
+    end
   end
 
 end
