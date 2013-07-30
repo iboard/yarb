@@ -1,11 +1,9 @@
-@import '_variables';
-@import 'bootstrap';
+@import '_bootstrap_and_overwrite';
 
 body {
   padding-top: 60px; /* 60px to make the container go all the way to the bottom of the topbar */
 }
 
-@import '_bootstrap_overwrite';
 @import 'bootstrap-responsive';
 
 

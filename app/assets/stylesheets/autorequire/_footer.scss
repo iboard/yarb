@@ -1,0 +1,14 @@
+@import '_variables';
+
+footer {
+  background: $footerBackground;
+  min-height: $footerHeight;
+  padding-top: 2em;
+  padding-right: 2em;
+  box-shadow: -1px 0px 2px black;
+  .copyright { 
+    font-family: $footerFontFamily; 
+    font-size: $footerFontSize;
+  }
+}
+
