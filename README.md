@@ -20,7 +20,7 @@ This is a Rails4-Starter-Application.
 HOW TO START
 ============
 
-  * Clone from github
+  * [Clone from github](https://github.com/iboard/yarb)
   * Make sure you use ruby1.9.3 or (better) ruby2.0.0 (`ruby -v`)
   * bundle with `bundle`
   * sart Guard with `guard`
