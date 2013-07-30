@@ -23,6 +23,7 @@ group :test, :development do
   gem 'guard-livereload'
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'
   gem 'guard-jasmine'
+  gem 'phantomjs'
 end
 
 gem 'haml-rails'

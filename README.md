@@ -20,6 +20,12 @@ This is a Rails4-Starter-Application.
 HOW TO START
 ============
 
+  **Requirements**
+
+  * `brew install phantomjs`
+
+  **Start**
+
   * [Clone from github](https://github.com/iboard/yarb)
   * Make sure you use ruby1.9.3 or (better) ruby2.0.0 (`ruby -v`)
   * bundle with `bundle`
