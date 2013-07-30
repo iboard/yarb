@@ -1,0 +1,7 @@
+en:
+  site:
+    title: 'Yet Another Ruby Bootstrap Application'
+    copyright:
+      year: '2013 by'
+      owner: 'Andreas Altendorfer'
+      url: 'http://altendorfer.at'

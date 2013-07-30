@@ -26,4 +26,12 @@ describe LandingsController do
     end
   end
 
+  it 'renders a copyright message within the footer' do
+    within('#footer') do
+      within('.copyright') do
+        page.should have_text('© 2013 by Andreas Altendorfer')
+      end
+    end
+  end
+
 end

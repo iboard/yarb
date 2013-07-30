@@ -20,17 +20,21 @@ This is a Rails4-Starter-Application.
 HOW TO START
 ============
 
-  **Requirements**
+**Requirements**
 
   * `brew install phantomjs`
 
-  **Start**
+**Start**
 
   * [Clone from github](https://github.com/iboard/yarb)
   * Make sure you use ruby1.9.3 or (better) ruby2.0.0 (`ruby -v`)
   * bundle with `bundle`
   * sart Guard with `guard`
   * start your development and stay clean ;-)
+
+**Configuration**
+
+  * Edit files `config/locales/site.*.yml` to setup your copyright and URL
 
 What You Can do
 ===============
@@ -46,11 +50,8 @@ The Starter App
   * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
   * Overwrite Bootstrap-css in `app/assets/stylesheets/_bootstrap_overwrite.scss`
 
-License
-=======
-
-MIT
----
+License: MIT
+============
 
 Copyright (C) 2013 Andreas Altendorfer
 
