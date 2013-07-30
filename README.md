@@ -37,6 +37,7 @@ The Starter App
 
   * The root-path goes to LandingsController#index
   * The main menu is defined in `app/views/layouts/_navigation.haml` add your menu-items there.
+  * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
 
 License
 =======
