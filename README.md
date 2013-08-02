@@ -16,6 +16,7 @@ This is a Rails4-Starter-Application.
 **It DOESN'T:**
 
   * use ActiveRecord or any other database
+  * See file STORE.md for a short description
 
 HOW TO START
 ============

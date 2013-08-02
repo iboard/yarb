@@ -4,7 +4,7 @@ require 'pstore'
 # @example
 #   class MyClass
 #     include Store
-#     key_metho :my_unique_key  # Name this method as you like
+#     key_method :my_unique_key  # Name this method as you like
 #
 #     def my_unique_key
 #       # return a unique key for your object
@@ -16,7 +16,7 @@ require 'pstore'
 #   object.save
 #   #.... later ....
 #   re_read = MyClass.find( _saved_key )
-#   # re_read is the same objec as before
+#   # re_read is the same object as before
 #   # read from .../db/:env/my_class/my_class.pstore
 module Store
 
