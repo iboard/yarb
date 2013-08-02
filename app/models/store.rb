@@ -1,7 +1,31 @@
 require 'pstore'
 
 # A Wrapper for PStore
+# @example
+#   class MyClass
+#     include Store
+#     key_metho :my_unique_key  # Name this method as you like
+#
+#     def my_unique_key
+#       # return a unique key for your object
+#     end
+#   end
+#
+#   object = MyClass.new
+#   _saved_key = object.key
+#   object.save
+#   #.... later ....
+#   re_read = MyClass.find( _saved_key )
+#   # re_read is the same objec as before
+#   # read from .../db/:env/my_class/my_class.pstore
 module Store
+
+  # extend the class with ClassMethods and
+  # include InstanceMethods to each object of this class
+  def self.included base_class
+    base_class.send(:extend,ClassMethods)
+    base_class.send(:include,InstanceMethods)
+  end
 
   # @return [String] the path to the data-store for the current environment.
   # @example
@@ -10,48 +34,62 @@ module Store
     File.join( Rails.root, 'db', Rails.env )
   end
 
-  # Include ClassMethods to the base-class on include
-  def self.included base_class
-    base_class.send(:include,ClassMethods)
-  end
-
-  # Methods to be included in classes which includes the Store-module
-  # @example
-  #   class MyClass
-  #     include Store
-  #   end
-  #   object = MyClass.new
-  #   object.store_path => .../db/development/my_class/
+  # ClassMethods for including class
   module ClassMethods
-
-    # @abstract overwrite this function in your class. 
-    # If not overwritten the ruby-object-id will be used.
-    # @return [Symbol] the key for this object (record)
-    def key
-      nil
+    
+    # Load object from store
+    # @param [String|Symbol] _key - the key of the object to find
+    # @return [Object|nil]
+    def find _key
+      store.transaction(:read_only) { |s| s[_key] }
     end
 
-    # @return [String] the path to the store-files for the class
-    def store_path
-      File.join( Store::path, self.class.to_s.underscore )
-    end
-
-    # @return [Symbol] a unique key for this object
-    def store_key
-      self.key || self.object_id
-    end
-
-    # Write to store-file
-    def save
-      store.transaction do |s|
-        s[self.store_key] = self
-      end
+    # Define the key-method for this class
+    # @example
+    #   class MyClass
+    #     include Store
+    #     key_method :uid
+    #     def uid
+    #       .....
+    #     end
+    #   end
+    def key_method method
+      define_method(:key) { (self.send method) }
     end
 
     private
+
+    def store_path
+      File.join( Store::path, self.to_s.underscore )
+    end
+
+    def class_file
+      "#{self.to_s.underscore}.pstore"
+    end
+
     def store
-      FileUtils.mkdir_p self.store_path
-      PStore.new File.join( store_path, "#{self.class.to_s.underscore}.pstore" )
+      FileUtils.mkdir_p store_path unless File.exist?(store_path)
+      PStore.new File.join( store_path, class_file )
+    end
+
+  end
+
+  # Methods to be included by objects of the class
+  module InstanceMethods
+
+    # Write object to store-file
+    def save
+      store.transaction() { |s| s[self.key] = self }
+    end
+
+    private
+
+    def store
+      self.class.send(:store)
+    end
+
+    def store_path
+      self.class.send(:store_path)
     end
 
   end

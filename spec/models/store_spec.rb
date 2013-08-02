@@ -8,20 +8,22 @@ describe Store do
 
   context 'included in any class' do
 
-    before :all do
-      class MyClass < Struct.new(:my_field)
-        include Store
-      end
+    class MyClass < Struct.new(:my_field)
+      include Store
+      key_method :my_field
     end
+
+    let(:object) { MyClass.new('my object') }
 
     it 'uses the name of the base-class for pstore-files' do
-       expect( MyClass.new('xxx').store_path ).to eq( File.join(Store::path, 'my_class' ) )
+       expect( object.send(:store_path) ).to eq( File.join(Store::path, 'my_class' ) )
     end
 
-    it 'stores the class data in the class-path' do
-      object = MyClass.new('my data')
+    it 'saves and retrieves an object from the store' do
       object.save
-      expect( File.exist?( File.join( object.store_path, "#{object.class.to_s.underscore}.pstore" ) ) ).to be_true
+      read_object = MyClass.find( object.key )
+      assert read_object == object, 'Should read the same object as stored'
+      expect(read_object.my_field).to eq( 'my object' )
     end
 
   end
