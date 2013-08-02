@@ -26,6 +26,27 @@ describe Store do
       expect(read_object.my_field).to eq( 'my object' )
     end
 
+    it 'deletes the store' do 
+      object.save
+      MyClass.delete_store!
+      expect( File.exist?(MyClass.send(:store_path)) ).to be_false
+    end
+
+    context 'with two objects' do
+      before :each do
+        MyClass.delete_store!
+        @object1 = MyClass.create('First Object')
+        @object2 = MyClass.create('Second Object')
+      end
+
+      it 'creates and lists available objects' do
+        expect(MyClass.keys).to eq(['First Object', 'Second Object'])
+      end
+
+      it 'loads all objects' do
+        expect(MyClass.all).to eq( [@object1,@object2] )
+      end
+    end
   end
 
 end

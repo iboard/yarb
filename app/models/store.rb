@@ -37,11 +37,26 @@ module Store
   # ClassMethods for including class
   module ClassMethods
     
+    # Initialize and store new object
+    # @param [Array] args - are passed to the initializer of class
+    # @return [Object] a new object of class which is saved
+    def create *args
+      new_object = new(*args)
+      new_object.save
+      new_object
+    end
+
     # Load object from store
     # @param [String|Symbol] _key - the key of the object to find
     # @return [Object|nil]
     def find _key
       store.transaction(:read_only) { |s| s[_key] }
+    end
+
+    # Load all objects
+    # @return [Array] of all objects in the store
+    def all
+      store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
     end
 
     # Define the key-method for this class
@@ -55,6 +70,17 @@ module Store
     #   end
     def key_method method
       define_method(:key) { (self.send method) }
+    end
+
+    # List all keys
+    # @return [Array] array of object-keys
+    def keys
+      store.transaction(:read_only) { |s| s.roots }
+    end
+
+    # Deletes the entire store
+    def delete_store!
+      FileUtils.remove_dir( self.send(:store_path), :force )
     end
 
     private
