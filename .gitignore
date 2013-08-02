@@ -10,7 +10,7 @@
 /db/*.sqlite3-journal
 
 # Ignore PStore-files
-/db/*.pstore
+/db/**/*.pstore
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
