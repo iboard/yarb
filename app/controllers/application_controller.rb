@@ -12,4 +12,5 @@ class ApplicationController < ActionController::Base
     I18n.locale = params[:locale].to_sym
     redirect_to root_path
   end
+
 end

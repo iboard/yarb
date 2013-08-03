@@ -11,6 +11,9 @@ in simple
 Example
 =======
 
+Define The Class
+----------------
+
     class MyClass
       include Store
       key_method :uid
@@ -27,10 +30,22 @@ Example
  This will save objects of class MyClass in
  `Rails.root/Rails.env/my_class/my_class.pstore`
  
- Later you can retrieve this objects with
+Retrieve Objects from Store
+----------------------------
 
-     objecet = MyClass.find( 'my_key' )
+Later you can retrieve this objects with
 
+    object = MyClass.find( 'my_key' )
+
+Read the specs `spec/model/store_spec.rb` to find out more about the
+Store-class.
+
+
+How You Can Use It In Rails
+---------------------------
+
+See class `app/models/page.rb` and `app/controllers/pages_controller.rb`
+how you can use it as an `ActiveModel` within Rails.
 
 
 

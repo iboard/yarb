@@ -1,1 +1,1 @@
-%li{ id: "page-#{page.to_param}" }= page.title
+%li{ id: "page-#{page.to_param}" }= link_to page.title, page_path(page)
