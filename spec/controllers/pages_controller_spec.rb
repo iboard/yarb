@@ -43,6 +43,28 @@ describe PagesController do
     end
   end
 
+  it 'should have an add-page-link' do
+    page.should have_link 'Add new page'
+  end
+
+  it 'saves new pages from form' do
+    click_link 'Add new page'
+    fill_in 'Title', with: 'A new page for testing'
+    fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
+    click_button 'Save'
+    should render_template 'show'
+    page.should have_content 'A new page for testing'
+  end
+
+  it 'should display errors' do
+    click_link 'Add new page'
+    fill_in 'Title', with: ''
+    fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
+    click_button 'Save'
+    should render_template 'new'
+    page.should have_content 'Titlecan\'t be blank'
+  end
+
 
 end
 

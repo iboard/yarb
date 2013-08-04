@@ -31,6 +31,7 @@ gem 'redcarpet'
 gem 'pygments.rb'
 gem 'github-markdown', '~> 0.5.3'
 gem 'syntax'
+gem 'simple_form'
 
 gem 'thin'
 

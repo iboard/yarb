@@ -1,11 +1,13 @@
 # Object Page acts as an ActiveModel and uses Store for persistence.
 class Page
   include ActiveModel::Model
+  include ActiveModel::Validations
 
   include Store
   key_method :to_param
 
   attr_reader :title, :body
+  validates_presence_of :title
 
   def initialize attributes={}
     @title = attributes.fetch(:title)

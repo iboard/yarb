@@ -16,6 +16,21 @@ class PagesController < ApplicationController
     raise PageNotFoundError.new(params[:id]) unless @page
   end
 
+  # GET /pages/new
+  def new
+    @page = Page.new title: ''
+  end
+
+  # POST /pages/create
+  def create
+    @page = Page.create( params[:page] )
+    if @page.valid?
+      redirect_to page_path( @page )
+    else
+      flash.now[:alert]= t(:could_not_be_saved, what: t(:page))
+      render :new
+    end
+  end
 
   private
   def load_md_files

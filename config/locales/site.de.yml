@@ -1,4 +1,6 @@
 de:
+  save: 'Speichern'
+  could_not_be_saved: "%{what} konnte nicht gespeichert werden."
   site:
     title: 'Yet Another Ruby Bootstrap Application'
     copyright:

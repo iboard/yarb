@@ -1,0 +1,7 @@
+= simple_form_for page, html: {class: 'form form-vertical'} do |f|
+
+  = f.input :title, input_html: { class: 'full-width' }
+  = f.input :body, as: :text, input_html: { rows: 20, class: 'full-width' }
+
+  .form-actions
+    = f.submit t(:save), class: 'btn btn-primary'
