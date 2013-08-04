@@ -65,19 +65,20 @@ describe PagesController do
     page.should have_content 'Titlecan\'t be blank'
   end
 
-
-end
-
-
-describe PagesController, 'Handling Errors' do
-  render_views
-  it 'renders an error if page not found' do
-    pending "No idea why this spec sees 200 instead of 404. In development and production and even in the test-log it's 404"
-    visit page_path('not_existing_page_321')
-    within( '.alert-error' ) do
-      page.should have_content('Page not_existing_page_321 doesn\'t exist')
-    end
+  it 'response with 404 if page not found' do
+    get :show, { controller: 'pages', id: 'not_existing_page_321' }
     expect(response.status).to eq(404)
   end
+
+  it 'renders an error-message if page not found and shows index' do
+    visit page_path('page_not_found')
+    within '.alert-error' do
+      page.should have_content("Page page_not_found doesn't exist")
+    end
+  end
+
+
+
 end
+
 
