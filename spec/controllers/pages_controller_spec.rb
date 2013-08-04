@@ -8,7 +8,8 @@ describe PagesController do
   let(:page2) { Page.create( title: 'Page Two', body: 'Body of page number two') }
 
   before :each do
-    visit switch_locale_path(:en)
+    #visit switch_locale_path(:en)
+    I18n.locale = :en
     page1; page2 #create the pages
     visit pages_path
   end
@@ -42,13 +43,19 @@ describe PagesController do
     end
   end
 
+
+end
+
+
+describe PagesController, 'Handling Errors' do
+  render_views
   it 'renders an error if page not found' do
-    pending 'Do not know why this response-check fails. It works in real life!'
+    pending "No idea why this spec sees 200 instead of 404. In development and production and even in the test-log it's 404"
     visit page_path('not_existing_page_321')
     within( '.alert-error' ) do
       page.should have_content('Page not_existing_page_321 doesn\'t exist')
     end
     expect(response.status).to eq(404)
   end
-
 end
+
