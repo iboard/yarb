@@ -6,7 +6,7 @@ class Page
   include Store
   key_method :to_param
 
-  attr_reader :title, :body
+  attr_accessor :title, :body
   validates_presence_of :title
 
   def initialize attributes={}

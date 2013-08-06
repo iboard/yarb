@@ -40,7 +40,12 @@ describe Store do
       end
 
       it 'creates and lists available objects' do
-        expect(MyClass.keys).to eq(['First Object', 'Second Object'])
+        expect(MyClass.keys).to eq(['first-object', 'second-object'])
+      end
+
+      it 'throws an exception on duplicate keys' do
+        expect { MyClass.create('First Object') }.
+          to raise_error DuplicateKeyError, 'An object with key \'first-object\' already exists.'
       end
 
       it 'loads all objects' do

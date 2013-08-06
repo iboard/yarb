@@ -40,8 +40,10 @@ module Store
     # Initialize and store new object
     # @param [Array] args - are passed to the initializer of class
     # @return [Object] a new object of class which is saved
+    # @raises DuplicateKeyError if object with same key exists
     def create *args
       new_object = new(*args)
+      prevent_duplicate_keys(new_object)
       new_object.save
       new_object
     end
@@ -50,7 +52,7 @@ module Store
     # @param [String|Symbol] _key - the key of the object to find
     # @return [Object|nil]
     def find _key
-      store.transaction(:read_only) { |s| s[_key] }
+      store.transaction(:read_only) { |s| s[_key.parameterize] }
     end
 
     # Load all objects
@@ -69,7 +71,7 @@ module Store
     #     end
     #   end
     def key_method method
-      define_method(:key) { (self.send method) }
+      define_method(:key) { (self.send method).parameterize }
     end
 
     # List all keys
@@ -98,6 +100,9 @@ module Store
       PStore.new File.join( store_path, class_file )
     end
 
+    def prevent_duplicate_keys(object)
+      raise DuplicateKeyError.new( object.key ) if keys.include?(object.key) 
+    end
   end
 
   # Methods to be included by objects of the class

@@ -4,13 +4,17 @@ describe PagesController do
   
   render_views
 
-  let(:page1) { Page.create( title: 'Page One', body: 'Body of page number one') }
-  let(:page2) { Page.create( title: 'Page Two', body: 'Body of page number two') }
+  before :all do
+    @page1 = Page.create( title: 'Page One', body: 'Body of page number one') 
+    @page2 = Page.create( title: 'Page Two', body: 'Body of page number two') 
+  end
+
+  let(:page1) { @page1 }
+  let(:page2) { @page2 }
 
   before :each do
     #visit switch_locale_path(:en)
     I18n.locale = :en
-    page1; page2 #create the pages
     visit pages_path
   end
 

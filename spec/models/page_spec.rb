@@ -12,4 +12,9 @@ describe Page do
     expect( p.errors.messages[:title] ).to include('can\'t be blank')
   end
 
+  it 'doesn\'t allow duplicate titles' do
+    p1 = Page.create title: 'T One'
+    expect { Page.create title: 'T One' }.to raise_error DuplicateKeyError
+  end
+
 end
