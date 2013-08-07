@@ -1,4 +1,5 @@
 en:
+  page: 'Page'
   listing_of_pages: 'Available Pages'
   page_does_not_exists: "404 - Page %{title} doesn't exist."
   add_new_page: 'Add new page'

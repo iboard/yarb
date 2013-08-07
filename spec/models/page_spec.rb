@@ -2,7 +2,7 @@ require_relative '../spec_helper'
 
 describe Page do
 
-  before :each do
+  before :all do
     I18n.locale = :en
   end
 
@@ -13,8 +13,10 @@ describe Page do
   end
 
   it 'doesn\'t allow duplicate titles' do
-    p1 = Page.create title: 'T One'
-    expect { Page.create title: 'T One' }.to raise_error DuplicateKeyError
+    p1 = Page.create! title: 'T One'
+    p2 = Page.create  title: 'T One'
+    expect( p2.errors.any? ).to be_true
+    expect{ Page.create! title: 'T One' }.to raise_error DuplicateKeyError
   end
 
 end

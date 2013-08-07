@@ -14,6 +14,10 @@ def pstore_path
   r = File.join(Rails.root, 'db', Rails.env.to_s)
 end
 
+def page_should_have_error page, text
+  page.should have_css( '.alert-error', text: text,  match: :prefer_exact )
+end
+
 RSpec.configure do |config|
   config.include Capybara::DSL
   Capybara.configure do |cfg|

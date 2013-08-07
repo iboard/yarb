@@ -1,4 +1,5 @@
 de:
+  page: 'Seite'
   listing_of_pages: 'Alle Seiten'
   page_does_not_exists: "404 - Die Seite %{title} existiert nicht."
   add_new_page: 'Neue Seite erzeugen'

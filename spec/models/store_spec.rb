@@ -8,9 +8,15 @@ describe Store do
 
   context 'included in any class' do
 
-    class MyClass < Struct.new(:my_field)
+    class MyClass
       include Store
       key_method :my_field
+
+      attr_reader :my_field
+
+      def initialize _my_field
+        @my_field = _my_field
+      end
     end
 
     let(:object) { MyClass.new('my object') }
@@ -22,8 +28,7 @@ describe Store do
     it 'saves and retrieves an object from the store' do
       object.save
       read_object = MyClass.find( object.key )
-      assert read_object == object, 'Should read the same object as stored'
-      expect(read_object.my_field).to eq( 'my object' )
+      expect(read_object.my_field).to eq(object.my_field)
     end
 
     it 'deletes the store' do 
@@ -43,13 +48,18 @@ describe Store do
         expect(MyClass.keys).to eq(['first-object', 'second-object'])
       end
 
-      it 'throws an exception on duplicate keys' do
-        expect { MyClass.create('First Object') }.
-          to raise_error DuplicateKeyError, 'An object with key \'first-object\' already exists.'
+      it '.create! throws an exception on duplicate keys' do
+        expect { MyClass.create!('First Object') }.
+          to raise_error DuplicateKeyError, 'An Object of class MyClass with key \'first-object\' already exists.'
+      end
+
+      it '.create returns an invalid object on duplicate keys' do
+        _p = MyClass.create('First Object')
+        expect( _p.errors.messages ).to eq(base:["An Object of class MyClass with key 'first-object' already exists."] )
       end
 
       it 'loads all objects' do
-        expect(MyClass.all).to eq( [@object1,@object2] )
+        expect(MyClass.all.map(&:my_field)).to eq( [@object1.my_field,@object2.my_field] )
       end
     end
   end

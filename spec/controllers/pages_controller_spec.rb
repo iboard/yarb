@@ -13,7 +13,6 @@ describe PagesController do
   let(:page2) { @page2 }
 
   before :each do
-    #visit switch_locale_path(:en)
     I18n.locale = :en
     visit pages_path
   end
@@ -60,13 +59,29 @@ describe PagesController do
     page.should have_content 'A new page for testing'
   end
 
-  it 'should display errors' do
+  it 'should display error for blank title' do
     click_link 'Add new page'
     fill_in 'Title', with: ''
     fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
     click_button 'Save'
     should render_template 'new'
-    page.should have_content 'Titlecan\'t be blank'
+    page_should_have_error page, '× Page couldn\'t be saved.'
+    page_should_have_error page, 'title: can\'t be blank'
+  end
+
+  it 'should display error for duplicate title' do
+    Page.create title: 'I am the winner', body: "Some Header\n=======\nAnd some text"
+    visit new_page_path
+    fill_in 'Title', with: 'I am the winner'
+    fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
+    click_button 'Save'
+    page.should have_content 'An Object of class Page with key \'i-am-the-winner\' already exists.'
+    should render_template 'new'
+    fill_in 'Title', with: 'I am the loser'
+    click_button 'Save'
+    should render_template 'show'
+    page.should have_content( 'I am the loser' )
+    page.should have_content( "Some Header And some text" )
   end
 
   it 'response with 404 if page not found' do

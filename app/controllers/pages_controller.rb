@@ -24,7 +24,7 @@ class PagesController < ApplicationController
   # POST /pages/create
   def create
     @page = Page.create( params[:page] )
-    if @page.valid?
+    if @page.errors.empty? && @page.valid?
       redirect_to page_path( @page )
     else
       flash.now[:alert]= t(:could_not_be_saved, what: t(:page))

@@ -1,0 +1,8 @@
+de:
+  activemodel:
+    errors:
+      models:
+        page:
+          attributes:
+            title:
+              blank: 'Kann nicht leer sein'

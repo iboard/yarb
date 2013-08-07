@@ -23,8 +23,11 @@ module Store
   # extend the class with ClassMethods and
   # include InstanceMethods to each object of this class
   def self.included base_class
-    base_class.send(:extend,ClassMethods)
-    base_class.send(:include,InstanceMethods)
+    base_class.send(:extend,   ActiveModel::Naming)
+    base_class.send(:include,  ActiveModel::Model)
+    base_class.send(:include,  ActiveModel::Validations)
+    base_class.send(:extend,   ClassMethods)
+    base_class.send(:include,  InstanceMethods)
   end
 
   # @return [String] the path to the data-store for the current environment.
@@ -41,11 +44,22 @@ module Store
     # @param [Array] args - are passed to the initializer of class
     # @return [Object] a new object of class which is saved
     # @raises DuplicateKeyError if object with same key exists
-    def create *args
+    def create! *args
       new_object = new(*args)
       prevent_duplicate_keys(new_object)
       new_object.save
       new_object
+    end
+
+
+    # Initialize and store new object
+    # @param [Array] args - are passed to the initializer of class
+    # @return [Object] a new object of class which is saved
+    def create *args
+      create! *args
+    rescue DuplicateKeyError => e
+      e.object.errors.add :base, e.message
+      e.object
     end
 
     # Load object from store
@@ -71,6 +85,8 @@ module Store
     #     end
     #   end
     def key_method method
+      @key_method = method
+      self.send :validates_presence_of, method
       define_method(:key) { (self.send method).parameterize }
     end
 
@@ -83,6 +99,14 @@ module Store
     # Deletes the entire store
     def delete_store!
       FileUtils.remove_dir( self.send(:store_path), :force )
+    end
+
+    # @return [Boolean] true if object's key is unique
+    def unique_key? object
+      _check = self.find(object.key)
+      _unique = !_check || _check != object
+      object.errors.add(@key_method, "Key '#{object.key}' already exists.") unless _unique
+      _unique
     end
 
     private
@@ -101,16 +125,25 @@ module Store
     end
 
     def prevent_duplicate_keys(object)
-      raise DuplicateKeyError.new( object.key ) if keys.include?(object.key) 
+      raise DuplicateKeyError.new( object ) if keys.include?(object.key.parameterize) 
     end
   end
 
   # Methods to be included by objects of the class
   module InstanceMethods
 
+    # Return the key as param
+    # @return [String] key as URL-parameter
+    def to_param
+      key.parameterize
+    end
+
     # Write object to store-file
     def save
-      store.transaction() { |s| s[self.key] = self }
+      self.valid?
+      if self.class.unique_key?(self)
+        store.transaction() { |s| s[self.key] = self }
+      end
     end
 
     private
