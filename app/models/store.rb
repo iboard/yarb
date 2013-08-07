@@ -22,6 +22,8 @@ module Store
 
   # extend the class with ClassMethods and
   # include InstanceMethods to each object of this class
+  # Also extends and includes necessary ActiveModel modules
+  # @dependency ActiveModel::Naming, ActiveModel::Model, ActiveModel::Validations
   def self.included base_class
     base_class.send(:extend,   ActiveModel::Naming)
     base_class.send(:include,  ActiveModel::Model)
@@ -133,17 +135,19 @@ module Store
   module InstanceMethods
 
     # Return the key as param
-    # @return [String] key as URL-parameter
+    # @return [String] key which can be used in hashes and URL-parameters
     def to_param
       key.parameterize
     end
 
-    # Write object to store-file
+    # Validate and save object to store-file
+    # @return [Store] self
     def save
-      self.valid?
-      if self.class.unique_key?(self)
+      
+      if self.valid? && self.class.unique_key?(self)
         store.transaction() { |s| s[self.key] = self }
       end
+      self
     end
 
     private
