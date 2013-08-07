@@ -8,8 +8,8 @@ module ApplicationHelper
     GitHub::Markdown.to_html(text,:markdown).html_safe
   end
 
-  # Render errors for an ActiveModle
-  # @param [ActiveModel::Model]
+  # Render errors for an ActiveModel object
+  # @param [ActiveModel::Model] object
   def render_errors_for object
     if object.errors.any?
       content_tag :div, class: 'alert alert-error' do

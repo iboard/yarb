@@ -23,7 +23,10 @@ module Store
   # extend the class with ClassMethods and
   # include InstanceMethods to each object of this class
   # Also extends and includes necessary ActiveModel modules
-  # @dependency ActiveModel::Naming, ActiveModel::Model, ActiveModel::Validations
+  # Dependencies
+  #   ActiveModel::Naming
+  #   ActiveModel::Model
+  #   ActiveModel::Validations
   def self.included base_class
     base_class.send(:extend,   ActiveModel::Naming)
     base_class.send(:include,  ActiveModel::Model)
@@ -45,7 +48,7 @@ module Store
     # Initialize and store new object
     # @param [Array] args - are passed to the initializer of class
     # @return [Object] a new object of class which is saved
-    # @raises DuplicateKeyError if object with same key exists
+    # @raise [DuplicateKeyError] if object with same key exists
     def create! *args
       new_object = new(*args)
       prevent_duplicate_keys(new_object)
@@ -54,9 +57,10 @@ module Store
     end
 
 
-    # Initialize and store new object
+    # Initialize and store new object. Doesn't throw an exception but
+    # sets object's errors if any.
     # @param [Array] args - are passed to the initializer of class
-    # @return [Object] a new object of class which is saved
+    # @return [Object] a new object of class.
     def create *args
       create! *args
     rescue DuplicateKeyError => e
@@ -77,7 +81,8 @@ module Store
       store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
     end
 
-    # Define the key-method for this class
+    # Define the key-method for this class and add validates_presence_of
+    # for the given key.
     # @example
     #   class MyClass
     #     include Store
@@ -86,6 +91,7 @@ module Store
     #       .....
     #     end
     #   end
+    # @param [Symbol] method to be called for key()
     def key_method method
       @key_method = method
       self.send :validates_presence_of, method
