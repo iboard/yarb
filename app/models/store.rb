@@ -149,11 +149,15 @@ module Store
     # Validate and save object to store-file
     # @return [Store] self
     def save
-      
       if self.valid? && self.class.unique_key?(self)
         store.transaction() { |s| s[self.key] = self }
       end
       self
+    end
+
+    # Remove the object from the store
+    def delete
+      store.transaction() { |s| s.delete(self.key) }
     end
 
     private

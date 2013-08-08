@@ -37,6 +37,13 @@ describe Store do
       expect( File.exist?(MyClass.send(:store_path)) ).to be_false
     end
 
+    it 'deletes an entry from the store' do
+      object.save
+      expect( MyClass.find(object.key) ).to_not be_nil
+      object.delete
+      expect( MyClass.find(object.key) ).to be_nil
+    end
+
     context 'with two objects' do
       before :each do
         MyClass.delete_store!
