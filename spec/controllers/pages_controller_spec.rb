@@ -7,10 +7,12 @@ describe PagesController do
   before :all do
     @page1 = Page.create( title: 'Page One', body: 'Body of page number one') 
     @page2 = Page.create( title: 'Page Two', body: 'Body of page number two') 
+    @page_to_delete = Page.create( title: 'Delete Me', body: 'A victim page')
   end
 
   let(:page1) { @page1 }
   let(:page2) { @page2 }
+  let(:page_to_delete) { @page_to_delete }
 
   before :each do
     I18n.locale = :en
@@ -96,7 +98,11 @@ describe PagesController do
     end
   end
 
-
+  it 'can delete pages' do
+    page.find('#page-delete-me a', text: 'Delete', match: :prefer_exact ).click()
+    page_should_have_notice page, 'Page "Delete Me" successfully deleted.'
+    Page.find('delete-me').should be_nil
+  end
 
 end
 

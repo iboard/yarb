@@ -1,5 +1,6 @@
 en:
   page: 'Page'
+  page_deleted: 'Page "%{title}" successfully deleted.'
   listing_of_pages: 'Available Pages'
   page_does_not_exists: "404 - Page %{title} doesn't exist."
   add_new_page: 'Add new page'

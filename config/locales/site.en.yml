@@ -1,5 +1,7 @@
 en:
   save: 'Save'
+  delete: 'Delete'
+  are_you_sure: 'Are you sure?'
   could_not_be_saved: "%{what} couldn\'t be saved."
   site:
     title: 'Yet Another Ruby Bootstrap Application'

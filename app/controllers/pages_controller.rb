@@ -32,6 +32,13 @@ class PagesController < ApplicationController
     end
   end
 
+  # DELETE /pages/:id
+  def destroy
+    @page = Page.find( params[:id] )
+    @page.delete 
+    redirect_to pages_path, notice: t(:page_deleted, title: @page.title)
+  end
+
   private
   def load_md_files
     Dir[File.join(Rails.root,'*.md')].each do |file|

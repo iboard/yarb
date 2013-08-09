@@ -1,5 +1,7 @@
 de:
   save: 'Speichern'
+  delete: 'Löschen'
+  are_you_sure: 'Bist Du sicher?'
   could_not_be_saved: "%{what} konnte nicht gespeichert werden."
   site:
     title: 'Yet Another Ruby Bootstrap Application'

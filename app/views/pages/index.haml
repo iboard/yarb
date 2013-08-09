@@ -1,6 +1,7 @@
 .pull-right
   =link_to t(:add_new_page), new_page_path, class: 'btn btn-success'
+
 %h1=t(:listing_of_pages)
 
-%ul#pages-list
+%ul#pages-list.item-list.big.top-bordered
   = render @pages
