@@ -138,7 +138,7 @@ describe PagesController do
       fill_in 'Title', with: 'existing key'
       click_button 'Save'
       should render_template 'edit'
-      page_should_have_error page, 'Already exists'
+      page_should_have_error page, 'base: title: existing-key already exists.'
 
       # Now enter another/valid key
       fill_in 'Title', with: 'another key'

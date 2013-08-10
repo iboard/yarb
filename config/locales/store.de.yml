@@ -1,0 +1,2 @@
+de:
+  key_already_exists: '%{key_name}: %{value} existiert bereits.'

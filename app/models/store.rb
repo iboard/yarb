@@ -192,6 +192,7 @@ module Store
 
     # Update all attributes, listed in Class.attributes
     # @param [Hash] hash 
+    # @return [Boolean] the return-code from save
     def update_attributes( hash={} )
       self.class.attributes.each do |_attr|
         self.send("#{_attr[0]}=", hash[_attr[0]]) if hash.has_key?(_attr[0])
@@ -200,7 +201,7 @@ module Store
     end
 
     # Validate and save object to store-file
-    # @return [Store] self
+    # @return [Boolean] true if no errors and valid
     def save
       if self.errors.empty? && self.valid? && self.class.unique_key?(self) && handle_key_changed
         @original_key = self.key
@@ -248,7 +249,7 @@ module Store
     def handle_key_changed
       return true unless @original_key &&  @original_key != self.key
       if self.class.exist?(self.key)
-        self.errors.add(:base, 'Already exists')
+        self.errors.add(:base, I18n.t(:key_already_exists, key_name: self.class.key_method_name, value: self.key))
         self.restore_original_key
         false
       else
