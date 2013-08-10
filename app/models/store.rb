@@ -250,8 +250,7 @@ module Store
       self.send(:"#{self.class.key_method_name}=", @original_key)
     end
 
-    protected
-
+    # @return [Boolean] true if no errors and valid?
     def valid_without_errors?
       self.errors.empty? && self.valid?
     end

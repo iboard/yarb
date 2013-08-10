@@ -50,6 +50,22 @@ The Starter App
   * The main menu is defined in `app/views/layouts/_navigation.haml` add your menu-items there.
   * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
   * Overwrite Bootstrap-css in `app/assets/stylesheets/_bootstrap_overwrite.scss`
+  
+Features
+--------
+
+  * Reads all *md-files from project's root and stores them as Pages.
+  * `/pages` lists all pages with Edit- and Delete- Buttons.
+  * At `/pages/new` you can create new pages.
+
+Contribution
+============
+  
+  * Pull-requests are appreciated if full test-covered, clean, and in
+    their own branch.
+  * Issues and Bug-reports are tracked at 
+    [Github](https://github.com/iboard/yarb/issues)
+
 
 License: MIT
 ============

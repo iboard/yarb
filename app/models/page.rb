@@ -8,9 +8,8 @@ class Page
 
   attr_accessor :title, :body
 
-  def initialize attributes={}
-    @title = attributes.fetch(:title)
-    @body =  attributes.fetch(:body) {''}
+  def initialize _attributes={}
+    set_attributes _attributes
   end
 
 end

@@ -1,6 +1,15 @@
 @import '_variables';
 
+#container.container {
+  padding-bottom: $footerHeight * 2;
+}
+
 footer {
+  position: fixed;
+  z-index: 10;
+  bottom: 0px;
+  right: 0px;
+  left: 0px;
   background: $footerBackground;
   min-height: $footerHeight;
   padding-top: 2em;
@@ -12,3 +21,8 @@ footer {
   }
 }
 
+.locales {
+  padding-left: 2em;
+  display: inline-block;
+  float: left;
+}

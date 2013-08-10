@@ -12,15 +12,23 @@ module ApplicationHelper
   # @param [ActiveModel::Model] object
   def render_errors_for object
     if object.errors.any?
-      content_tag :div, class: 'alert alert-error' do
-        content_tag :ul, class: 'error-list' do
-          object.errors.map do |tag, error|
-            content_tag :li, class: 'error-entry' do
-              content_tag(:strong, tag.to_s) +': '+ content_tag(:span, error.to_s)
-            end
+      alert_box do
+        object.errors.map do |tag, error|
+          content_tag :li, class: 'error-entry' do
+            content_tag(:strong, tag.to_s) +': '+ content_tag(:span, error.to_s)
           end
-          .join("\n").html_safe
         end
+        .join("\n").html_safe
+      end
+    end
+  end
+
+  private
+
+  def alert_box &block
+    content_tag :div, class: 'alert alert-error' do
+      content_tag :ul, class: 'error-list' do
+        yield
       end
     end
   end

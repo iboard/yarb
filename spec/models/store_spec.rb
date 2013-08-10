@@ -107,12 +107,12 @@ describe Store do
 
       it '.create! throws an exception on duplicate keys' do
         expect { MyClass.create!('First Object') }.
-          to raise_error DuplicateKeyError, 'An Object of class MyClass with key \'first-object\' already exists.'
+          to raise_error DuplicateKeyError, 'An object of class MyClass with key \'first-object\' already exists.'
       end
 
       it '.create returns an invalid object on duplicate keys' do
         _p = MyClass.create('First Object')
-        expect( _p.errors.messages ).to eq(base:["An Object of class MyClass with key 'first-object' already exists."] )
+        expect( _p.errors.messages ).to eq(base:["An object of class MyClass with key 'first-object' already exists."] )
       end
 
       it 'loads all objects' do

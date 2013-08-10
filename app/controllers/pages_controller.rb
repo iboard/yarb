@@ -11,6 +11,7 @@ class PagesController < ApplicationController
   end
 
   # GET /pages/:id
+  # @raise [PageNotFoundError] if page doesn't exist
   def show
     @page = Page.find params[:id]
     raise PageNotFoundError.new(params[:id]) unless @page
@@ -24,7 +25,7 @@ class PagesController < ApplicationController
   # POST /pages/create
   def create
     @page = Page.create( params[:page] )
-    if @page.errors.empty? && @page.valid?
+    if @page.valid_without_errors?
       redirect_to page_path( @page )
     else
       flash.now[:alert]= t(:could_not_be_saved, what: t(:page))

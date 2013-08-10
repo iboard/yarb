@@ -79,7 +79,7 @@ describe PagesController do
       fill_in 'Title', with: 'I am the winner'
       fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
       click_button 'Save'
-      page.should have_content 'An Object of class Page with key \'i-am-the-winner\' already exists.'
+      page.should have_content 'An object of class Page with key \'i-am-the-winner\' already exists.'
       should render_template 'new'
       fill_in 'Title', with: 'I am the loser'
       click_button 'Save'
