@@ -5,6 +5,10 @@ require 'pstore'
 #   class MyClass
 #     include Store
 #     key_method :my_unique_key  # Name this method as you like
+#     attribute  :my_unique_key  # adds my_unique_key()
+#                                # adds my_uniqeu_key=()
+#                                # and supports my_unique_key in update_attributes
+#     attribute  :some_field
 #
 #     def my_unique_key
 #       # return a unique key for your object
@@ -12,6 +16,7 @@ require 'pstore'
 #   end
 #
 #   object = MyClass.new
+#   object.update_attributes { some_field: 'Hello worl' }
 #   _saved_key = object.key
 #   object.save
 #   #.... later ....
@@ -80,16 +85,21 @@ module Store
     # @return [Object|nil]
     def find _key
       _object = store.transaction(:read_only) { |s| s[_key.parameterize] }
-      if _object
-        _object.send(:after_load) 
-      end
+      _object.send(:after_load) if _object
       _object
     end
 
     # Delete an entry from store
     # @param [Symbol|string] _key
+    # @return [nil|Object] the object removed if there is one.
     def delete _key
       store.transaction() { |s| s.delete(_key) }
+    end
+
+    # List all keys
+    # @return [Array] array of object-keys
+    def keys
+      store.transaction(:read_only) { |s| s.roots }
     end
 
     # Load all objects
@@ -120,12 +130,6 @@ module Store
       @key_method
     end
 
-    # List all keys
-    # @return [Array] array of object-keys
-    def keys
-      store.transaction(:read_only) { |s| s.roots }
-    end
-
     # Deletes the entire store
     def delete_store!
       FileUtils.remove_dir( self.send(:store_path), :force )
@@ -139,7 +143,7 @@ module Store
       _unique
     end
 
-    # Add an attribute to the class
+    # Add an attribute and an rw-accessor for it to the class.
     # @param [Symbol] name - the Name of the attribute as symbol
     # @param [Object] default - the default value of the attribute
     def attribute name, default=nil
@@ -149,7 +153,7 @@ module Store
       end
     end
 
-    # @return [Hash] the attributes and their default-value
+    # @return [Hash] the attributes definitions.
     def attributes
       ( @attribute_names||[] ).map {|_attr| [ _attr[0].to_sym, _attr[1]  ]}
     end
@@ -174,41 +178,44 @@ module Store
     end
   end
 
-  # Methods to be included by objects of the class
+  # Methods to be included by objects of the class.
   module InstanceMethods
 
     # Return the key as param
-    # @return [String] key which can be used in hashes and URL-parameters
+    # @return [String] key which can be used in hashes and URL-parameters.
     def to_param
       key.parameterize
     end
 
-    # @return [Hash] the attributes and their values
+    # @return [Hash] the attributes and their values.
     def attributes
       self.class.attributes.map do |_key, _default|
         { _key => self.send(_key) || _default }
       end
     end
 
-    # Update all attributes, listed in Class.attributes
-    # @param [Hash] hash 
+    # Update all attributes, listed in Class.attributes.
+    # @param [Hash] hash - Attributes to be updated.
     # @return [Boolean] the return-code from save
+    # @example
+    #   some_object.update_attributes(
+    #     name: 'Frank',
+    #     dob:  '12/21/1940'
+    #   )
     def update_attributes( hash={} )
-      self.class.attributes.each do |_attr|
-        self.send("#{_attr[0]}=", hash[_attr[0]]) if hash.has_key?(_attr[0])
-      end
+      set_attributes hash
       self.save 
     end
 
     # Validate and save object to store-file
     # @return [Boolean] true if no errors and valid
     def save
-      if self.errors.empty? && self.valid? && self.class.unique_key?(self) && handle_key_changed
+      if proof_key
         @original_key = self.key
         store.transaction() { |s| s[self.key] = self }
         @new_record = false
       end
-      self.errors.empty? && self.valid?
+      self.valid_without_errors?
     end
 
     # Remove the object from the store
@@ -228,12 +235,12 @@ module Store
       !self.new_record?
     end
 
-    # ActiveModel Conversion
+    # @see ActiveModel::Conversion
     def to_key
       [self.key]
     end
 
-    # ActiveModel Conversion
+    # @see ActiveModel::Conversion
     def to_model
       self
     end
@@ -243,19 +250,52 @@ module Store
       self.send(:"#{self.class.key_method_name}=", @original_key)
     end
 
+    protected
+
+    def valid_without_errors?
+      self.errors.empty? && self.valid?
+    end
 
     private
 
+    def set_attributes hash
+      self.class.attributes.each do |_key,_default|
+        _value = hash[_key]
+        self.send("#{_key}=", _value) if hash.has_key?(_key)
+      end
+    end
+
+    def proof_key
+      (
+        self.errors.empty?           && 
+        self.valid?                  && 
+        self.class.unique_key?(self) && 
+        handle_key_changed
+      )
+    end
+
     def handle_key_changed
-      return true unless @original_key &&  @original_key != self.key
+      return true unless key_changed? 
       if self.class.exist?(self.key)
-        self.errors.add(:base, I18n.t(:key_already_exists, key_name: self.class.key_method_name, value: self.key))
+        self.errors.add(:base, format_duplicate_key_error)
         self.restore_original_key
         false
       else
         self.class.delete(@original_key)
         true
       end
+    end
+
+    def format_duplicate_key_error
+      I18n.t(
+        :key_already_exists, 
+        key_name: self.class.key_method_name, 
+        value: self.key
+      )
+    end
+
+    def key_changed?
+      @original_key && @original_key != self.key
     end
 
     def after_load
