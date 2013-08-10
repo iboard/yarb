@@ -86,7 +86,7 @@ module Store
       _object
     end
 
-    # Delete an enry from store
+    # Delete an entry from store
     # @param [Symbol|string] _key
     def delete _key
       store.transaction() { |s| s.delete(_key) }
