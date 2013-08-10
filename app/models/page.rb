@@ -3,6 +3,8 @@ class Page
 
   include Store
   key_method :title
+  attribute  :title
+  attribute  :body
 
   attr_accessor :title, :body
 

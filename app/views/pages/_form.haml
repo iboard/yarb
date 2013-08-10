@@ -1,5 +1,5 @@
 = render_errors_for page
-= simple_form_for page, html: {class: 'form form-vertical'} do |f|
+= simple_form_for page, html: {class: 'form form-vertical' } do |f|
 
   = f.input :title, input_html: { class: 'full-width' }
   = f.input :body, as: :text, input_html: { rows: 20, class: 'full-width' }

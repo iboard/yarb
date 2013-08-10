@@ -28,8 +28,8 @@ module Store
   #   ActiveModel::Model
   #   ActiveModel::Validations
   def self.included base_class
-    base_class.send(:extend,   ActiveModel::Naming)
     base_class.send(:include,  ActiveModel::Model)
+    base_class.send(:extend,   ActiveModel::Naming)
     base_class.send(:include,  ActiveModel::Validations)
     base_class.send(:extend,   ClassMethods)
     base_class.send(:include,  InstanceMethods)
@@ -68,11 +68,28 @@ module Store
       e.object
     end
 
+    # @return [Boolean] true if key exists
+    def exist? _key
+      store.transaction(:read_only) do |s| 
+        s.roots.any? { |r| r == _key }
+      end
+    end
+
     # Load object from store
     # @param [String|Symbol] _key - the key of the object to find
     # @return [Object|nil]
     def find _key
-      store.transaction(:read_only) { |s| s[_key.parameterize] }
+      _object = store.transaction(:read_only) { |s| s[_key.parameterize] }
+      if _object
+        _object.send(:after_load) 
+      end
+      _object
+    end
+
+    # Delete an enry from store
+    # @param [Symbol|string] _key
+    def delete _key
+      store.transaction() { |s| s.delete(_key) }
     end
 
     # Load all objects
@@ -98,6 +115,11 @@ module Store
       define_method(:key) { (self.send method).parameterize }
     end
 
+    # @return [Symbol] the key_method for this class
+    def key_method_name
+      @key_method
+    end
+
     # List all keys
     # @return [Array] array of object-keys
     def keys
@@ -115,6 +137,21 @@ module Store
       _unique = !_check || _check != object
       object.errors.add(@key_method, "Key '#{object.key}' already exists.") unless _unique
       _unique
+    end
+
+    # Add an attribute to the class
+    # @param [Symbol] name - the Name of the attribute as symbol
+    # @param [Object] default - the default value of the attribute
+    def attribute name, default=nil
+      (@attribute_names||=[]) << [name, default]
+      class_eval do
+        attr_accessor name
+      end
+    end
+
+    # @return [Hash] the attributes and their default-value
+    def attributes
+      ( @attribute_names||[] ).map {|_attr| [ _attr[0].to_sym, _attr[1]  ]}
     end
 
     private
@@ -146,13 +183,31 @@ module Store
       key.parameterize
     end
 
+    # @return [Hash] the attributes and their values
+    def attributes
+      self.class.attributes.map do |_key, _default|
+        { _key => self.send(_key) || _default }
+      end
+    end
+
+    # Update all attributes, listed in Class.attributes
+    # @param [Hash] hash 
+    def update_attributes( hash={} )
+      self.class.attributes.each do |_attr|
+        self.send("#{_attr[0]}=", hash[_attr[0]]) if hash.has_key?(_attr[0])
+      end
+      self.save 
+    end
+
     # Validate and save object to store-file
     # @return [Store] self
     def save
-      if self.valid? && self.class.unique_key?(self)
+      if self.errors.empty? && self.valid? && self.class.unique_key?(self) && handle_key_changed
+        @original_key = self.key
         store.transaction() { |s| s[self.key] = self }
+        @new_record = false
       end
-      self
+      self.errors.empty? && self.valid?
     end
 
     # Remove the object from the store
@@ -160,7 +215,51 @@ module Store
       store.transaction() { |s| s.delete(self.key) }
     end
 
+    # @return [Boolean] true if object is not saved yet
+    def new_record?
+      @new_record = true if @new_record.nil?
+      @new_record
+    end
+
+    # @return [Boolean] true if object is not a new_object
+    # Used by Rails form_for / simple_form_for
+    def persisted?
+      !self.new_record?
+    end
+
+    # ActiveModel Conversion
+    def to_key
+      [self.key]
+    end
+
+    # ActiveModel Conversion
+    def to_model
+      self
+    end
+
+    # Restore original-key (called if change-key failed)
+    def restore_original_key
+      self.send(:"#{self.class.key_method_name}=", @original_key)
+    end
+
+
     private
+
+    def handle_key_changed
+      return true unless @original_key &&  @original_key != self.key
+      if self.class.exist?(self.key)
+        self.errors.add(:base, 'Already exists')
+        self.restore_original_key
+        false
+      else
+        self.class.delete(@original_key)
+        true
+      end
+    end
+
+    def after_load
+      @new_record = false
+    end
 
     def store
       self.class.send(:store)

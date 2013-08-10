@@ -32,6 +32,21 @@ class PagesController < ApplicationController
     end
   end
 
+  # GET /pages/:id/edit
+  def edit
+    @page = Page.find(params[:id])
+  end
+
+  # PUT /pages/:id
+  def update
+    @page = Page.find(params[:id])
+    if @page.update_attributes( params[:page] )
+      redirect_to pages_path, notice: t(:page_successfully_updated)
+    else
+      render :edit
+    end
+  end
+
   # DELETE /pages/:id
   def destroy
     @page = Page.find( params[:id] )

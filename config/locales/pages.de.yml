@@ -1,6 +1,7 @@
 de:
   page: 'Seite'
   page_deleted: 'Seite "%{title}" wurde gelöscht.'
+  page_successfully_updated: 'Änderungen wurden gespeichert'
   listing_of_pages: 'Alle Seiten'
   page_does_not_exists: "404 - Die Seite %{title} existiert nicht."
   add_new_page: 'Neue Seite erzeugen'
