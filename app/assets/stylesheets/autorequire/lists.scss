@@ -4,6 +4,7 @@
   display: block-inline;
   clear: both;
   font-size: $bigListFontSize;
+  line-height: 110%;
 }
 
 ul.item-list {
@@ -17,7 +18,6 @@ li.list-entry {
   margin: 0px;
   padding-bottom: 0.25em;
   padding-left: 0px;
-  height: $bigListFontSize * 0.4;
   &:hover {
     background: $hoverBackground;
   }

@@ -11,4 +11,5 @@
  *= require_self
  *= require _application
  *= require_tree ./autorequire
+ *= require _responsive
  */

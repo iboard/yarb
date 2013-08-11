@@ -1,0 +1,28 @@
+@import '_variables';
+
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) { 
+}
+ 
+/* Landscape phones and down */
+@media (max-width: 480px) { 
+
+  h1 {
+    font-size: $largeFontSize * 0.7;
+  }
+
+  .list-entry {
+    font-size: $bigListFontSize * 0.7;
+  }
+
+  footer {
+    position: relative;
+    left: -1em;
+    height: 1em;
+    max-height: 1em;
+    width: 100% !important;
+    margin: 0px !important;
+  }
+}
+
+
