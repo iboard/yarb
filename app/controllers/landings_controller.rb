@@ -9,7 +9,7 @@ class LandingsController < ApplicationController
 
   # GET /
   def index
-    flash[:notice] = t('flash_messages.welcome')
+    flash[:notice] ||= t('flash_messages.welcome')
     @readme = File.read( README_FILE )
   end
 end

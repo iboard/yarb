@@ -4,6 +4,11 @@ en:
   edit: 'Edit'
   are_you_sure: 'Are you sure?'
   could_not_be_saved: "%{what} couldn\'t be saved."
+  sign_in: 'Sign In'
+  email: 'EMail'
+  invalid_credentials: 'Invalid Credentials'
+  successfully_logged_in_as: "Successfully signed in as <strong>%{user}</strong>."
+  password: 'Password'
   site:
     title: 'Yet Another Ruby Bootstrap Application'
     copyright:
