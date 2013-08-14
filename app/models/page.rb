@@ -6,8 +6,6 @@ class Page
   attribute  :title
   attribute  :body
 
-  attr_accessor :title, :body
-
   def initialize _attributes={}
     set_attributes _attributes
   end
