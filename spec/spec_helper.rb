@@ -14,6 +14,13 @@ def pstore_path
   r = File.join(Rails.root, 'db', Rails.env.to_s)
 end
 
+def sign_in_as user, password
+  visit sign_in_path
+  fill_in 'EMail', with: user
+  fill_in 'Password', with: password
+  click_button 'Sign In'
+end
+
 def page_should_have_notice page, text
   page.should have_css( '.alert-success', text: text,  match: :prefer_exact )
 end

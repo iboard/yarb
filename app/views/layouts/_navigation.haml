@@ -10,4 +10,6 @@
         %ul.nav
           %li{class: current_page?(root_path)  ? 'active' : ''}= link_to t(:home), root_path
           %li{class: current_page?(pages_path) ? 'active' : ''}= link_to t(:pages), pages_path
+        %ul.nav.pull-right
+          = render 'session/session_nav'
 

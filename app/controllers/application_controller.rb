@@ -6,8 +6,11 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
+  # Make sure we have a session
   before_filter :init_session
-  
+
+  # accessor for current_user
+  helper_method :current_user
 
   # GET /switch_locale/:locale
   def switch_locale
@@ -18,6 +21,10 @@ class ApplicationController < ActionController::Base
   private 
   def init_session
     session[:id] ||= Time.now.to_i.to_s + SecureRandom.hex(8)
+  end
+
+  def current_user
+    OpenStruct.new( name: 'Testuser' ) if session[:user_id]
   end
 
 end

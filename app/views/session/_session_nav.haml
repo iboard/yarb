@@ -1,0 +1,6 @@
+- if current_user
+  %li= link_to "<strong>#{current_user.name}</strong>".html_safe, '#'
+  %li= link_to t(:sign_out), sign_out_path
+- else
+  %li{class: current_page?(sign_in_path) ? 'active':''}= link_to t(:sign_in), sign_in_path
+
