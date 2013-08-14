@@ -21,6 +21,10 @@ def sign_in_as user, password
   click_button 'Sign In'
 end
 
+def sign_out_user
+  visit sign_out_path
+end
+
 def page_should_have_notice page, text
   page.should have_css( '.alert-success', text: text,  match: :prefer_exact )
 end

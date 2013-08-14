@@ -16,4 +16,10 @@ class SessionController < ApplicationController
     end
   end
 
+  # DELETE /sign_out
+  def delete
+    session.destroy
+    redirect_to root_path, notice: t(:successfully_signed_out)
+  end
+
 end

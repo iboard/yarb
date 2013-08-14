@@ -6,6 +6,10 @@ describe SessionController do
 
   describe 'Sign in/out links' do
 
+    after :each do
+      sign_out_user
+    end
+
     it 'has a sign-in link' do
       visit root_path
       page.should have_link 'Sign In'
@@ -17,6 +21,14 @@ describe SessionController do
         page.should have_text 'Testuser'
         page.should have_link 'Sign Out'
       end
+    end
+
+    it 'logs out the current user' do
+      sign_in_as 'Testuser', 'secret'
+      within ( 'header ul.nav.pull-right' ) do
+        click_link 'Sign Out'
+      end
+      page_should_have_notice page, 'You\'re signed out successfully.'
     end
   end
 
