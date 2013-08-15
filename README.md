@@ -63,6 +63,10 @@ Contribution
   
   * Pull-requests are appreciated if full test-covered, clean, and in
     their own branch.
+  * Story tracking is maintained at:
+    [PivotalTracker](https://www.pivotaltracker.com/projects/891652/overview)
+    Please pick from currently defined stories before you start your
+    own.
   * Issues and Bug-reports are tracked at 
     [Github](https://github.com/iboard/yarb/issues)
 
