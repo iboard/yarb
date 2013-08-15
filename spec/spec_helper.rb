@@ -21,6 +21,12 @@ def sign_in_as user, password
   click_button 'Sign In'
 end
 
+def create_valid_user email, name, password
+  u= User.new email: email, name: name
+  u.password = password
+  u.save
+end
+
 def sign_out_user
   visit sign_out_path
 end

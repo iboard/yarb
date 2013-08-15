@@ -121,7 +121,7 @@ module Store
     # @param [Symbol] method to be called for key()
     def key_method method
       @key_method = method
-      self.send :validates_presence_of, method
+      validates_presence_of method
       define_method(:key) { (self.send method).parameterize }
     end
 
@@ -133,6 +133,15 @@ module Store
     # Deletes the entire store
     def delete_store!
       FileUtils.remove_dir( self.send(:store_path), :force )
+    end
+
+    # Delete all entries
+    def delete_all!
+      store.transaction do |s|
+        s.roots.each do |r|
+          s.delete r
+        end
+      end
     end
 
     # @return [Boolean] true if object's key is unique
@@ -158,6 +167,18 @@ module Store
       ( @attribute_names||[] ).map {|_attr| [ _attr[0].to_sym, _attr[1]  ]}
     end
 
+    # @param [Symbol] _attribute - the attribute to search for
+    # @param [Object] _value - the value this attribute should have
+    # @return [Object|nil]
+    def find_by _attribute, _value
+      store.transaction(:read_only) do |s|
+        _key = s.roots.detect do |entry|
+          s[entry].send(_attribute).eql?(_value)
+        end
+        s[_key]
+      end
+    end
+
     private
 
     def store_path
@@ -176,6 +197,7 @@ module Store
     def prevent_duplicate_keys(object)
       raise DuplicateKeyError.new( object ) if keys.include?(object.key.parameterize) 
     end
+
   end
 
   # Methods to be included by objects of the class.

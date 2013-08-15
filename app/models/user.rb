@@ -1,18 +1,45 @@
+require 'bcrypt'
+
+# The User-class 
+# * uses BCrypt to encrypt passwords
+# * key :id is equal to :email (parameterized)
 class User
 
-  def self.find_by field, what
-    return new
+  include Store
+  include BCrypt
+  key_method :id
+  attribute  :email
+  validates_presence_of :email
+  attribute  :name
+  validates_presence_of :name
+  attribute :password_digest
+  
+  # id is used as the key_method.
+  # Since keys are parameterized we can't use email directly 
+  # Therefore we return the email-field as id.
+  # @return [String]
+  def id
+    email
   end
 
-  def name
-    'Testuser'
+  # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
+  # @return [String] the crypted password string
+  def password
+     @password ||= Password.new(password_digest)
   end
 
-  def email
-    'test@ex.com'
+  # Set new crypted password
+  # @param [String] new_password (plain text)
+  def password= new_password
+    @password = Password.create(new_password)
+    self.password_digest = @password
   end
 
+  # @param [String] _password (plain-text)
+  # @return [Boolean] true if plain-text matches crypted password
+  # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
   def authenticate _password
-    _password.eql?('secret')
+    self.password == _password
   end
+
 end

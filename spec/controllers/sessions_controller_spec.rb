@@ -4,6 +4,10 @@ describe SessionController do
 
   render_views
 
+  before :all do
+    create_valid_user 'testuser@example.com', 'Testuser', 'secret'
+  end
+
   describe 'Sign in/out links' do
 
     after :each do
@@ -16,7 +20,7 @@ describe SessionController do
     end
 
     it 'displays current user and sign-out-link when signed in' do
-      sign_in_as 'Testuser', 'secret'
+      sign_in_as 'testuser@example.com', 'secret'
       within ( 'header ul.nav.pull-right' ) do
         page.should have_text 'Testuser'
         page.should have_link 'Sign Out'
@@ -24,7 +28,7 @@ describe SessionController do
     end
 
     it 'logs out the current user' do
-      sign_in_as 'Testuser', 'secret'
+      sign_in_as 'testuser@example.com', 'secret'
       within ( 'header ul.nav.pull-right' ) do
         click_link 'Sign Out'
       end
@@ -39,14 +43,14 @@ describe SessionController do
     end
 
     it 'logs in a valid user' do
-      fill_in 'EMail', with: 'valid@email.to'
+      fill_in 'EMail', with: 'testuser@example.com'
       fill_in 'Password', with: 'secret'
       click_button 'Sign In'
       page_should_have_notice page, 'Successfully signed in as Testuser.'
     end
 
     it 'does not log in an invalidate user' do
-      fill_in 'EMail', with: 'valid@email.to'
+      fill_in 'EMail', with: 'testuser@example.com'
       fill_in 'Password', with: 'insecure'
       click_button 'Sign In'
       page_should_have_error page, 'Invalid Credentials'

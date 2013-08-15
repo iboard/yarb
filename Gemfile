@@ -9,6 +9,8 @@ gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.0.1'
 gem 'bootstrap-sass'
+gem 'bcrypt-ruby'
+
 
 group :doc do
   gem 'yard', require: false
