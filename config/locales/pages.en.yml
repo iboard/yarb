@@ -1,5 +1,6 @@
 en:
   page: 'Page'
+  pages: 'Pages'
   page_deleted: 'Page "%{title}" successfully deleted.'
   page_successfully_updated: 'Page successfully updated.'
   listing_of_pages: 'Available Pages'

@@ -1,5 +1,6 @@
 de:
   page: 'Seite'
+  pages: 'Seiten'
   page_deleted: 'Seite "%{title}" wurde gelöscht.'
   page_successfully_updated: 'Änderungen wurden gespeichert'
   listing_of_pages: 'Alle Seiten'
