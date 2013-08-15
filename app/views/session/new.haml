@@ -1,11 +1,16 @@
-%h1=t(:sign_in)
+.row
+  .span5.offset3
+    .gap-top.gap-bottom
+      %h1=t(:sign_in)
 
-= form_tag create_session_path, class: 'form form-vertical'  do |f|
-  .control-group
-    .control-label= label_tag :email, t(:email)
-    .controls= text_field_tag :email
-  .control-group
-    .control-label= label_tag :password, t(:password)
-    .controls= password_field_tag :password
-  .form-actions
-    = submit_tag t(:sign_in)
+    = form_tag create_session_path, class: 'form form-horizontal'  do |f|
+      .control-group
+        .control-label= label_tag :email, t(:email)
+        .controls= text_field_tag :email
+      .control-group
+        .control-label= label_tag :password, t(:password)
+        .controls= password_field_tag :password
+      .form-actions
+        = submit_tag t(:sign_in), class: 'btn btn-primary'
+.row
+  %p &nbsp;
