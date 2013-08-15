@@ -99,4 +99,5 @@ class PagesController < ApplicationController
   def load_resource
     @page ||= Page.find(params[:id]) if params[:id].present?
   end
+  
 end
