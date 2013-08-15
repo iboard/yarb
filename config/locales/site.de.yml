@@ -10,6 +10,7 @@ de:
   successfully_signed_out: "Du hast dich erfolgreich abgemeldet."
   are_you_sure: 'Bist Du sicher?'
   sign_in: 'Anmelden'
+  sign_out: 'Abmelden'
   email: 'E-Mail'
   password: 'Passwort'
   could_not_be_saved: "%{what} konnte nicht gespeichert werden."

@@ -3,14 +3,16 @@ source 'https://rubygems.org'
 gem 'rails', '4.0.0'
 gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '>= 1.3.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'jquery-rails'
-gem 'jquery-ui-rails'
 gem 'turbolinks'
 gem 'jbuilder', '~> 1.0.1'
-gem 'bootstrap-sass'
 gem 'bcrypt-ruby'
 
+group :assets do
+  gem 'coffee-rails', '~> 4.0.0'
+  gem 'bootstrap-sass'
+  gem 'jquery-rails'
+  gem 'jquery-ui-rails'
+end
 
 group :doc do
   gem 'yard', require: false
