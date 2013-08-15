@@ -15,7 +15,11 @@ class ApplicationController < ActionController::Base
   # GET /switch_locale/:locale
   def switch_locale
     I18n.locale = params[:locale].to_sym
-    redirect_to root_path
+    if request.env['HTTP_REFERER'].present?
+      redirect_to :back 
+    else
+      redirect_to root_path
+    end
   end
 
   private 
