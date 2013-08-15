@@ -89,7 +89,7 @@ class PagesController < ApplicationController
   end
 
   def authorize_editors
-    redirect_to pages_path, alert: t(:access_denied) unless has_roles?( PAGE_EDITOR_ROLES )
+    redirect_to page_path(params[:id]), alert: t(:access_denied) unless has_roles?( PAGE_EDITOR_ROLES )
   end
 
   def authorize_terminators

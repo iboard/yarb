@@ -1,7 +1,12 @@
 %li{ id: "page-#{page.to_param}", class: 'list-entry bottom-bordered' }
   .btn-group.pull-right
     - if has_roles? PagesController::PAGE_EDITOR_ROLES
-      = link_to t(:edit), edit_page_path(page), class: 'btn btn-primary'
+      = link_to icon('icon-edit icon-white')+t(:edit), edit_page_path(page), class: 'btn btn-primary'
     - if has_roles? PagesController::PAGE_TERMINATOR_ROLES
-      = link_to t(:delete), page_path(page), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger'
-  = link_to page.title, page_path(page)
+      = link_to icon('icon-trash icon-white')+t(:delete), page_path(page), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger'
+    - if params[:action] == 'show' && params[:controller] == 'pages'
+      = link_to icon('icon-list')+t(:pages), pages_path,  class: 'btn'
+  - if current_page?(page_path(page))
+    = page.title
+  - else
+    = link_to page.title, page_path(page)

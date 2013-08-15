@@ -23,6 +23,12 @@ module ApplicationHelper
     end
   end
 
+  # @param [Symbol|String] symbol - the twitter-bootstrap icon-class
+  # @return [String] html-safe string representing twitter-bootstrap-code for the icon
+  def icon symbol
+    "<i class='#{symbol.to_s}'></i>&nbsp;".html_safe
+  end
+
   private
 
   def alert_box &block
