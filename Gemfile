@@ -26,6 +26,8 @@ group :test, :development do
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'
   gem 'guard-jasmine'
   gem 'phantomjs'
+  gem 'interactive_editor'
+  gem 'awesome_print'
 end
 
 gem 'haml-rails'

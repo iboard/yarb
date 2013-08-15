@@ -25,6 +25,12 @@ require 'pstore'
 #   # read from .../db/:env/my_class/my_class.pstore
 module Store
 
+  # Array-index of fieldname in klass.attributes
+  FIELD_ID   = 0
+
+  # Array-index of field-default in klass.attributes
+  DEFAULT_ID = 1
+
   # extend the class with ClassMethods and
   # include InstanceMethods to each object of this class
   # Also extends and includes necessary ActiveModel modules
@@ -158,7 +164,13 @@ module Store
     def attribute name, default=nil
       (@attribute_names||=[]) << [name, default]
       class_eval do
-        attr_accessor name
+        define_method name do
+          instance_variable_get("@#{name.to_s}") || default
+        end
+
+        define_method "#{name}=".to_sym do |new_value|
+          instance_variable_set "@#{name.to_s}", new_value 
+        end
       end
     end
 
@@ -214,6 +226,13 @@ module Store
       self.class.attributes.map do |_key, _default|
         { _key => self.send(_key) || _default }
       end
+    end
+
+    # @param [Symbol] _field
+    # @return [Object] the default-value for _field
+    def default_of _field
+      _a = self.class.attributes.detect{|_attr,_default| _attr == _field}
+      _a[DEFAULT_ID] if _a
     end
 
     # Update all attributes, listed in Class.attributes.

@@ -7,11 +7,15 @@ class User
 
   include Store
   include BCrypt
+  include Roles
+
   key_method :id
   attribute  :email
   validates_presence_of :email
+
   attribute  :name
   validates_presence_of :name
+
   attribute :password_digest
   
   # id is used as the key_method.
