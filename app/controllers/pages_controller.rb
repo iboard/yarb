@@ -1,9 +1,22 @@
 # The Rails Controller for model Page
 class PagesController < ApplicationController
 
+  # Roles which can create pages
+  PAGE_CREATOR_ROLES = %i( admin author editor maintainer )
+
+  # Roles which can edit pages
+  PAGE_EDITOR_ROLES  = %i( admin editor maintainer )
+
+  # Roles which can delete pages
+  PAGE_TERMINATOR_ROLES  = %i( admin maintainer )
+
   rescue_from PageNotFoundError, with: :render_not_found
 
   before_filter :load_md_files
+  before_filter :load_resource
+  before_filter :authorize_creators, only: [ :new, :create ]
+  before_filter :authorize_editors,  only: [ :edit, :update ]
+  before_filter :authorize_terminators, only: [ :destroy ]
   
   # GET /pages
   def index
@@ -13,7 +26,6 @@ class PagesController < ApplicationController
   # GET /pages/:id
   # @raise [PageNotFoundError] if page doesn't exist
   def show
-    @page = Page.find params[:id]
     raise PageNotFoundError.new(params[:id]) unless @page
   end
 
@@ -35,12 +47,10 @@ class PagesController < ApplicationController
 
   # GET /pages/:id/edit
   def edit
-    @page = Page.find(params[:id])
   end
 
   # PUT /pages/:id
   def update
-    @page = Page.find(params[:id])
     if @page.update_attributes( params[:page] )
       redirect_to pages_path, notice: t(:page_successfully_updated)
     else
@@ -50,7 +60,6 @@ class PagesController < ApplicationController
 
   # DELETE /pages/:id
   def destroy
-    @page = Page.find( params[:id] )
     @page.delete 
     redirect_to pages_path, notice: t(:page_deleted, title: @page.title)
   end
@@ -73,5 +82,21 @@ class PagesController < ApplicationController
     flash[:alert]=t(:page_does_not_exists, title: params[:id])
     @pages = Page.all
     render :index, status: :not_found
+  end
+
+  def authorize_creators
+    redirect_to pages_path, error: t(:access_denied) unless has_roles?( PAGE_CREATOR_ROLES )
+  end
+
+  def authorize_editors
+    redirect_to pages_path, error: t(:access_denied) unless has_roles?( PAGE_EDITOR_ROLES )
+  end
+
+  def authorize_terminators
+    redirect_to pages_path, error: t(:access_denied) unless has_roles?( PAGE_TERMINATOR_ROLES )
+  end
+
+  def load_resource
+    @page ||= Page.find(params[:id]) if params[:id].present?
   end
 end

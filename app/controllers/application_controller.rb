@@ -9,8 +9,8 @@ class ApplicationController < ActionController::Base
   # Make sure we have a session
   before_filter :init_session
 
-  # accessor for current_user
   helper_method :current_user
+  helper_method :has_roles?
 
   # GET /switch_locale/:locale
   def switch_locale
@@ -26,6 +26,13 @@ class ApplicationController < ActionController::Base
   def current_user
     return nil unless session[:user_id]
     User.find_by :id, session[:user_id]
+  end
+
+  def has_roles? roles
+    return false unless current_user
+    roles.any? do |role|
+      current_user.has_role? role
+    end
   end
 
 end

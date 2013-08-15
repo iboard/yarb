@@ -50,107 +50,162 @@ describe PagesController do
       end
     end
 
-    it 'should have an add-page-link' do
-      page.should have_link 'Add new page'
-    end
+    context 'with different user roles' do
 
-    it 'saves new pages from form' do
-      click_link 'Add new page'
-      fill_in 'Title', with: 'A new page for testing'
-      fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
-      click_button 'Save'
-      should render_template 'show'
-      page.should have_content 'A new page for testing'
-    end
+      before :all do 
+        User.delete_all!
+        Roles::ROLES.each do |role|
+          user = User.create name: role.to_s.humanize, email: "#{role.to_s}@example.com", roles: [role]
+          user.password = 'secret'
+          user.save
+        end
+      end
 
-    it 'should display error for blank title' do
-      click_link 'Add new page'
-      fill_in 'Title', with: ''
-      fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
-      click_button 'Save'
-      should render_template 'new'
-      page_should_have_error page, '× Page couldn\'t be saved.'
-      page_should_have_error page, 'title: can\'t be blank'
-    end
+      before :each do
+        sign_out
+      end
 
-    it 'should display error for duplicate title' do
-      Page.create title: 'I am the winner', body: "Some Header\n=======\nAnd some text"
-      visit new_page_path
-      fill_in 'Title', with: 'I am the winner'
-      fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
-      click_button 'Save'
-      page.should have_content 'An object of class Page with key \'i-am-the-winner\' already exists.'
-      should render_template 'new'
-      fill_in 'Title', with: 'I am the loser'
-      click_button 'Save'
-      should render_template 'show'
-      page.should have_content( 'I am the loser' )
-      page.should have_content( "Some Header And some text" )
-    end
+      after :each do
+        sign_out
+      end
 
-    it 'response with 404 if page not found' do
-      get :show, { controller: 'pages', id: 'not_existing_page_321' }
-      expect(response.status).to eq(404)
-    end
+      it 'should have an add-page-link for PAGE_CREATOR_ROLES' do
+        page.should_not have_link 'Add new page'
+        PagesController::PAGE_CREATOR_ROLES.each do |role|
+          sign_in_as "#{role}@example.com", 'secret'
+          click_link 'Pages'
+          page.should have_link 'Add new page'
+        end
+      end
 
-    it 'renders an error-message if page not found and shows index' do
-      visit page_path('page_not_found')
-      within '.alert-error' do
-        page.should have_content("Page page_not_found doesn't exist")
+      it 'should have an edit-page-link for PAGE_EDITOR_ROLES' do
+        page.should_not have_css("a.btn-primary:contains('Edit')")
+        PagesController::PAGE_EDITOR_ROLES.each do |role|
+          sign_in_as "#{role}@example.com", 'secret'
+          click_link 'Pages'
+          page.should match_at_least(1, "a.btn-primary:contains('Edit')" )
+        end
+      end
+
+      it 'should have an edit-page-link for PAGE_TERMINATOR_ROLES' do
+        page.should_not have_css("a.btn-danger:contains('Delete')")
+        PagesController::PAGE_TERMINATOR_ROLES.each do |role|
+          sign_in_as "#{role}@example.com", 'secret'
+          click_link 'Pages'
+          page.should match_at_least(1, "a.btn-danger:contains('Delete')" )
+          sign_out
+        end
+      end
+
+      context 'as admin'  do
+
+        before :each do
+          sign_in_as 'admin@example.com', 'secret'   
+          visit pages_path
+        end
+
+        after :each do
+          sign_out
+        end
+
+        it 'saves new pages from form' do
+          click_link 'Add new page'
+          fill_in 'Title', with: 'A new page for testing'
+          fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
+          click_button 'Save'
+          should render_template 'show'
+          page.should have_content 'A new page for testing'
+        end
+
+        it 'should display error for blank title' do
+          click_link 'Add new page'
+          fill_in 'Title', with: ''
+          fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
+          click_button 'Save'
+          should render_template 'new'
+          page_should_have_error page, '× Page couldn\'t be saved.'
+          page_should_have_error page, 'title: can\'t be blank'
+        end
+
+        it 'should display error for duplicate title' do
+          Page.create title: 'I am the winner', body: "Some Header\n=======\nAnd some text"
+          visit new_page_path
+          fill_in 'Title', with: 'I am the winner'
+          fill_in 'Body',  with: "Some Header\n=======\nAnd some text"
+          click_button 'Save'
+          page.should have_content 'An object of class Page with key \'i-am-the-winner\' already exists.'
+          should render_template 'new'
+          fill_in 'Title', with: 'I am the loser'
+          click_button 'Save'
+          should render_template 'show'
+          page.should have_content( 'I am the loser' )
+          page.should have_content( "Some Header And some text" )
+        end
+
+        it 'response with 404 if page not found' do
+          get :show, { controller: 'pages', id: 'not_existing_page_321' }
+          expect(response.status).to eq(404)
+        end
+
+        it 'renders an error-message if page not found and shows index' do
+          visit page_path('page_not_found')
+          within '.alert-error' do
+            page.should have_content("Page page_not_found doesn't exist")
+          end
+        end
+
+        it 'can delete pages' do
+          page.find('#page-delete-me a', text: 'Delete', match: :prefer_exact ).click()
+          page_should_have_notice page, 'Page "Delete Me" successfully deleted.'
+          Page.find('delete-me').should be_nil
+        end
+
+        it 'can edit a page' do
+          page.find('#page-page-one a', text: 'Edit', match: :prefer_exact ).click()
+          should render_template 'edit'
+          fill_in 'Title', with: 'I am the first Page'
+          fill_in 'Body', with: 'Loremsum firstum'
+          click_button 'Save'
+          should render_template 'index'
+          page_should_have_notice page, 'Page successfully updated'
+          Page.find('page-one').should be_nil
+          page = Page.find('i-am-the-first-page')
+          page.should_not be_nil
+          page.body.should eq('Loremsum firstum')
+        end
+
+        it 'should not allow to store invalid pages on update' do
+          _page = Page.create! title: 'I am valid', body: 'Valid page'
+          visit edit_page_path(_page)
+          fill_in 'Title', with: ''
+          click_button 'Save'
+          should render_template 'edit'
+          page_should_have_error page, 'title: can\'t be blank'
+        end
+
+        it 'should not allow to update the key if it already exists' do
+          Page.create! title: 'existing key', body: 'Do not touch'
+          _page = Page.create! title: 'any key', body: 'Valid page'
+
+          # First enter an invalid/existing key
+          visit edit_page_path(_page)
+          fill_in 'Title', with: 'existing key'
+          click_button 'Save'
+          should render_template 'edit'
+          page_should_have_error page, 'base: title: existing-key already exists.'
+
+          # Now enter another/valid key
+          fill_in 'Title', with: 'another key'
+          click_button 'Save'
+
+          Page.find('existing-key').body.should eq('Do not touch')
+          Page.find('any-key').should be_nil
+          Page.find('another-key').body.strip.should eq('Valid page')
+        end
+
       end
     end
-
-    it 'can delete pages' do
-      page.find('#page-delete-me a', text: 'Delete', match: :prefer_exact ).click()
-      page_should_have_notice page, 'Page "Delete Me" successfully deleted.'
-      Page.find('delete-me').should be_nil
-    end
-
-    it 'can edit a page' do
-      page.find('#page-page-one a', text: 'Edit', match: :prefer_exact ).click()
-      should render_template 'edit'
-      fill_in 'Title', with: 'I am the first Page'
-      fill_in 'Body', with: 'Loremsum firstum'
-      click_button 'Save'
-      should render_template 'index'
-      page_should_have_notice page, 'Page successfully updated'
-      Page.find('page-one').should be_nil
-      page = Page.find('i-am-the-first-page')
-      page.should_not be_nil
-      page.body.should eq('Loremsum firstum')
-    end
-
-    it 'should not allow to store invalid pages on update' do
-      _page = Page.create! title: 'I am valid', body: 'Valid page'
-      visit edit_page_path(_page)
-      fill_in 'Title', with: ''
-      click_button 'Save'
-      should render_template 'edit'
-      page_should_have_error page, 'title: can\'t be blank'
-    end
-
-    it 'should not allow to update the key if it already exists' do
-      Page.create! title: 'existing key', body: 'Do not touch'
-      _page = Page.create! title: 'any key', body: 'Valid page'
-
-      # First enter an invalid/existing key
-      visit edit_page_path(_page)
-      fill_in 'Title', with: 'existing key'
-      click_button 'Save'
-      should render_template 'edit'
-      page_should_have_error page, 'base: title: existing-key already exists.'
-
-      # Now enter another/valid key
-      fill_in 'Title', with: 'another key'
-      click_button 'Save'
-
-      Page.find('existing-key').body.should eq('Do not touch')
-      Page.find('any-key').should be_nil
-      Page.find('another-key').body.strip.should eq('Valid page')
-    end
-
   end
-
 end
 
 

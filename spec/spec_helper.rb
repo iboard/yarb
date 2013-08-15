@@ -1,6 +1,12 @@
 ENV["RAILS_ENV"] ||= 'test'
 require 'simplecov'
-SimpleCov.start
+SimpleCov.start do
+  add_filter 'spec/support/matchers'
+  add_filter 'spec/spec_helper'
+  add_group "App", 'app/'
+  add_group "Library", 'lib/'
+end
+
 
 require File.expand_path("../../config/environment", __FILE__)
 require 'rspec/rails'
@@ -19,6 +25,11 @@ def sign_in_as user, password
   fill_in 'EMail', with: user
   fill_in 'Password', with: password
   click_button 'Sign In'
+end
+
+def sign_out path=nil
+  visit sign_out_path
+  visit path if path
 end
 
 def create_valid_user email, name, password
