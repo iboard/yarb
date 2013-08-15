@@ -3,14 +3,21 @@
   See: http://getbootstrap.com/2.3.2/customize.html#variables 
 */
 
-$sansFontFamily:     Georgia, Times new roman, Times, serif;
-$headingsFontFamily: Verdana, 'Helvetica neue', Helvetica, Arial, sans-serif;
+$sansFontFamily:     Hoefler Text, Georgia, Times new roman, Times, serif;
+$headingsFontFamily: 'Helvetica neue', Helvetica, Arial, sans-serif;
 
 $footerBackground: #ddd;
 $footerHeight: 5em;
 $footerFontFamily: Verdana, 'Helvetica neue', Helvetica, Arial, sans-serif;
 $footerFontSize: 0.9em;
-$largeFontSize:  2em;
+$baseFontSize: 21px;
+$headerFontSize: $baseFontSize * 2.2;
+$subHeaderFontSize: $baseFontSize * 2.0;
+
+$baseLineHeight: 25px;
+$btnFontSize: 16px;
+$btnLineHeight: 22px;
+$largeFontSize:  1.8em;
 $headerTextShadow: 1px 0px 1px #888;
 
 $smallNoteFontSize: $footerFontSize;

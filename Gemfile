@@ -7,12 +7,10 @@ gem 'turbolinks'
 gem 'jbuilder', '~> 1.0.1'
 gem 'bcrypt-ruby'
 
-group :assets do
-  gem 'coffee-rails', '~> 4.0.0'
-  gem 'bootstrap-sass'
-  gem 'jquery-rails'
-  gem 'jquery-ui-rails'
-end
+gem 'coffee-rails', '~> 4.0.0'
+gem 'bootstrap-sass'
+gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 group :doc do
   gem 'yard', require: false

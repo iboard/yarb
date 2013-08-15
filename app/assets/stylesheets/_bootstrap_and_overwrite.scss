@@ -4,3 +4,9 @@
 .nav, .alert, .brand {
   font-family: $headingsFontFamily;
 }
+
+.btn, .nav {
+  font-family: $headingsFontFamily;
+  font-size: $btnFontSize !important;
+  line-height: $btnLineHeight !important;
+}

@@ -6,12 +6,21 @@ h1.small-page-title {
 }
 
 #container.container {
+
   h1 {
+    font-size: $headerFontSize;
     margin-top: 1em;
     text-shadow: $headerTextShadow;
   }
+
   h1:nth-child(1) {
     margin-top: 0px;
+  }
+
+  h2 {
+    font-size: $subHeaderFontSize;
+    margin-top: 0.75em;
+    margin-bottom: 0.5em;
   }
 }
 
