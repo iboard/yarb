@@ -29,4 +29,10 @@ describe User do
     expect( user.errors.messages[:name] ).to include('can\'t be blank')
   end
 
+  it "has roles" do
+    u = User.new email: 'admin@example.com', name: 'Admin', roles: %i(admin)
+    expect(u.has_role?(:admin)).to be_true
+    expect(u.has_role?(:root)).to be_false
+  end
+
 end
