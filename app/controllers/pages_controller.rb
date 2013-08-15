@@ -85,15 +85,15 @@ class PagesController < ApplicationController
   end
 
   def authorize_creators
-    redirect_to pages_path, error: t(:access_denied) unless has_roles?( PAGE_CREATOR_ROLES )
+    redirect_to pages_path, alert: t(:access_denied) unless has_roles?( PAGE_CREATOR_ROLES )
   end
 
   def authorize_editors
-    redirect_to pages_path, error: t(:access_denied) unless has_roles?( PAGE_EDITOR_ROLES )
+    redirect_to pages_path, alert: t(:access_denied) unless has_roles?( PAGE_EDITOR_ROLES )
   end
 
   def authorize_terminators
-    redirect_to pages_path, error: t(:access_denied) unless has_roles?( PAGE_TERMINATOR_ROLES )
+    redirect_to pages_path, alert: t(:access_denied) unless has_roles?( PAGE_TERMINATOR_ROLES )
   end
 
   def load_resource

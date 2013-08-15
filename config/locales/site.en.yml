@@ -2,6 +2,7 @@ en:
   save: 'Save'
   delete: 'Delete'
   edit: 'Edit'
+  access_denied: 'Access denied.'
   are_you_sure: 'Are you sure?'
   could_not_be_saved: "%{what} couldn\'t be saved."
   sign_in: 'Sign In'
