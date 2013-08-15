@@ -9,7 +9,7 @@ class SessionController < ApplicationController
   # POST /sign_in
   def create
     user = User.find_by( :email, params[:email] )
-    if user.authenticate params[:password]
+    if user && user.authenticate(params[:password])
       session[:user_id] = user.email
       redirect_to root_path, notice: t(:successfully_logged_in_as, user: user.name).html_safe
     else

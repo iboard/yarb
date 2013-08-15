@@ -49,9 +49,16 @@ describe SessionController do
       page_should_have_notice page, 'Successfully signed in as Testuser.'
     end
 
-    it 'does not log in an invalidate user' do
+    it 'does not log in an existing user with wrong password' do
       fill_in 'EMail', with: 'testuser@example.com'
       fill_in 'Password', with: 'insecure'
+      click_button 'Sign In'
+      page_should_have_error page, 'Invalid Credentials'
+    end
+
+    it 'does not log in a not existing user' do
+      fill_in 'EMail', with: 'not-existing@nowhere.com'
+      fill_in 'Password', with: 'whatever'
       click_button 'Sign In'
       page_should_have_error page, 'Invalid Credentials'
     end
