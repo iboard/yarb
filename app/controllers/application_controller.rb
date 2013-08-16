@@ -8,13 +8,15 @@ class ApplicationController < ActionController::Base
 
   # Make sure we have a session
   before_filter :init_session
+  before_filter :set_locale
 
   helper_method :current_user
-  helper_method :has_roles?
 
+  helper_method :has_roles?
   # GET /switch_locale/:locale
   def switch_locale
     I18n.locale = params[:locale].to_sym
+    session[:locale] = params[:locale].to_sym
     if request.env['HTTP_REFERER'].present?
       redirect_to :back 
     else
@@ -38,5 +40,12 @@ class ApplicationController < ActionController::Base
       current_user.has_role? role
     end
   end
+
+  def set_locale
+    unless params[:locale]
+      I18n.locale = session[:locale] || I18n.default_locale
+    end
+  end
+
 
 end
