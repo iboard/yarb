@@ -1,4 +1,4 @@
-- if current_user
+- if signed_in?
   %li= link_to "<strong>#{current_user.name}</strong>".html_safe, '#', title: current_user.roles.map(&:to_s).join(', ')
   %li= link_to t(:sign_out), sign_out_path
 - else

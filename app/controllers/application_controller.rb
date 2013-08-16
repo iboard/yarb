@@ -11,6 +11,7 @@ class ApplicationController < ActionController::Base
   before_filter :set_locale
 
   helper_method :current_user
+  helper_method :signed_in?
 
   helper_method :has_roles?
   # GET /switch_locale/:locale
@@ -30,12 +31,11 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return nil unless session[:user_id]
-    User.find_by :id, session[:user_id]
+    return NilUser.new unless session[:user_id]
+    User.find_by :id, session[:user_id] || NilUser.new
   end
 
   def has_roles? roles
-    return false unless current_user
     roles.any? do |role|
       current_user.has_role? role
     end
@@ -47,5 +47,8 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def signed_in?
+    !current_user.is_a?(NilUser)
+  end
 
 end
