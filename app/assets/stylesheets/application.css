@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require _application
+ *= require highlight.js/styles/ir_black
  *= require_tree ./autorequire
  *= require _responsive
  */

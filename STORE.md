@@ -13,19 +13,22 @@ Example
 
 Define The Class
 ----------------
+  
+```ruby
 
-    class MyClass
-      include Store
-      key_method :uid
+class MyClass
+  include Store
+  key_method :uid
+  attribute  :city
 
-      def uid
-        #return a unique key for your objects
-      end
-    end
-    
-    ....
-    object = MyClass.new
-    object.save
+  def uid
+    #return a unique key for your objects
+  end
+end
+#....
+object = MyClass.new
+object.save
+```
 
  This will save objects of class MyClass in
  `Rails.root/Rails.env/my_class/my_class.pstore`
@@ -35,7 +38,11 @@ Retrieve Objects from Store
 
 Later you can retrieve this objects with
 
-    object = MyClass.find( 'my_key' )
+```ruby
+
+object = MyClass.find( 'my_key' )
+object = MyClass.find_by( city: 'London' )
+```
 
 Read the specs `spec/model/store_spec.rb` to find out more about the
 Store-class.

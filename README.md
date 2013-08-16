@@ -12,6 +12,8 @@ This is a Rails4-Starter-Application.
   * HAML
   * SimpleCov
   * YARD
+  * _Code-Highlighting with
+    [Highlight.js](https://github.com/isagalaev/highlight.js)_
 
 **It DOESN'T:**
 
