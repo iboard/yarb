@@ -2,6 +2,7 @@ README
 ======
 
 This is a Rails4-Starter-Application.
+(See in [Action](http://yarb.iboard.cc/pages/welcome))
 
 **It integrates:**
 
