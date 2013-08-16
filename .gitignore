@@ -19,3 +19,4 @@ db/production
 /log/*.log
 /tmp
 TAGS
+Session.vim
