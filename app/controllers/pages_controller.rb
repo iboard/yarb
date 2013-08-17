@@ -12,12 +12,18 @@ class PagesController < ApplicationController
 
   rescue_from PageNotFoundError, with: :render_not_found
 
+  # Loading all *.md-files from project's root into Page-store
   before_filter :load_md_files
+
+  # Load @page if param :id is present
   before_filter :load_resource
+
+  # Redirect with access denied if action is not allowed
   before_filter :authorize_creators, only: [ :new, :create ]
   before_filter :authorize_editors,  only: [ :edit, :update ]
   before_filter :authorize_terminators, only: [ :destroy ]
   
+
   # GET /pages
   def index
     @pages = Page.all
@@ -31,7 +37,7 @@ class PagesController < ApplicationController
 
   # GET /pages/new
   def new
-    @page = Page.new title: ''
+    @page = Page.new
   end
 
   # POST /pages/create

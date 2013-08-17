@@ -7,7 +7,13 @@ class Page
   attribute  :body
 
   def initialize _attributes={}
-    set_attributes _attributes
+    set_attributes ensure_defaults(_attributes)
+  end
+
+  private
+  def ensure_defaults _attributes
+    (defaults||={})[:title] = ''
+    defaults.merge( _attributes )
   end
 
 end

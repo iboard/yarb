@@ -63,8 +63,7 @@ module Store
     def create! *args
       new_object = new(*args)
       prevent_duplicate_keys(new_object)
-      new_object.save
-      new_object
+      new_object.save or new_object
     end
 
 
@@ -73,7 +72,7 @@ module Store
     # @param [Array] args - are passed to the initializer of class
     # @return [Object] a new object of class.
     def create *args
-      create! *args
+      object = create! *args
     rescue DuplicateKeyError => e
       e.object.errors.add :base, e.message
       e.object
@@ -82,7 +81,7 @@ module Store
     # @return [Boolean] true if key exists
     def exist? _key
       store.transaction(:read_only) do |s| 
-        s.roots.any? { |r| r == _key }
+        s.roots.any? { |r| r.to_sym == _key.to_sym }
       end
     end
 
@@ -90,7 +89,7 @@ module Store
     # @param [String|Symbol] _key - the key of the object to find
     # @return [Object|nil]
     def find _key
-      _object = store.transaction(:read_only) { |s| s[_key.parameterize] }
+      _object = store.transaction(:read_only) { |s| s[prepare_key(_key)] }
       _object.send(:after_load) if _object
       _object
     end
@@ -99,7 +98,7 @@ module Store
     # @param [Symbol|string] _key
     # @return [nil|Object] the object removed if there is one.
     def delete _key
-      store.transaction() { |s| s.delete(_key) }
+      store.transaction() { |s| s.delete(prepare_key(_key)) }
     end
 
     # List all keys
@@ -128,7 +127,7 @@ module Store
     def key_method method
       @key_method = method
       validates_presence_of method
-      define_method(:key) { (self.send method).parameterize }
+      define_method(:key) { prepare_key(self.send method) }
     end
 
     # @return [Symbol] the key_method for this class
@@ -162,7 +161,7 @@ module Store
     # @param [Symbol] name - the Name of the attribute as symbol
     # @param [Object] default - the default value of the attribute
     def attribute name, default=nil
-      (@attribute_names||=[]) << [name, default]
+      (@attribute_definitions||=[]) << [name, default]
       class_eval do
         define_method name do
           instance_variable_get("@#{name.to_s}") || default
@@ -174,9 +173,9 @@ module Store
       end
     end
 
-    # @return [Hash] the attributes definitions.
-    def attributes
-      ( @attribute_names||[] ).map {|_attr| [ _attr[0].to_sym, _attr[1]  ]}
+    # @return [Hash] the attribute definitions.
+    def attribute_definitions
+      ( @attribute_definitions||[] ).map {|_attr| [ _attr[0].to_sym, _attr[1]  ]}
     end
 
     # @param [Symbol] _attribute - the attribute to search for
@@ -184,11 +183,15 @@ module Store
     # @return [Object|nil]
     def find_by _attribute, _value
       store.transaction(:read_only) do |s|
-        _key = s.roots.detect do |entry|
-          s[entry].send(_attribute).eql?(_value)
-        end
-        s[_key]
+        _key = s.roots.detect { |entry| s[entry].send(_attribute).eql?(_value) }
+        s[_key] if _key
       end
+    end
+
+    # @param [String|Symbol] _key
+    # @return [Symbol] - a parameterized symbol of key
+    def prepare_key _key
+      _key.to_s.parameterize
     end
 
     private
@@ -207,7 +210,7 @@ module Store
     end
 
     def prevent_duplicate_keys(object)
-      raise DuplicateKeyError.new( object ) if keys.include?(object.key.parameterize) 
+      raise DuplicateKeyError.new( object ) if keys.include?(object.key) 
     end
 
   end
@@ -218,12 +221,12 @@ module Store
     # Return the key as param
     # @return [String] key which can be used in hashes and URL-parameters.
     def to_param
-      key.parameterize
+      key
     end
 
     # @return [Hash] the attributes and their values.
     def attributes
-      self.class.attributes.map do |_key, _default|
+      self.class.attribute_definitions.map do |_key, _default|
         { _key => self.send(_key) || _default }
       end
     end
@@ -231,7 +234,7 @@ module Store
     # @param [Symbol] _field
     # @return [Object] the default-value for _field
     def default_of _field
-      _a = self.class.attributes.detect{|_attr,_default| _attr == _field}
+      _a = self.class.attribute_definitions.detect{|_attr,_default| _attr == _field}
       _a[DEFAULT_ID] if _a
     end
 
@@ -256,7 +259,7 @@ module Store
         store.transaction() { |s| s[self.key] = self }
         @new_record = false
       end
-      self.valid_without_errors?
+      self.valid_without_errors? and return self
     end
 
     # Remove the object from the store
@@ -298,10 +301,14 @@ module Store
 
     private
 
-    def set_attributes hash
-      self.class.attributes.each do |_key,_default|
-        _value = hash[_key]
-        self.send("#{_key}=", _value) if hash.has_key?(_key)
+    def prepare_key _key
+      self.class.prepare_key _key
+    end
+
+    def set_attributes _hash
+      hash = HashWithIndifferentAccess.new(_hash)
+      self.class.attribute_definitions.each do |_key,_default|
+        self.send("#{_key}=", hash.fetch(_key)) if hash.has_key?(_key) 
       end
     end
 

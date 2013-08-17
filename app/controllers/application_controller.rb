@@ -8,24 +8,33 @@ class ApplicationController < ActionController::Base
 
   # Make sure we have a session
   before_filter :init_session
+
+  # Set the locale from session if possible
   before_filter :set_locale
 
+  # get the current user which maybe a NilUser-object
   helper_method :current_user
+
+  # Is someone currently signed in?
   helper_method :signed_in?
 
+  # has the current user some roles?
   helper_method :has_roles?
+
+
   # GET /switch_locale/:locale
   def switch_locale
     I18n.locale = params[:locale].to_sym
     session[:locale] = params[:locale].to_sym
-    if request.env['HTTP_REFERER'].present?
-      redirect_to :back 
-    else
-      redirect_to root_path
-    end
+    redirect_to can_go_back? ? :back : root_path
   end
 
   private 
+
+  def can_go_back?
+    request.env['HTTP_REFERER'].present?
+  end
+
   def init_session
     session[:id] ||= Time.now.to_i.to_s + SecureRandom.hex(8)
   end
