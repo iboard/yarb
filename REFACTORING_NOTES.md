@@ -3,6 +3,8 @@ YARB Refactoring Notes
 
 ### Null-Objects are much better than if !nil? ;-)
 
+#### Commit: [Refactored current_user <=> NilUser](https://github.com/iboard/yarb/commit/0017ba577bcc004d51be3b1cccaa733a04aa1119)
+
 > I can't stand this `if current_user then current_user.something` all
 > over the views and controllers anymore.
 
