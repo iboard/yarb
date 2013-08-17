@@ -6,5 +6,6 @@
 
   .form-actions
     = f.submit t(:save), class: 'btn btn-primary'
-    = link_to icon('icon-remove')+t(:cancel), pages_path, class: 'btn btn-default'
+    = link_to icon_with_text('icon-remove',t(:cancel)), pages_path, class: 'btn btn-default'
+    .pull-right= render 'terminator_buttons', page: page
 

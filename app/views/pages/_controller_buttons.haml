@@ -1,0 +1,2 @@
+- if params[:action] != 'index' && params[:controller] == 'pages'
+  = link_to icon_with_text('icon-list',t(:pages)), pages_path,  class: 'btn'

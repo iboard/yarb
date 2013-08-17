@@ -1,5 +1,5 @@
-.pull-right
-  =link_to icon('icon-list')+t(:pages), pages_path, class: 'btn btn-default'
+.pull-right= list_button_tag t(:pages), pages_path
+
 %h1= t(:add_new_page)
 
 = render 'form', page: @page

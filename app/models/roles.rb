@@ -19,13 +19,7 @@ module Roles
     base.class_eval do
       attribute :roles, [] 
     end
-    base.send( :extend,  ClassMethods )
     base.send( :include, InstanceMethods )
-  end
-
-  # Defines class-methods for the including class
-  module ClassMethods
-
   end
 
   # Defines instance methods for objects of classes which includs this module
@@ -36,6 +30,7 @@ module Roles
     def has_role? role
       roles.map(&:to_sym).include?(role.to_sym)
     end
+
   end
 
 end

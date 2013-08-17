@@ -36,18 +36,16 @@ class ApplicationController < ActionController::Base
   end
 
   def init_session
-    session[:id] ||= Time.now.to_i.to_s + SecureRandom.hex(8)
+    session[:session_started_at] ||= Time.now
   end
 
   def current_user
     return NilUser.new unless session[:user_id]
-    User.find_by :id, session[:user_id] || NilUser.new
+    User.find_by(:id, session[:user_id]) || NilUser.new
   end
 
   def has_roles? roles
-    roles.any? do |role|
-      current_user.has_role? role
-    end
+    roles.any? { |role| current_user.has_role? role }
   end
 
   def set_locale

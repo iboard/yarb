@@ -1,3 +1,5 @@
+# Execute higlight.js on code-blocks
+
 jQuery ->
 
   $(document).ready ->

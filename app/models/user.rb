@@ -2,7 +2,7 @@ require 'bcrypt'
 
 # The User-class 
 # * uses BCrypt to encrypt passwords
-# * key :id is equal to :email (parameterized)
+# * key :id is equal to :email but used parameterized by module Store
 class User
 
   include Store

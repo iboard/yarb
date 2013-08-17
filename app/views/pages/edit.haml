@@ -1,8 +1,6 @@
 .pull-right
   .btn-group
-    =link_to icon('icon-list')+t(:pages), pages_path, class: 'btn btn-default'
-    - if has_roles?( PagesController::PAGE_TERMINATOR_ROLES )
-      = link_to icon('icon-trash icon-white')+t(:delete), page_path(@page), method: :delete, data: { confirm: t(:are_you_sure) }, class: 'btn btn-danger'
+    = render 'controller_buttons', page: @page
 
 %h1= t(:edit_page)
 = render 'form', page: @page
