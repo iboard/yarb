@@ -1,5 +1,6 @@
 require 'pstore'
 require_relative './attribute_definition'
+require_relative './attribute_definitions'
 
 # A Wrapper for PStore
 # @example
@@ -25,12 +26,6 @@ require_relative './attribute_definition'
 #   # re_read is the same object as before
 #   # read from .../db/:env/my_class/my_class.pstore
 module Store
-
-  # Array-index of fieldname in klass.attributes
-  FIELD_ID   = 0
-
-  # Array-index of field-default in klass.attributes
-  DEFAULT_ID = 1
 
   # extend the class with ClassMethods and
   # include InstanceMethods to each object of this class
