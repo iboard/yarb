@@ -11,11 +11,12 @@ This is a Rails4-Starter-Application.
 
 Ready to be used with
 
-  * rvm 1.9.3
-  * rvm 2.0.0
-  * Temporarily disabled
-    * --rbx-19mode-- Errors with BCrypt and Marshal
-    * --jruby-19mode-- Errors with BCrypt and Marshal
+  * Should be green – see badge on the right
+    * rvm 1.9.3
+    * rvm 2.0.0
+  * _Temporarily disabled_
+    * rbx-19mode – _Errors with BCrypt and Marshal_ –
+    * jruby-19mode – _Errors with BCrypt and Marshal_ –
 
 **It integrates:**
 
@@ -69,9 +70,9 @@ of specs will give you an idea what the app is doing so far.
 Continuous Testing
 ------------------
 
-The app uses [Travis-CI](https://travis-ci.org) to continuous testing
-the integration with different Ruby-environments. _See the list above,
-and the the bdage representing the current state on Travis-CI.
+The app uses [Travis-CI](https://travis-ci.org/iboard/yarb) for continuous testing
+the integration with different Ruby-environments. – _See the list of
+tested rubies and the current Travis-state on top of this page._
 
 The Starter App
 ===============
