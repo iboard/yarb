@@ -15,7 +15,8 @@
 module Roles
 
   # Default roles
-  ROLES = %i(guest confirmed author editor maintainer admin)
+  # Ruby 2.0 only # ROLES = %i(guest confirmed author editor maintainer admin)
+  ROLES = [ :guest, :confirmed, :author, :editor, :maintainer, :admin ]
 
   def self.included base
     base.class_eval do
