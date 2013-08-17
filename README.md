@@ -2,7 +2,7 @@ README
 ======
 
 This is a Rails4-Starter-Application.
-(See in [Action](http://yarb.iboard.cc/pages/welcome))
+(See in [Action](http://yarb.iboard.cc/))
 
 <div style='float: right; padding: 1em; margin-right: 1em; border: 1px solid #ddd; border-radius: 0.25em; '>
 <strong>Travis-CI</strong><br/>
