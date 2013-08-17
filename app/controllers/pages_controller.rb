@@ -4,10 +4,12 @@
 class PagesController < ApplicationController
 
   # Roles which can create pages
-  PAGE_CREATOR_ROLES = %i( admin author editor maintainer )
+  # ruby 2.0 only # PAGE_CREATOR_ROLES = %i( admin author editor maintainer )
+  PAGE_CREATOR_ROLES = [ :admin, :author, :editor, :maintainer ]
 
   # Roles which can edit pages
-  PAGE_EDITOR_ROLES  = %i( admin editor maintainer )
+  # ruby 2.0 only #PAGE_EDITOR_ROLES  = %i( admin editor maintainer )
+  PAGE_EDITOR_ROLES  = [ :admin, :editor, :maintainer ]
 
   # Roles which can delete pages
   PAGE_TERMINATOR_ROLES  = %i( admin maintainer )
