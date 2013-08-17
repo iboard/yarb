@@ -1,8 +1,7 @@
 YARB Refactoring Notes
 ======================
 
-Null-Objects are much better than if !nil? ;-), 2013-08-16, Andi
-----------------------------------------------------------------
+### Null-Objects are much better than if !nil? ;-)
 
 > I can't stand this `if current_user then current_user.something` all
 > over the views and controllers anymore.
@@ -29,10 +28,9 @@ we now can write just
 
 
 
-Extract parameter-pairs into a class, 2013-08-16, Andi
-------------------------------------------------------
+###Extract parameter-pairs into a class
 
-### commit: [Extracted Attribute-definition-pairs into a class](https://github.com/iboard/yarb/commit/b5a4829ca6176385f7f31173466d0bb2193de758)
+#### commit: [Extracted Attribute-definition-pairs into a class](https://github.com/iboard/yarb/commit/b5a4829ca6176385f7f31173466d0bb2193de758)
 
 > Attribute-definitions exists as a pair of :key, :default, and :key, :value 
 > and it became a mess to type this Array-braces everywhere.
@@ -89,8 +87,7 @@ Also I got rid of two unused constants. Unfortunately, `SimpleCov` will
 not report them as untested even if they're not used. They are assigned
 and that's why they are 'covered' when the app runs.
 
-Standard Cleaning, 2013-08-17, Andi
------------------------------------
+### Standard Cleaning
 
 #### commit: [Cleaned up all the code](https://github.com/iboard/yarb/commit/630b6a093fa31c4aced6556bc1c12ae1d7bb722f)
 
@@ -99,8 +96,7 @@ Standard Cleaning, 2013-08-17, Andi
 > possible.
 
 
-Syntactic Sugar and Beauty,  2013-08-17, Andi
----------------------------------------------
+### Syntactic Sugar and Beauty
 
 #### commit: [In a perfect clean mood](https://github.com/iboard/yarb/commit/eb4eab2fffa01318fb3947d76d6974b414b17807)
 
@@ -112,8 +108,7 @@ This change seams to be ridiculous at the moment, tho. Little changes like this
 maybe a real time-safer when the project grows.
 
 
-Prevent from duplication, 2013-08-17, Andi
-------------------------------------------
+### Prevent from duplication
 
 #### commit: [Found one more](https://github.com/iboard/yarb/commit/9189087a35ab2e122dc29c3084c12a49dc73730b)
 
