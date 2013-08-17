@@ -12,7 +12,8 @@ class PagesController < ApplicationController
   PAGE_EDITOR_ROLES  = [ :admin, :editor, :maintainer ]
 
   # Roles which can delete pages
-  PAGE_TERMINATOR_ROLES  = %i( admin maintainer )
+  # ruby 2.0 only #PAGE_TERMINATOR_ROLES  = %i( admin maintainer )
+  PAGE_TERMINATOR_ROLES  = [ :admin, :maintainer ]
 
   rescue_from PageNotFoundError, with: :render_not_found
 
