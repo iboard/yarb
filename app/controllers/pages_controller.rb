@@ -13,7 +13,7 @@ class PagesController < ApplicationController
   rescue_from PageNotFoundError, with: :render_not_found
 
   # Loading all *.md-files from project's root into Page-store
-  before_filter :load_md_files
+  before_filter :refresh_md_files
 
   # Load @page if param :id is present
   before_filter :load_resource
@@ -22,7 +22,7 @@ class PagesController < ApplicationController
   before_filter :authorize_creators, only: [ :new, :create ]
   before_filter :authorize_editors,  only: [ :edit, :update ]
   before_filter :authorize_terminators, only: [ :destroy ]
-  
+
 
   # GET /pages
   def index
@@ -71,7 +71,8 @@ class PagesController < ApplicationController
   end
 
   private
-  def load_md_files
+
+  def refresh_md_files
     Dir[File.join(Rails.root,'*.md')].each do |file|
       _title = title_of_md_file file
       page = Page.find(_title) || Page.create( title: _title.upcase )

@@ -21,6 +21,7 @@ class User
   # id is used as the key_method.
   # Since keys are parameterized we can't use email directly 
   # Therefore we return the email-field as id.
+  # TODO: Something smells here - refactor this.
   # @return [String]
   def id
     email

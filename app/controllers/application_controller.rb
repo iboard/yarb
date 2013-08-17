@@ -24,8 +24,7 @@ class ApplicationController < ActionController::Base
 
   # GET /switch_locale/:locale
   def switch_locale
-    I18n.locale = params[:locale].to_sym
-    session[:locale] = params[:locale].to_sym
+    I18n.locale = session[:locale] = params[:locale].to_sym
     redirect_to can_go_back? ? :back : root_path
   end
 
@@ -40,7 +39,6 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    return NilUser.new unless session[:user_id]
     User.find_by(:id, session[:user_id]) || NilUser.new
   end
 

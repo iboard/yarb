@@ -7,3 +7,7 @@ This TODO.md-file is used for quick-notes and brainstorming only.
 
 
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
+1. TODO: Should landing-page display the 'Welcome-page' if one with this
+         title exists?
+1. TODO: Create a `COLLABORATION.md` with instructions for
+         collaborators.         
