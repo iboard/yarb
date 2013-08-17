@@ -1,4 +1,5 @@
 require 'pstore'
+require_relative './attribute_definition'
 
 # A Wrapper for PStore
 # @example
@@ -161,7 +162,7 @@ module Store
     # @param [Symbol] name - the Name of the attribute as symbol
     # @param [Object] default - the default value of the attribute
     def attribute name, default=nil
-      (@attribute_definitions||=[]) << [name, default]
+      attribute_definitions << AttributeDefinition.new( name, default )
       class_eval do
         define_method name do
           instance_variable_get("@#{name.to_s}") || default
@@ -173,9 +174,9 @@ module Store
       end
     end
 
-    # @return [Hash] the attribute definitions.
+    # @return [AttributeDefinitions] the attribute definitions for this class.
     def attribute_definitions
-      ( @attribute_definitions||[] ).map {|_attr| [ _attr[0].to_sym, _attr[1]  ]}
+      @attribute_definitions ||= AttributeDefinitions.new
     end
 
     # @param [Symbol] _attribute - the attribute to search for
@@ -226,16 +227,13 @@ module Store
 
     # @return [Hash] the attributes and their values.
     def attributes
-      self.class.attribute_definitions.map do |_key, _default|
-        { _key => self.send(_key) || _default }
-      end
+      attribute_definitions.get_hashmap_for(self)
     end
 
     # @param [Symbol] _field
     # @return [Object] the default-value for _field
     def default_of _field
-      _a = self.class.attribute_definitions.detect{|_attr,_default| _attr == _field}
-      _a[DEFAULT_ID] if _a
+      attribute_definitions.default_of _field
     end
 
     # Update all attributes, listed in Class.attributes.
@@ -305,11 +303,13 @@ module Store
       self.class.prepare_key _key
     end
 
+    def attribute_definitions
+      self.class.attribute_definitions
+    end
+
     def set_attributes _hash
       hash = HashWithIndifferentAccess.new(_hash)
-      self.class.attribute_definitions.each do |_key,_default|
-        self.send("#{_key}=", hash.fetch(_key)) if hash.has_key?(_key) 
-      end
+      attribute_definitions.update(self,hash)
     end
 
     def proof_key

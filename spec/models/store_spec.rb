@@ -70,7 +70,7 @@ describe Store do
         expect( @object.attributes).to eq( [ 
           { my_field: 'object to test' }, { my_other_field: 'with a default' } 
         ] )
-        
+
         expect( @object.my_field ).to eq( 'object to test' )
         expect( @object.my_other_field ).to eq( 'with a default' )
         expect( @object.default_of(:my_other_field)).to eq('with a default')
