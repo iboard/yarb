@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+
 # Global Application Controller.
 #   Define all global accessible Controller methods here 
 class ApplicationController < ActionController::Base

@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # Thrown when pages-controller couldn't find the page
 class PageNotFoundError < Exception
 

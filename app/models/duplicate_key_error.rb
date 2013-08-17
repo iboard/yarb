@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # Thrown when Store tries to save an entry with an already existing key
 class DuplicateKeyError < Exception
 

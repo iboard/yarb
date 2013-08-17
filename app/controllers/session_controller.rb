@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # The SessionController handles log-in and log-out
 # by setting a valid's user-id to session[:user_id]
 class SessionController < ApplicationController

@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # Used when otherwise no user would exist.
 # Used especially instead of `if current_user`
 class NilUser

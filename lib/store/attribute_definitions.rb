@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 module Store
 
   # A List of AttributeDefiniton-object

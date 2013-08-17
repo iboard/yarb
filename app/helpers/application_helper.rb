@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # Define global accessible view-helpers here.
 module ApplicationHelper
 

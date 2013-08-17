@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 module Store
 
   # An AttributeDefinition holds information about a Store-attribute

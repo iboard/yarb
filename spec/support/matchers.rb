@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 RSpec::Matchers.define :match_exactly do |expected_match_count, selector|
   match do |context|
     matching = context.all(selector)

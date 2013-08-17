@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require_relative '../spec_helper'
 
 describe NilUser, 'A replacement for if current_user ....' do

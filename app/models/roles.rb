@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # Can be used for classes which include Store
 # @example
 #   class User

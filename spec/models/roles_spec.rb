@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 require_relative '../spec_helper'
 
 describe Roles, 'A module to be used in user-classes' do

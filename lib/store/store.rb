@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 require 'pstore'
 require_relative './attribute_definition'
 require_relative './attribute_definitions'

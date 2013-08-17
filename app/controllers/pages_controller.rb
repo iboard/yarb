@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # The Rails Controller for model Page
 class PagesController < ApplicationController
 

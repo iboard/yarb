@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 # Object Page acts as an ActiveModel and uses Store for persistence.
 class Page
 

@@ -1,3 +1,5 @@
+# -*- encoding : utf-8 -*-
+#
 Yarb::Application.routes.draw do
 
   root 'landings#index'
