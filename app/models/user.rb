@@ -32,12 +32,14 @@ class User
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
   # @return [String] the crypted password string
   def password
-     @password ||= Password.new(password_digest)
+     @password ||= Password.new(password_digest) unless password_digest.nil?
   end
 
-  # Set new crypted password
+  # Set new crypted password from plain_text parameter.
+  # If new_password is nil, a random hex-password will be set.
   # @param [String] new_password (plain text)
   def password= new_password
+    new_password ||= SecureRandom::hex(8).to_s
     @password = Password.create(new_password)
     self.password_digest = @password
   end
