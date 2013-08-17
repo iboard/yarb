@@ -1,6 +1,11 @@
 YARB Refactoring Notes
 ======================
 
+<!-- Place this tag where you want the +1 button to render. -->
+<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+----
+
 ### Null-Objects are much better than if !nil? ;-)
 
 #### Commit: [Refactored current_user <=> NilUser](https://github.com/iboard/yarb/commit/0017ba577bcc004d51be3b1cccaa733a04aa1119)
@@ -128,3 +133,11 @@ thus a user –_when I talk about a user here, I mean a programmer using
 this code, not a consumer_– can benefit from and use it instead of
 defining a duple. 
 
+<!-- Place this tag after the last +1 button tag. -->
+<script type="text/javascript">
+  (function() {
+var po = document.createElement('script'); po.type = 'text/javascript'; po.async = true;
+  po.src = 'https://apis.google.com/js/plusone.js';
+  var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(po, s);
+})();
+</script>
