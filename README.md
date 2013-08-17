@@ -14,6 +14,8 @@ Ready to be used with
   * rvm 1.9.3
   * rvm 2.0.0
   * rbx-19mode
+  * rbx-19mode
+  * jruby-19mode
 
 **It integrates:**
 
@@ -57,6 +59,20 @@ What You Can do
   * Run `rake` to run all specs and then `open coverage/index.html` to see your test-coverage.
   * Run `yard` to generate the current documentation and `open doc/index.html`
 
+TDD
+===
+
+The project follows 100% TDD. Run `rake` to run all test.
+To get more response as green dots run `rspec -f d`. The readable list
+of specs will give you an idea what the app is doing so far.
+
+Continuous Testing
+------------------
+
+The app uses [Travis-CI](https://travis-ci.org) to continuous testing
+the integration with different Ruby-environments. _See the list above,
+and the the bdage representing the current state on Travis-CI.
+
 The Starter App
 ===============
 
@@ -65,8 +81,8 @@ The Starter App
   * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
   * Overwrite Bootstrap-css in `app/assets/stylesheets/_bootstrap_overwrite.scss`
   
-Features
---------
+APP-Features
+------------
 
   * Reads all *md-files from project's root and stores them as Pages.
   * `/pages` lists all pages with Edit- and Delete- Buttons.
