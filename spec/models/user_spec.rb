@@ -31,7 +31,7 @@ describe User do
   end
 
   it "has roles" do
-    u = User.new email: 'admin@example.com', name: 'Admin', roles: %i(admin)
+    u = User.new email: 'admin@example.com', name: 'Admin', roles: [:admin]
     expect(u.has_role?(:admin)).to be_true
     expect(u.has_role?(:root)).to be_false
   end
