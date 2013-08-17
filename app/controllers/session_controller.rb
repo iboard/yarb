@@ -21,7 +21,7 @@ class SessionController < ApplicationController
   # DELETE /sign_out
   def delete
     session.destroy
-    redirect_to ( can_go_back? ? :back : root_path ), notice: t(:successfully_signed_out)
+    redirect_back_or_to root_path, notice: t(:successfully_signed_out)
   end
 
 end

@@ -25,7 +25,19 @@ class ApplicationController < ActionController::Base
   # GET /switch_locale/:locale
   def switch_locale
     I18n.locale = session[:locale] = params[:locale].to_sym
-    redirect_to can_go_back? ? :back : root_path
+    redirect_back_or_to root_path
+  end
+
+  # @return [Boolean] if current_user is logged ins
+  def signed_in?
+    !current_user.is_a?(NilUser)
+  end
+
+  # If we have a REFERRER redirect :back otherwise to the given path
+  # @param [Array] args the args passed to redirect_to
+  def redirect_back_or_to *args
+    path = args.shift
+    redirect_to (can_go_back? ? :back : path), *args
   end
 
   private 
@@ -50,10 +62,6 @@ class ApplicationController < ActionController::Base
     unless params[:locale]
       I18n.locale = session[:locale] || I18n.default_locale
     end
-  end
-
-  def signed_in?
-    !current_user.is_a?(NilUser)
   end
 
 end
