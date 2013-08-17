@@ -11,3 +11,5 @@ This TODO.md-file is used for quick-notes and brainstorming only.
          title exists?
 1. TODO: Create a `COLLABORATION.md` with instructions for
          collaborators.         
+1. TODO: Investigate in 'invalid hash error' with "rbx-19mode", and
+         "jruby-19mode" on Travis-CI (disabled at the moment)

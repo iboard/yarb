@@ -13,9 +13,9 @@ Ready to be used with
 
   * rvm 1.9.3
   * rvm 2.0.0
-  * rbx-19mode
-  * rbx-19mode
-  * jruby-19mode
+  * Temporarily disabled
+    * --rbx-19mode-- Errors with BCrypt and Marshal
+    * --jruby-19mode-- Errors with BCrypt and Marshal
 
 **It integrates:**
 
