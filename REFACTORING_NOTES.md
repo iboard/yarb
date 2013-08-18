@@ -6,7 +6,7 @@ YARB Refactoring Notes
 
 ----
 
-### Null-Objects are much better than if !nil? ;-)
+## Null-Objects are much better than if !nil? ;-)
 
 #### Commit: [Refactored current_user <=> NilUser](https://github.com/iboard/yarb/commit/0017ba577bcc004d51be3b1cccaa733a04aa1119)
 
@@ -33,9 +33,9 @@ we now can write just
 = current_user.name
 ```
 
+----
 
-
-###Extract parameter-pairs into a class
+##Extract parameter-pairs into a class
 
 #### commit: [Extracted Attribute-definition-pairs into a class](https://github.com/iboard/yarb/commit/b5a4829ca6176385f7f31173466d0bb2193de758)
 
@@ -65,10 +65,9 @@ With this two new classes you'll see a lot of improvement in the sense
 of *_Tell, don't Ask_* within the Store-module.
 
 
+----
 
-
-A Bugfix for production and a redesign
---------------------------------------
+##A Bugfix for production and a redesign
 
 #### commit: [Move Store from modules to lib](https://github.com/iboard/yarb/commit/d28802d33388da1fcfdfd45e32a113f408b8bcba)
 
@@ -94,7 +93,9 @@ Also I got rid of two unused constants. Unfortunately, `SimpleCov` will
 not report them as untested even if they're not used. They are assigned
 and that's why they are 'covered' when the app runs.
 
-### Standard Cleaning
+----
+
+## Standard Cleaning
 
 #### commit: [Cleaned up all the code](https://github.com/iboard/yarb/commit/630b6a093fa31c4aced6556bc1c12ae1d7bb722f)
 
@@ -102,8 +103,9 @@ and that's why they are 'covered' when the app runs.
 > extracting partials, define helpers, make one-liners, wherever it's
 > possible.
 
+----
 
-### Syntactic Sugar and Beauty
+## Syntactic Sugar and Beauty
 
 #### commit: [In a perfect clean mood](https://github.com/iboard/yarb/commit/eb4eab2fffa01318fb3947d76d6974b414b17807)
 
@@ -114,8 +116,9 @@ and that's why they are 'covered' when the app runs.
 This change seams to be ridiculous at the moment, tho. Little changes like this 
 maybe a real time-safer when the project grows.
 
+----
 
-### Prevent from duplication
+## Prevent from duplication
 
 #### commit: [Found one more](https://github.com/iboard/yarb/commit/9189087a35ab2e122dc29c3084c12a49dc73730b)
 
