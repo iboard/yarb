@@ -16,32 +16,60 @@ Define The Class
   
 ```ruby
 
-class MyClass
-  include Store
-  key_method :uid
-  attribute  :city
+class Page
 
-  def uid
-    #return a unique key for your objects
+  include Store
+  key_method :title
+  attribute  :title
+  attribute  :body
+
+  def initialize _attributes={}
+    set_attributes ensure_defaults(_attributes)
   end
+
 end
-#....
-object = MyClass.new
-object.save
 ```
 
- This will save objects of class MyClass in
- `Rails.root/Rails.env/my_class/my_class.pstore`
+This will save objects of class Page in `Rails.root/Rails.env/page/page.pstore`
+
+You can create and use the objects just as you know from Rails
+
+```ruby
+# PagesController ...
+
+  # GET /pages/new
+  def new
+    @page = Page.new
+  end
+
+  # POST /pages/create
+  def create
+    @page = Page.create( params[:page] )
+    if @page.valid_without_errors?   # <=== (1)
+      redirect_to page_path( @page )
+    else
+      flash.now[:alert]= t(:could_not_be_saved, what: t(:page))
+      render :new
+    end
+  end
+   
+```
+ 
+*(1)* You may use `.valid?` though, `valid_without_error?` not only
+ checks on attribute-validations but also on other aspects of the
+ Store-object.
  
 Retrieve Objects from Store
 ----------------------------
 
-Later you can retrieve this objects with
+You can retrieve this objects with
 
 ```ruby
 
-object = MyClass.find( 'my_key' )
-object = MyClass.find_by( city: 'London' )
+page = Page.create title: 'My First Page', body: 'Hello World'
+page = Page.find( 'my-first-page' )
+page = Page.find_by( body: 'Hello World' )
+
 ```
 
 Read the specs `spec/model/store_spec.rb` to find out more about the
@@ -53,6 +81,29 @@ How You Can Use It In Rails
 
 See class `app/models/page.rb` and `app/controllers/pages_controller.rb`
 how you can use it as an `ActiveModel` within Rails.
+
+
+```ruby
+
+class User
+
+  include Store
+  include BCrypt
+  include Roles
+
+  key_method :id
+  attribute  :email
+  validates_presence_of :email
+
+  attribute  :name
+  validates_presence_of :name
+
+  attribute :password_digest
+  
+  # [...]
+end
+
+```
 
 
 
