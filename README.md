@@ -122,11 +122,6 @@ Sure, this is just a demonstration and it still depends on ActiveModel,
 you may argument. Anyway, if you take a look at, what is used from
 ActiveModel, you will see… not much.
 
-And since development should be done in a cycle of
-red-green-refactor, the next step shall be to get rid of this
-dependencies or make it less dominating –means, the dependency should be
-a matter of only a few LOC.
-
 When I decide to use ActiveModel, it was not about, “I’m using
 ActiveModel, so, how I have to implement validations?”. The question
 was, “Ok, every Store-model will have a need of validations; let’s see 
