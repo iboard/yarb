@@ -102,6 +102,37 @@ Contribution
     [Github](https://github.com/iboard/yarb/issues)
 
 
+Why use Pstore instead of ActiveRecord, MongoId, ...
+====================================================
+
+> If you start your application-development after you decide to use
+> ActiveRecord, MongoId, whathever, you may find yourself developing
+> an AR, Mongo, Whatever application.
+> Postpone this decision as long as possible and start developing
+> *Your-Application*. 
+
+*[PStore](http://ruby-doc.org/stdlib-1.9.3/libdoc/pstore/rdoc/PStore.html)* is a class from ruby's standard-library.
+
+_YARB_ implements as less as possible on the
+'ORM-side' to give you a Layer/Interface to persist your data.
+Moving from this to a 'real' ORM should not be that challenge and
+should be doable by changing a few lines.
+
+Sure, this is just a demonstration and it still depends on ActiveModel,
+you may argument. Anyway, if you take a look at, what is used from
+ActiveModel, you will see… not much.
+
+And since development should be done in a cycle of
+red-green-refactor, the next step shall be to get rid of this
+dependencies or make it less dominating –means, the dependency should be
+a matter of only a few LOC.
+
+When I decide to use ActiveModel, it was not about, “I’m using
+ActiveModel, so, how I have to implement validations?”. The question
+was, “Ok, every Store-model will have a need of validations; let’s see 
+how easy it is to do this with ActiveModel::Validations.”
+
+
 License: MIT
 ============
 
