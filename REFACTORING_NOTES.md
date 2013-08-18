@@ -30,6 +30,7 @@ Instead of
 we now can write just
 
 ```haml
+
 = current_user.name
 ```
 
@@ -45,12 +46,14 @@ we now can write just
 > can pass a single parameter instead of the array.
 
 ```ruby
+
 (@attribute_definitions||=[]) << [name, default]
 ```
 
 will become
 
 ```ruby
+
 attribute_definitions << AttributeDefinition.new( name, default )
 ```
 

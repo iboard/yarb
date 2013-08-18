@@ -1,9 +1,11 @@
+@import '_variables';
+
 article {
 
-  line-height: 150%;
+  line-height: $standardLineHeight;
 
   li {
-    line-height: 150%;
+    line-height: $standardLineHeight;
   }
 
 }
