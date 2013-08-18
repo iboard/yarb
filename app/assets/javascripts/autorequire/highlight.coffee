@@ -17,7 +17,7 @@ jQuery ->
 # But what we need for Highlight.js is:
 #   <pre>
 #     <code class='ruby'>
-class CodeHighlighter
+class @CodeHighlighter
 
   constructor: (element) ->
     if element.children().length > 0

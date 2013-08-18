@@ -1,0 +1,7 @@
+src_dir: public/javascripts/compiled
+src_files:
+  - **/*.js
+
+spec_dir: spec/javascripts/compiled
+spec_files:
+- **/*_spec.js
