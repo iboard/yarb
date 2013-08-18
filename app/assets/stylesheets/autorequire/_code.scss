@@ -1,8 +1,15 @@
-pre {
-  padding: 0px;
+pre code {
+  overflow: scroll;
+  white-space: pre-wrap;
+  padding-left: 0.5em;
+  padding-top: 0.5em;
   margin: 0px;
 }
 
 pre {
+  overflow: scroll;
+  white-space: pre-line;
+  text-wrap: none;
+  word-wrap: none;
   margin-bottom: 1em;
 }
