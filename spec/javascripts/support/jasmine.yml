@@ -4,4 +4,8 @@ src_files:
 
 spec_dir: spec/javascripts/compiled
 spec_files:
-- **/*_spec.js
+  - **/*_spec.js
+
+asset_pipeline_paths:
+  - app/assets
+  - spec/javascripts
