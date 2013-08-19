@@ -41,7 +41,7 @@ class User
   def password= new_password
     new_password ||= SecureRandom::hex(8).to_s
     @password = Password.create(new_password)
-    self.password_digest = @password
+    self.password_digest = @password.to_s
   end
 
   # @param [String] _password (plain-text)

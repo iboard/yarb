@@ -30,7 +30,7 @@ class Page
 end
 ```
 
-This will save objects of class Page in `Rails.root/Rails.env/page/page.pstore`
+This will save objects of class Page in `Rails.root/db/Rails.env/page/page.pstore`
 
 You can create and use the objects just as you know from Rails
 

@@ -251,8 +251,8 @@ module Store
     def save
       if proof_key
         @original_key = self.key
-        store.transaction() { |s| s[self.key] = self }
         @new_record = false
+        store.transaction() { |s| s[self.key] = self }
       end
       self.valid_without_errors? and return self
     end

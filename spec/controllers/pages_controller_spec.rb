@@ -155,7 +155,7 @@ describe PagesController do
           end
         end
 
-        it 'can delete pages' do
+        it 'can delete pages'  do
           page.find('#page-delete-me a', text: 'Delete', match: :prefer_exact ).click()
           page_should_have_notice page, 'Page "Delete Me" successfully deleted.'
           Page.find('delete-me').should be_nil
@@ -202,6 +202,11 @@ describe PagesController do
           Page.find('existing-key').body.should eq('Do not touch')
           Page.find('any-key').should be_nil
           Page.find('another-key').body.strip.should eq('Valid page')
+        end
+
+        it "doesn't show delete-button if page.new?" do
+          visit new_page_path
+          page.should_not have_link('Delete')
         end
 
       end

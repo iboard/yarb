@@ -1,2 +1,4 @@
-- if has_roles? PagesController::PAGE_TERMINATOR_ROLES
-  = delete_link_tag page_path(page)
+- unless page.new_record?
+  - if has_roles? PagesController::PAGE_TERMINATOR_ROLES
+    = delete_link_tag page_path(page) 
+
