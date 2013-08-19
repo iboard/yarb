@@ -8,6 +8,16 @@ Instead it implements a simple wrapper-module to store your objects
 in simple
 [PStore](http://ruby-doc.org/stdlib-1.9.3/libdoc/pstore/rdoc/PStore.html)-files.
 
+Although, it depends on ActiveModel! There are ideas to get rid of this
+dependency, in order to support not only Rails but also Sinatra and any
+other ruby-web or non-web applications.
+
+On the 'persistent-layer' this application depends on _PStore_ only –which is a
+ruby-standard-lib-model–. So, we are in the green here. But validations
+and naming used by including ActiveModel. The idea is to implement the
+necessary methods within Store, thus we can use _Store_ in any other
+ruby-environment, not only for Rails. (Sinatra, command-line, whatever)
+
 Example
 =======
 

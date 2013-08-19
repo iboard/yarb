@@ -1,5 +1,6 @@
 jQuery ->
 
+  # Initialize the globalAction class
   $(document).ready -> new GlobalActions()
 
 
@@ -9,6 +10,10 @@ class @GlobalActions
     $.fn.globalActor = this
     @installHooks()
 
+  # 
+  # install jQuery-callbacks for various selectors and call
+  # GlobalAction-Function when it's triggerd.
+  #
   installHooks: ->
     $('header .navbar .navbar-inner .container').on 'click', event, ->
       $(window).globalActor.scrollPageToTop()
@@ -16,5 +21,10 @@ class @GlobalActions
     $('footer .container').on 'click', event, ->
       $(window).globalActor.scrollPageToTop()
 
+  #
+  # Functions called by hooks
+  #
   scrollPageToTop: =>
     $('body').animate( { scrollTop: 0 }, 250 )
+
+
