@@ -39,8 +39,8 @@ class User
   # If new_password is nil, a random hex-password will be set.
   # @param [String] new_password (plain text)
   def password= new_password
-    new_password ||= SecureRandom::hex(8).to_s
-    @password = Password.create(new_password)
+    new_password ||= SecureRandom::hex(8)
+    @password = Password.create new_password
     self.password_digest = @password.to_s
   end
 

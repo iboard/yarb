@@ -1,11 +1,11 @@
 = render_errors_for page
-= simple_form_for page, html: {class: 'form form-vertical' } do |f|
+= simple_form_for page, html: { class: standard_form_classes } do |f|
 
   = f.input :title, input_html: { class: 'full-width' }
   = f.input :body, as: :text, input_html: { rows: 20, class: 'full-width' }
 
   .form-actions
-    = f.submit t(:save), class: 'btn btn-primary'
-    = link_to icon_with_text('icon-remove',t(:cancel)), pages_path, class: 'btn btn-default'
+    = f.submit t(:save), class: save_button_classes 
+    = cancel_button_tag t(:cancel),  pages_path
     .pull-right= render 'terminator_buttons', page: page
 

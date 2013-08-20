@@ -24,7 +24,7 @@ class @GlobalActions
   #
   # Functions called by hooks
   #
-  scrollPageToTop: =>
+  scrollPageToTop: ->
     $('body').animate( { scrollTop: 0 }, 250 )
 
 

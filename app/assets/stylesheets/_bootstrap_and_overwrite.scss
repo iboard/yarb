@@ -1,10 +1,16 @@
 @import '_variables';
 @import 'bootstrap';
 
+/*
+  Set font for header
+*/
 .nav, .alert, .brand {
   font-family: $headingsFontFamily;
 }
 
+/*
+  Set font for buttons and navigation
+*/
 .btn, .nav {
   font-family: $headingsFontFamily;
   font-size: $btnFontSize !important;

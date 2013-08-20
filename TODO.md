@@ -13,5 +13,7 @@ This TODO.md-file is used for quick-notes and brainstorming only.
          collaborators.         
 1. TODO: Investigate in 'invalid hash error' with "rbx-19mode", and
          "jruby-19mode" on Travis-CI (disabled at the moment)
+1. TODO: Localize Error Messages in exceptions         
+1. TODO: Redirect to the page where 'Sign In' was clicked.         
 1. TODO: There is a dependency we should get rid of. Store depends on
          Rails ActiveModel::**.

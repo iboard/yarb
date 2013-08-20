@@ -27,14 +27,14 @@ class @CodeHighlighter
         @getLangFromSurroundingPre()
         @highlight()
         @removeLangFromSurroundingPre()
-    
-  getLangFromSurroundingPre: () =>
+
+  getLangFromSurroundingPre:  =>
     @lang = @element[0].lang
-    
-  removeLangFromSurroundingPre: () =>
+
+  removeLangFromSurroundingPre:  =>
     @element.parent().attr('lang', null )
 
-  highlight: () =>
+  highlight: =>
     @code.addClass(@lang)
     _hl = hljs.highlightAuto(@code.text())
     @code[0].innerHTML = _hl.value

@@ -5,31 +5,44 @@
 
 $bodyBackground: #fffefd;
 
-
 $sansFontFamily:     ff-tisa-web-pro, Georgia, Cambria,Times New Roman, Times,serif;
 $headingsFontFamily: freight-sans-pro, Myriad Pro, Lucida Grande, Lucida Sans Unicode, Lucida Sans, Geneva,Verdana, sans-serif;
 
+/* Base settings */
+$baseFontSize: 21px;
+$baseLineHeight: 25px;
+$standardLineHeight: $baseLineHeight * 1.2;
+$largeFontSize:  1.8em;
+
+/* Header */
+$headerFontSize: $baseFontSize * 2.2;
+$subHeaderFontSize: $baseFontSize * 2.0;
+$headerTextShadow: 1px 0px 1px #888;
+
+/* Footer */
 $footerBackground: #ddd;
 $footerHeight: 1.5em;
 $footerFontFamily: Verdana, 'Helvetica neue', Helvetica, Arial, sans-serif;
 $footerFontSize: 0.8em;
-$baseFontSize: 21px;
-$headerFontSize: $baseFontSize * 2.2;
-$subHeaderFontSize: $baseFontSize * 2.0;
 
-$baseLineHeight: 25px;
-$standardLineHeight: $baseLineHeight * 1.2;
+/* Buttons */
 $btnFontSize: 16px;
 $btnLineHeight: 22px;
-$largeFontSize:  1.8em;
-$headerTextShadow: 1px 0px 1px #888;
 
+/* *******************************************
+   Project (Non-Bootstrap) variables 
+******************************************* */
+
+/* Fonts */
 $smallNoteFontSize: $footerFontSize;
 $largeListFontSize: $largeFontSize;
 $bigListFontSize: $largeFontSize;
 
+/* Colors */
 $standardShadowColor: #888;
 $hoverBackground: #DDD;
 
+/* Spacings */
 $gapTop: 3em;
 $gapBottom: $gapTop;
+

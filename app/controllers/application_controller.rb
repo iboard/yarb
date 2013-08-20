@@ -26,13 +26,13 @@ class ApplicationController < ActionController::Base
 
   # GET /switch_locale/:locale
   def switch_locale
-    I18n.locale = session[:locale] = params[:locale].to_sym
+    set_locale_from_param if params[:locale].present?
     redirect_back_or_to root_path
   end
 
   # @return [Boolean] if current_user is logged ins
   def signed_in?
-    !current_user.is_a?(NilUser)
+    @_signed_in ||= real_user?
   end
 
   # If we have a REFERRER redirect :back otherwise to the given path
@@ -44,8 +44,12 @@ class ApplicationController < ActionController::Base
 
   private 
 
+  def set_locale_from_param
+    I18n.locale = session[:locale] = params[:locale].to_sym
+  end
+
   def can_go_back?
-    request.env['HTTP_REFERER'].present?
+    @_can_go_back ||= request.env['HTTP_REFERER'].present?
   end
 
   def init_session
@@ -53,7 +57,15 @@ class ApplicationController < ActionController::Base
   end
 
   def current_user
-    User.find_by(:id, session[:user_id]) || NilUser.new
+    @_current_user ||= user_from_session || NilUser.new
+  end
+
+  def real_user?
+    !current_user.is_a?(NilUser)
+  end
+
+  def user_from_session
+    User.find_by(:id, session[:user_id]) if session[:user_id].present?
   end
 
   def has_roles? roles
@@ -61,7 +73,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_locale
-    unless params[:locale]
+    unless params[:locale].present?
       I18n.locale = session[:locale] || I18n.default_locale
     end
   end

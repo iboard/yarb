@@ -21,11 +21,12 @@ module Roles
   def self.included base
     base.class_eval do
       attribute :roles, [] 
+      include InstanceMethods
     end
-    base.send( :include, InstanceMethods )
   end
 
-  # Defines instance methods for objects of classes which includs this module
+  # Defines instance methods for objects of classes 
+  # which includes this module.
   module InstanceMethods
 
     # @param [Symbol|String] role

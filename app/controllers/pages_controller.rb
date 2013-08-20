@@ -78,12 +78,16 @@ class PagesController < ApplicationController
   private
 
   def refresh_md_files
-    Dir[File.join(Rails.root,'*.md')].each do |file|
+    Dir[md_files_wildcards].each do |file|
       _title = title_of_md_file file
       page = Page.find(_title) || Page.create( title: _title.upcase )
       page.body = File.read(file)
       page.save
     end
+  end
+
+  def md_files_wildcards
+    File.join(Rails.root,'*.md')
   end
 
   def title_of_md_file _file

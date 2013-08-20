@@ -1,2 +1,2 @@
 - unless current_page?( pages_path )
-  = link_to icon_with_text('icon-list',t(:pages)), pages_path,  class: 'btn'
+  = list_button_tag t(:pages), pages_path

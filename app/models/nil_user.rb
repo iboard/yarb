@@ -3,14 +3,14 @@
 # Used when otherwise no user would exist.
 # Used especially instead of `if current_user`
 class NilUser
-  
+
   attr_reader  :id, :email, :name, :password_digest, :roles
 
   def initialize args={}
     @name = '(no name)'
     @roles = []
   end
-  
+
   # @return [nil]
   def password
      nil

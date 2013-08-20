@@ -1,7 +1,7 @@
 %meta{:name => 'viewport', :content => 'width=device-width, initial-scale=1, maximum-scale=1'}
+%meta{:content => content_for?(:description) ? yield(:description) : t('site.description'), :name => "description"}
 %title= content_for?(:title) ? yield(:title) : t('site.title')
 =favicon_link_tag 'favicon.ico'
-%meta{:content => content_for?(:description) ? yield(:description) : t('site.description'), :name => "description"}
 = stylesheet_link_tag :application, :media => "all"
 = javascript_include_tag :application
 = csrf_meta_tags

@@ -55,10 +55,41 @@ module ApplicationHelper
     link_to icon_with_text('icon-list',label), path, class: 'btn btn-default'
   end
 
+  # Insert a 'primary' button with an edit-icon
+  # @param [String] label
+  # @param [String] path
+  # @return [String] html-link
+  def edit_button_tag label, path
+    link_to icon_with_text('icon-edit icon-white',label), path, class: 'btn btn-primary'
+  end
+
+  # Insert a 'default' button with a cancel-sign
+  # @param [String] label
+  # @param [String] path
+  # @return [String] html-link
+  def cancel_button_tag label, path
+    link_to icon_with_text('icon-remove',label), path, class: 'btn btn-default'
+  end
+
   # @param [Symbol] locale
   # @return [String] html-link
   def switch_to_locale_path_link locale
     link_to t(locale.to_sym), switch_locale_path(locale) 
+  end
+
+  # @return [String] 'active' if path is current.
+  def active_class path
+    current_page?(path)  ? 'active' : ''
+  end
+
+  # @return [String] css-classes for standard forms
+  def standard_form_classes
+    'form form-vertical'
+  end
+
+  # @return [String] css-classes for standard save-buttons
+  def save_button_classes
+   'btn btn-primary'
   end
 
   private
@@ -82,6 +113,5 @@ module ApplicationHelper
       content_tag(:strong, tag.to_s) +': '+ content_tag(:span, error.to_s)
     end
   end
-
 
 end
