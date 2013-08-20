@@ -22,6 +22,7 @@ group :test, :development do
   gem 'capybara-webkit'
   gem 'simplecov', :require => false, :group => :test
   gem 'launchy'
+  gem 'zeus'
   gem 'guard-rspec'
   gem 'guard-livereload'
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'

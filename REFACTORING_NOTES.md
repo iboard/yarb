@@ -32,7 +32,7 @@
 
 This refactoring defines a class `NilUser` which offers all the public
 methods of a regular User-object but returns some 'defaults' only, but
-whitout any logic behind. `authorized?` always returns `false` and so.
+whitout any logic behind. `authorized?` always returns `false` and so on.
 
 Instead of
 
