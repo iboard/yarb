@@ -1,8 +1,25 @@
-YARB Refactoring Notes
-======================
+# YARB Refactoring Notes on [Commits](https://github.com/iboard/yarb/commits/master)
 
 <!-- Place this tag where you want the +1 button to render. -->
 <div class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+## 101 Commits
+
+#### Commit: [Refactored all files](https://github.com/iboard/yarb/commit/c86a4ac7b062a825339f13584ed51ffa07aaabb7)
+
+> 101 Commits, it's just a good time to make it perfect ;-)
+
+* Added TODO-entries to TODO.md about things I recognized and couldn't
+  solve ad-hoc.
+* Made coffeescript-class-functions 'private' where
+  possible.
+* Added some documentation-remarks to CSS.
+* _Controllers_ – Made public methods more readable. Added caching for
+  instance-variables.
+* _ApplicationHelper_ – defined more helpers, in order to get rid of 
+  Twitter-Bootstrap-stuff in views.
+* _Views_ – remove all hardcoded _Bootstrap_-code
+* _General_ – removed `to_s` where not necessary.
 
 ----
 
