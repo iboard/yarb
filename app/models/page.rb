@@ -4,6 +4,7 @@
 class Page
 
   include Store
+  include Store::Timestamps
   key_method :title
   attribute  :title
   attribute  :body

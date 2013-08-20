@@ -3,6 +3,7 @@
 require 'pstore'
 require_relative './attribute_definition'
 require_relative './attribute_definitions'
+require_relative './timestamps'
 
 # A Wrapper for PStore
 # @example
@@ -28,6 +29,10 @@ require_relative './attribute_definitions'
 #   # re_read is the same object as before
 #   # read from .../db/:env/my_class/my_class.pstore
 module Store
+
+  # Thrown when an class needs to include Store but didn't
+  class NonStoreObjectError < Exception
+  end
 
   # extend the class with ClassMethods and
   # include InstanceMethods to each object of this class
