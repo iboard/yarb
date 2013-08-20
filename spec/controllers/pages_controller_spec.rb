@@ -52,7 +52,6 @@ describe PagesController do
     end
 
     context 'with different user roles' do
-
       before :all do 
         User.delete_all!
         Roles::ROLES.each do |role|
@@ -211,6 +210,7 @@ describe PagesController do
 
       end
     end
+
   end
 end
 

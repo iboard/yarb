@@ -113,7 +113,21 @@ module Store
     # Load all objects
     # @return [Array] of all objects in the store
     def all
-      store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
+      ordered( roots )
+    end
+
+    # Sort Ascending
+    # @param [Symbol] field - the attribute to sort on
+    # @return [Array] of Objects
+    def asc field=nil
+      (field ? sort_ascending(roots, field) : roots).compact
+    end
+
+    # Sort Descending
+    # @param [Symbol] field - the attribute to sort on
+    # @return [Array] of Objects
+    def desc field=nil
+      (field ? sort_descending(roots, field) : roots.reverse).compact
     end
 
     # Define the key-method for this class and add validates_presence_of
@@ -136,6 +150,12 @@ module Store
     # @return [Symbol] the key_method for this class
     def key_method_name
       @key_method
+    end
+
+    # Define the default order
+    def default_order field, direction=:asc
+      @default_order_field = field
+      @default_order_direction = direction
     end
 
     # Deletes the entire store
@@ -198,6 +218,29 @@ module Store
     end
 
     private
+
+    def roots
+      store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
+    end
+
+    def sort_descending _objects, field
+      _objects.sort { |b,a| a.send(field) <=> b.send(field) }.compact
+    end
+
+    def sort_ascending _objects, field
+      _objects.sort { |a,b| a.send(field) <=> b.send(field) }.compact
+    end
+
+    def ordered _objects
+      case @default_order_direction || :none
+      when :asc
+        sort_ascending(_objects, @default_order_field )
+      when :desc
+        sort_descending(_objects, @default_order_field )
+      else
+        _objects
+      end
+    end
 
     def store_path
       File.join( Store::path, self.to_s.underscore )
