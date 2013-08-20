@@ -8,6 +8,7 @@ require 'bcrypt'
 class User
 
   include Store
+  include Store::Timestamps
   include BCrypt
   include Roles
 
