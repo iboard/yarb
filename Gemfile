@@ -18,11 +18,11 @@ group :doc do
 end
 
 group :test, :development do
+  gem 'zeus'
   gem 'rspec-rails'
   gem 'capybara-webkit'
   gem 'simplecov', :require => false, :group => :test
   gem 'launchy'
-  gem 'zeus'
   gem 'guard-rspec'
   gem 'guard-livereload'
   gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'
