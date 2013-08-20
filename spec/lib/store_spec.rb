@@ -128,40 +128,45 @@ describe Store do
 
   context "Ordering" do
 
-    class SortableObject
-      include Store
-      key_method    :position
-      attribute     :position
-      default_order :position, :desc
-      attr_accessor :position
-    end
+    context "with default order" do
 
-    before :each do 
-      @objects = [
-        SortableObject.create!(position: 3),
-        SortableObject.create!(position: 1),
-        SortableObject.create!(position: 2),
-      ]
-    end
+      class SortableObject
+        include Store
+        key_method    :position
+        attribute     :position
+        default_order :position, :desc
+        attr_accessor :position
+      end
 
-    after(:each) { @objects.each(&:delete) }
+      before :each do 
+        @objects = [
+          SortableObject.create!(position: 3),
+          SortableObject.create!(position: 1),
+          SortableObject.create!(position: 2),
+        ]
+      end
 
-    it "sorts ascending" do
-      expect(
-        SortableObject.asc(:position).map(&:position)
-      ).to eq( [ 1, 2, 3 ] )
-    end
+      after(:each) { @objects.each(&:delete) }
 
-    it "sorts descending" do
-      expect(
-        SortableObject.desc(:position).map(&:position)
-      ).to eq( [ 3, 2, 1 ] )
-    end
+      it "sorts ascending" do
+        expect( SortableObject.asc(:position).map(&:position)).to eq( [ 1, 2, 3 ] )
+      end
 
-    it "sorts by default" do
-      expect(
-        SortableObject.all.map(&:position)
-      ).to eq( [ 3, 2, 1 ] )
+      it "sorts descending" do
+        expect( SortableObject.desc(:position).map(&:position)).to eq( [ 3, 2, 1 ] )
+      end
+
+      it "sorts by default" do
+        expect( SortableObject.all.map(&:position)).to eq( [ 3, 2, 1 ] )
+      end
+
+      it "sorts as pushed on asc without field" do
+        expect( SortableObject.asc.map(&:position)).to eq( [ 3, 1, 2 ] )
+      end
+  
+      it "reverse sorts as pushed on desc without field" do
+        expect( SortableObject.desc.map(&:position)).to eq( [ 2, 1, 3 ] )
+      end
     end
 
   end
