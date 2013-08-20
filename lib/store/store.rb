@@ -224,11 +224,20 @@ module Store
     end
 
     def sort_descending _objects, field
-      _objects.sort { |b,a| a.send(field) <=> b.send(field) }.compact
+      _objects.sort do |b,a|
+        safe_compare(a,field,b) <=> safe_compare(b,field,a)
+      end
     end
 
     def sort_ascending _objects, field
-      _objects.sort { |a,b| a.send(field) <=> b.send(field) }.compact
+      _objects.sort do |a,b|
+        safe_compare(a,field,b) <=> safe_compare(b,field,a)
+      end
+    end
+
+    def safe_compare a, field, b
+      _a,_b = a.send(field), b.send(field)
+      _a.class == _b.class ? _a : _a.to_s
     end
 
     def ordered _objects

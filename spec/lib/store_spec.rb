@@ -145,8 +145,7 @@ describe Store do
           SortableObject.create!(position: 2),
         ]
       end
-
-      after(:each) { @objects.each(&:delete) }
+      after(:each) { SortableObject.delete_store! }
 
       it "sorts ascending" do
         expect( SortableObject.asc(:position).map(&:position)).to eq( [ 1, 2, 3 ] )
@@ -166,6 +165,11 @@ describe Store do
   
       it "reverse sorts as pushed on desc without field" do
         expect( SortableObject.desc.map(&:position)).to eq( [ 2, 1, 3 ] )
+      end
+
+      it "handles different data-types of sort-fields" do
+        SortableObject.create!(position: 'As String')
+        expect{ SortableObject.asc(:position) }.not_to raise_error
       end
     end
 
