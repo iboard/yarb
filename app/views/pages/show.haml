@@ -2,4 +2,4 @@
   =render 'page', page: @page
 
 %article
-  = markdown( @page.body )
+  = markdown( @page.body ) if @page.body
