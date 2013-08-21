@@ -14,7 +14,7 @@
 
 I spent to much time on figuring out how to solve this problem. 
 But, at the moment _turbolinks_ are not important. 
-At least at this point of the project.  So, I disables it completely.
+At least at this point of the project.  So, I disabled it completely.
 
 ----
 
