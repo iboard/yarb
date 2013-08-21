@@ -162,7 +162,7 @@ describe Store do
       it "sorts as pushed on asc without field" do
         expect( SortableObject.asc.map(&:position)).to eq( [ 3, 1, 2 ] )
       end
-  
+
       it "reverse sorts as pushed on desc without field" do
         expect( SortableObject.desc.map(&:position)).to eq( [ 2, 1, 3 ] )
       end

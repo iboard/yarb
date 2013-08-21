@@ -3,6 +3,15 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## With a little help from StackOverflow
+
+#### Commit: [Refactored safe_compare workaround](https://github.com/iboard/yarb/commit/5f00305d8599bebb6d4a806741c12d896ccd5055)
+
+> First I didn't understand why the exception wasn't caught. But
+> thankfully, [@7stud][7stud] posted a good explanation at
+> [Stackoverflow][so_spaceship]
+
+
 ## 101 Commits
 
 #### Commit: [Refactored all files](https://github.com/iboard/yarb/commit/c86a4ac7b062a825339f13584ed51ffa07aaabb7)
@@ -155,6 +164,11 @@ No, it definitely belongs to the public API of `ApplicationController`,
 thus a user –_when I talk about a user here, I mean a programmer using
 this code, not a consumer_– can benefit from and use it instead of
 defining a duple. 
+
+
+[7stud]:  http://stackoverflow.com/users/926143/7stud 
+[so_spaceship]:  http://stackoverflow.com/questions/18346352/how-does-the-spaceship-operator-in-ruby-throw-exceptions  
+
 
 <!-- Place this tag after the last +1 button tag. -->
 <script type="text/javascript">
