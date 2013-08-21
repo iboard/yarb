@@ -3,6 +3,21 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## Don't waste time on unimportant stuff
+
+#### Commit: [Disabled Turbolinks](https://github.com/iboard/yarb/commit/e8afa42805baca0115870724efed3b405d6036eb)
+
+> HTML5 video-tags works on the first load of the site. But then,
+> when clicking around –with _turbolinks_ active– and return to the
+> same page with an video already shown before, this videos will not
+> work anymore unless you press the browser's reload-button.
+
+I spent to much time on figuring out how to solve this problem. 
+But, at the moment _turbolinks_ are not important. 
+At least at this point of the project.  So, I disables it completely.
+
+----
+
 ## With a little help from StackOverflow
 
 #### Commit: [Refactored safe_compare workaround](https://github.com/iboard/yarb/commit/5f00305d8599bebb6d4a806741c12d896ccd5055)
@@ -11,6 +26,8 @@
 > thankfully, [@7stud][7stud] posted a good explanation at
 > [Stackoverflow][so_spaceship]
 
+
+----
 
 ## 101 Commits
 
