@@ -8,7 +8,7 @@
 #### Commit: [Disabled Turbolinks](https://github.com/iboard/yarb/commit/e8afa42805baca0115870724efed3b405d6036eb)
 
 > HTML5 video-tags works on the first load of the site. But then,
-> when clicking around –_with turbolinks active_– and return to the
+> when clicking around _–with turbolinks active–_ and return to the
 > same page containing a video already shown before, this videos will not
 > work anymore unless you press the browser's reload-button.
 
