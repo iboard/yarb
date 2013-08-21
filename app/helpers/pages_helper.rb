@@ -6,16 +6,19 @@ module PagesHelper
   # Add the .sortable-class and action if user granted to sort pages
   # @return [String] css-classes which will install sortable if allowed to sort
   def page_list_css_sort_options
-    {
-      class: "item-list big top-bordered #{allow_page_sort_class}", 
-      action: 'pages/update_order'
-    }
+    _options = { class: "item-list big top-bordered #{allow_page_sort_class}" }
+    _options[:action] =  "pages/update_order" if is_page_editor?
+    _options
   end
 
   private
 
   def allow_page_sort_class
-    has_roles?(PagesController::PAGE_EDITOR_ROLES) ? 'sortable' : ''
+    is_page_editor? ? "sortable" : ""
+  end
+
+  def is_page_editor?
+    has_roles?(PagesController::PAGE_EDITOR_ROLES)
   end
 
 
