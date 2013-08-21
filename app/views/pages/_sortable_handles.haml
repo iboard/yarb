@@ -1,0 +1,5 @@
+- if has_roles?( PagesController::PAGE_EDITOR_ROLES) && current_page?(pages_path)
+  %span.sortable-number-and-icon
+    = icon('icon-resize-vertical')
+    = "#{(page.position||0).to_s.humanize}.)"
+

@@ -10,7 +10,7 @@ gem 'bcrypt-ruby'
 
 gem 'coffee-rails', '~> 4.0.0'
 gem 'bootstrap-sass'
-gem 'jquery-rails'
+gem "jquery-rails"
 gem 'jquery-ui-rails'
 
 group :doc do

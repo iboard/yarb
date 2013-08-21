@@ -75,7 +75,23 @@ class PagesController < ApplicationController
     redirect_to pages_path, notice: t(:page_deleted, title: @page.title)
   end
 
+
+  # Update Sort Order
+  # POST /pages/update_order
+  def update_order
+    update_positions params[:sorted_ids]
+    render nothing: true
+  end
+
+
   private
+
+  def update_positions ordered_ids
+    ordered_ids.each_with_index do |id, idx|
+      p = Page.find(id.gsub(/^page-/,''))
+      p.update_attributes( { position: idx + 1 } ) if p
+    end
+  end
 
   def refresh_md_files
     Dir[md_files_wildcards].each do |file|

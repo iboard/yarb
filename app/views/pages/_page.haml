@@ -3,4 +3,6 @@
     = render 'editor_buttons', page: page
     = render 'terminator_buttons', page: page
     = render 'controller_buttons', page: page
+  = render 'sortable_handles', page: page
   = link_to_unless_current page.title, page_path(page)
+

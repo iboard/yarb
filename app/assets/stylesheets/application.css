@@ -2,6 +2,7 @@
  *= require_self
  *= require _application
  *= require highlight.js/styles/vs
+ *= require drag_n_drop
  *= require_tree ./autorequire
  *= require _responsive
  */

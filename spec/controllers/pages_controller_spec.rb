@@ -7,9 +7,9 @@ describe PagesController do
 
   before :each do
     Page.delete_store!
-    @page1 = Page.create( title: 'Page One', body: 'Body of page number one') 
-    @page2 = Page.create( title: 'Page Two', body: 'Body of page number two') 
-    @page_to_delete = Page.create( title: 'Delete Me', body: 'A victim page')
+    @page1 = Page.create( title: 'Page One', body: 'Body of page number one', position: 3) 
+    @page2 = Page.create( title: 'Page Two', body: 'Body of page number two', position: 1) 
+    @page_to_delete = Page.create( title: 'Delete Me', body: 'A victim page', position: 2)
   end
 
   context 'with a list of pages' do
@@ -208,6 +208,37 @@ describe PagesController do
           page.should_not have_link('Delete')
         end
 
+      end
+    end
+
+    context "sort with drag and drop" do
+      before :all do
+        user = User.create name: 'Sorter', email: 'sorter@example.com'
+        user.roles += PagesController::PAGE_EDITOR_ROLES
+        user.password = 'sortit'
+        user.save
+      end
+
+      before :each do
+        sign_in_as 'sorter@example.com', 'sortit'
+        visit pages_path
+      end
+
+      it "should drag item to another position", :js => true do
+        within("#pages-list") do 
+          # check order as given in before each
+          text.should match /Page Two.*Delete Me.*Page One/ 
+        end
+        last_page = find("#page-page-one")
+        first_page = find("#page-page-two")
+        last_page.drag_to first_page
+
+        # TODO: Get rid of this sleep!
+        sleep 0.5 # let the post-request finish it's work
+        visit pages_path
+        within("#pages-list") do 
+          text.should match /Page One.*Page Two.*Delete Me/
+        end
       end
     end
 

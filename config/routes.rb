@@ -8,6 +8,10 @@ Yarb::Application.routes.draw do
   match 'sign_in' => 'session#create', via: 'POST', as: 'create_session'
   match 'sign_out' => 'session#delete', via: 'GET', as: 'sign_out'
 
-  resources :pages
+  resources :pages do
+    collection do
+      post 'update_order'
+    end
+  end
 
 end
