@@ -97,6 +97,15 @@ module Store
       _object
     end
 
+    # Filter by arguments
+    # @param [Hash] args 
+    def where *args
+      _filter = args.first
+      all.select do |s|
+        _filter.keys.all? { |k| s.send(k) == _filter.fetch(k) }
+      end
+    end
+    
     # Delete an entry from store
     # @param [Symbol|string] _key
     # @return [nil|Object] the object removed if there is one.
@@ -187,7 +196,9 @@ module Store
       attribute_definitions << AttributeDefinition.new( name, default )
       class_eval do
         define_method name do
-          instance_variable_get("@#{name.to_s}") || default
+          _v = instance_variable_get("@#{name.to_s}") 
+          _v ||= default if _v.nil?
+          _v
         end
 
         define_method "#{name}=".to_sym do |new_value|

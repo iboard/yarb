@@ -10,6 +10,7 @@ class Page
   attribute  :body
   attribute  :position
   default_order :position, :asc
+  attribute  :draft
 
   def initialize _attributes={}
     set_attributes ensure_defaults(_attributes)
@@ -17,8 +18,10 @@ class Page
 
   private
   def ensure_defaults _attributes
-    (defaults||={})[:title] = ''
-    defaults.merge( _attributes )
+    (defaults||={})[:title] ||= ''
+    defaults.fetch(:draft) { defaults[:draft] = true }
+    defaults.merge!( _attributes )
+    defaults
   end
 
 end

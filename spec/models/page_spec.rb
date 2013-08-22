@@ -20,4 +20,14 @@ describe Page do
     expect{ Page.create! title: 'T One' }.to raise_error DuplicateKeyError
   end
 
+  it 'has a draft flag' do
+    Page.delete_store!
+    p1 = Page.create(title: 'This is for real', draft: false)
+    p2 = Page.create(title: 'This is a draft')
+    expect( Page.where( draft: false).map(&:title)).to include( p1.title )
+    expect( Page.where( draft: false).map(&:title)).not_to include( p2.title)
+    expect( Page.where( draft: true ).map(&:title)).to include( p2.title )
+    expect( Page.where( draft: true ).map(&:title)).not_to include( p1.title )
+  end
+
 end

@@ -175,4 +175,30 @@ describe Store do
 
   end
 
+  context "Selecting" do
+    class TestPage
+      include Store
+      key_method :title
+      attribute  :title
+      attribute  :draft, false
+    end
+
+    before :all do
+      TestPage.delete_store!
+      @p1 = TestPage.create title: 'is online'
+      @p2 = TestPage.create title: 'is a draft', draft: true
+    end
+
+    it "filters by a single flag" do
+      expect(TestPage.where( draft: false).map(&:title)).to include( "is online" )
+      expect(TestPage.where( draft: false).map(&:title)).not_to include( "is a draft" )
+      expect(TestPage.where( draft: true ).map(&:title)).to include("is a draft" )
+      expect(TestPage.where( draft: true ).map(&:title)).not_to include("is online")
+    end
+
+    it "filters with more arguments" do
+      expect(TestPage.where( draft: false, title: "is online").map(&:title)).to include("is online")
+      expect(TestPage.where( draft: true, title: "is online").map(&:title)).to be_empty
+    end
+  end
 end
