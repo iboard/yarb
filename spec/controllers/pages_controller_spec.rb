@@ -7,15 +7,17 @@ describe PagesController do
 
   before :each do
     Page.delete_store!
-    @page1 = Page.create( title: 'Page One', body: 'Body of page number one', position: 3) 
-    @page2 = Page.create( title: 'Page Two', body: 'Body of page number two', position: 1) 
-    @page_to_delete = Page.create( title: 'Delete Me', body: 'A victim page', position: 2)
+    @page1 = Page.create( title: 'Page One', body: 'Body of page number one', position: 3, draft: false) 
+    @page2 = Page.create( title: 'Page Two', body: 'Body of page number two', position: 1, draft: false) 
+    @page_to_delete = Page.create( title: 'Delete Me', body: 'A victim page', position: 2, draft: false)
+    @draft = Page.create( title: 'Draft by default', body: 'A Draft ...',     position: 4 )
   end
 
   context 'with a list of pages' do
     let(:page1) { @page1 }
     let(:page2) { @page2 }
     let(:page_to_delete) { @page_to_delete }
+    let(:draft) { @draft }
 
     before :each do
       I18n.locale = :en
@@ -29,6 +31,7 @@ describe PagesController do
         page.should have_css('li#page-page-two', :text => 'Page Two')
       end
     end
+
 
     it 'should list all md-files from project-root as links' do
       within '#container.container' do
@@ -84,6 +87,20 @@ describe PagesController do
           sign_in_as "#{role}@example.com", 'secret'
           click_link 'Pages'
           page.should match_at_least(1, "a.btn-primary:contains('Edit')" )
+        end
+      end
+
+      it 'should list draft-pages for PAGE_EDITOR_ROLES only' do
+        within '#container.container' do
+          page.should_not have_css('li#page-draft-by-default', :text => 'Draft by default')
+        end
+        PagesController::PAGE_EDITOR_ROLES.each do |role|
+          sign_in_as "#{role}@example.com", 'secret'
+          click_link 'Pages'
+          page.should match_at_least(1, "a.btn-primary:contains('Edit')" )
+          within '#container.container' do
+            page.should have_css("li#page-draft-by-default", :text => 'Draft by default')
+          end
         end
       end
 

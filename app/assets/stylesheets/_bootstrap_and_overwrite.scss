@@ -12,7 +12,7 @@
   Set font for buttons and navigation
 */
 .btn, .nav {
-  font-family: $headingsFontFamily;
+  font-family: $btnFontFamily;
   font-size: $btnFontSize !important;
   line-height: $btnLineHeight !important;
 }

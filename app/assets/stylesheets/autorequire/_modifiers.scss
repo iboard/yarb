@@ -29,3 +29,9 @@
 .gap-bottom {
   margin-bottom: $gapBottom;
 }
+
+.draft {
+  display: inline;
+  font-size: $smallNoteFontSize * 0.5;
+  color: $alertColor;
+}

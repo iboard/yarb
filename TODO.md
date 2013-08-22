@@ -5,6 +5,11 @@ Bugs, Features, and Milestones are tracked officially at
 [Github](https://github.com/iboard/yarb/issues)
 This TODO.md-file is used for quick-notes and brainstorming only.
 
+## Important
+
+1. TODO: **Fix 0/false 1/true in Store - needs Datatype!**
+
+## Less important
 
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this

@@ -1,0 +1,11 @@
+@import "_variables";
+
+.form.form-vertical {
+  label.boolean {
+    display: inline-block;
+    font-family: $btnFontFamily;
+    font-size: $btnFontSize;
+    margin-bottom: 0.75em;
+    margin-left: 0.75em;
+  }
+}

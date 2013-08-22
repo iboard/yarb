@@ -17,9 +17,4 @@ module PagesHelper
     is_page_editor? ? "sortable" : ""
   end
 
-  def is_page_editor?
-    has_roles?(PagesController::PAGE_EDITOR_ROLES)
-  end
-
-
 end

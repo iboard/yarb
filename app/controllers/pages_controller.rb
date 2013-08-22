@@ -10,10 +10,12 @@ class PagesController < ApplicationController
   # Roles which can edit pages
   # ruby 2.0 only #PAGE_EDITOR_ROLES  = %i( admin editor maintainer )
   PAGE_EDITOR_ROLES  = [ :admin, :editor, :maintainer ]
+  helper_method :is_page_editor?
 
   # Roles which can delete pages
   # ruby 2.0 only #PAGE_TERMINATOR_ROLES  = %i( admin maintainer )
   PAGE_TERMINATOR_ROLES  = [ :admin, :maintainer ]
+
 
   rescue_from PageNotFoundError, with: :render_not_found
 
@@ -29,9 +31,13 @@ class PagesController < ApplicationController
   before_filter :authorize_terminators, only: [ :destroy ]
 
 
+  # TODO: Fix 0/false 1/true in Store - needs Datatype!
   # GET /pages
   def index
-    @pages = Page.all
+    @pages = Page.where( draft: false )
+    @pages += Page.where( draft: "0" )
+    @pages += Page.where( draft: true ) if is_page_editor?
+    @pages += Page.where( draft: "1" ) if is_page_editor?
   end
 
   # GET /pages/:id
@@ -86,6 +92,10 @@ class PagesController < ApplicationController
 
   private
 
+  def is_page_editor?
+    has_roles?(PagesController::PAGE_EDITOR_ROLES)
+  end
+
   def update_positions ordered_ids
     ordered_ids.each_with_index do |id, idx|
       p = Page.find(id.gsub(/^page-/,''))
@@ -96,7 +106,7 @@ class PagesController < ApplicationController
   def refresh_md_files
     Dir[md_files_wildcards].each do |file|
       _title = title_of_md_file file
-      page = Page.find(_title) || Page.create( title: _title.upcase )
+      page = Page.find(_title) || Page.create( title: _title.upcase, draft: false )
       page.body = File.read(file)
       page.save
     end

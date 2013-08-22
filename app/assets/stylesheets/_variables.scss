@@ -27,6 +27,7 @@ $footerFontSize: 0.8em;
 
 /* Buttons */
 $btnFontSize: 16px;
+$btnFontFamily: $headingsFontFamily;
 $btnLineHeight: 22px;
 
 /* *******************************************
@@ -42,6 +43,7 @@ $bigListFontSize: $largeFontSize;
 $standardShadowColor: #888;
 $hoverBackground: #DDD;
 $disabledFontColor: #888;
+$alertColor: #800;
 
 /* Spacings */
 $gapTop: 3em;
