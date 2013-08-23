@@ -14,7 +14,7 @@ I implemented a Boolean-class which handles "0"/0 as false and "1"/1 as true.
 Therefore it was necessary to change the behavior of the class
 `AttributeDefinition`.
 
-[Short Summary](https://gist.github.com/iboard/6321356)
+[Short summary of boolean implementation ...](https://gist.github.com/iboard/6321356)
 
 #### Commit: [Removed Workaround in PagesController](https://github.com/iboard/yarb/commit/e2329ebf1417e05f37d77ae26b2629dd4e8e172c)
 
