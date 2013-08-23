@@ -20,7 +20,7 @@ module Roles
 
   def self.included base
     base.class_eval do
-      attribute :roles, [] 
+      attribute :roles, type: Array, default: [] 
       include InstanceMethods
     end
   end

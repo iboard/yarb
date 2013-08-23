@@ -4,6 +4,7 @@ require 'pstore'
 require_relative './attribute_definition'
 require_relative './attribute_definitions'
 require_relative './timestamps'
+require_relative './boolean'
 
 # A Wrapper for PStore
 # @example
@@ -192,12 +193,13 @@ module Store
     # Add an attribute and an rw-accessor for it to the class.
     # @param [Symbol] name - the Name of the attribute as symbol
     # @param [Object] default - the default value of the attribute
-    def attribute name, default=nil
-      attribute_definitions << AttributeDefinition.new( name, default )
+    def attribute name, *attr
+      _attr = AttributeDefinition.new( name, *attr )
+      attribute_definitions << _attr
       class_eval do
         define_method name do
           _v = instance_variable_get("@#{name.to_s}") 
-          _v ||= default if _v.nil?
+          _v ||= _attr.default if _v.nil?
           _v
         end
 

@@ -6,11 +6,13 @@ module Store
   # definition, as defined in a Store-class by `attribute :name, 'some default'
   class AttributeDefinition
 
-    attr_reader :name, :default
+    attr_reader :name, :type, :default
 
-    def initialize name, default=nil
+    def initialize name, *attr
       @name = name.to_sym
-      @default = default
+      _attr = attr.first
+      @type    = _attr ? _attr.fetch(:type)    { String } : String
+      @default = _attr ? initialize_default(@type,_attr.fetch(:default) { nil })    : nil
     end
 
     # @param [Object] object
@@ -26,6 +28,15 @@ module Store
     def update_value_of(object,hash)
       object.send("#{name.to_s}=", hash.fetch(name)) if hash.has_key?(name) 
     end
+
+    private
+
+    def initialize_default _type, _value
+      _type.new( _value ) if _value
+    rescue
+      _value
+    end
+
   end
 
 end

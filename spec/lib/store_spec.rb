@@ -9,62 +9,62 @@ describe Store do
 
   context 'included in any class' do
 
-    class MyClass
+    class MyStoreClass
       include Store
       key_method :my_field
       attribute  :my_field
-      attribute  :my_other_field, 'with a default'
+      attribute  :my_other_field, type: String, default: 'with a default'
 
       def initialize _my_field
         @my_field = _my_field
       end
     end
 
-    let(:object) { MyClass.new('my object') }
+    let(:object) { MyStoreClass.new('my object') }
 
     it 'uses the name of the base-class for pstore-files' do
-       expect( object.send(:store_path) ).to eq( File.join(Store::path, 'my_class' ) )
+       expect( object.send(:store_path) ).to eq( File.join(Store::path, 'my_store_class' ) )
     end
 
     it 'saves and retrieves an object from the store' do
       object.save
-      read_object = MyClass.find( object.key )
+      read_object = MyStoreClass.find( object.key )
       expect(read_object.my_field).to eq(object.my_field)
     end
 
     it 'reports new_record? if object is not saved or loaded from store yet' do
-      obj = MyClass.new 'A new Record'
+      obj = MyStoreClass.new 'A new Record'
       obj.new_record?.should be_true
       obj.save
       obj.new_record?.should be_false
-      obj2 = MyClass.find 'a-new-record'
+      obj2 = MyStoreClass.find 'a-new-record'
       obj2.new_record?.should be_false
     end
 
     it 'calls callback loaded after loading the object from the store' do
-      obj = MyClass.new 'Load me'
+      obj = MyStoreClass.new 'Load me'
       obj.save
-      MyClass.any_instance.should_receive(:after_load).once
-      obj_reloaded = MyClass.find 'load-me'
+      MyStoreClass.any_instance.should_receive(:after_load).once
+      obj_reloaded = MyStoreClass.find 'load-me'
     end
 
     it 'deletes the store' do 
       object.save
-      MyClass.delete_store!
-      expect( File.exist?(MyClass.send(:store_path)) ).to be_false
+      MyStoreClass.delete_store!
+      expect( File.exist?(MyStoreClass.send(:store_path)) ).to be_false
     end
 
     it 'deletes an entry from the store' do
       object.save
-      expect( MyClass.find(object.key) ).to_not be_nil
+      expect( MyStoreClass.find(object.key) ).to_not be_nil
       object.delete
-      expect( MyClass.find(object.key) ).to be_nil
+      expect( MyStoreClass.find(object.key) ).to be_nil
     end
 
     context 'with a single object' do
 
       before :each do
-        @object = MyClass.find('object-to-test') || MyClass.create( 'object to test')
+        @object = MyStoreClass.find('object-to-test') || MyStoreClass.create( 'object to test')
       end
 
       it 'implements attributes method' do
@@ -78,50 +78,50 @@ describe Store do
       end
 
       it 'can check if key exists' do
-        MyClass.exist?(@object.key).should be_true
-        MyClass.exist?('not-available-key').should be_false
+        MyStoreClass.exist?(@object.key).should be_true
+        MyStoreClass.exist?('not-available-key').should be_false
       end
 
       it 'can delete objects by key' do
-        new_object = MyClass.create!( 'short living object' )
-        MyClass.find('short-living-object').should_not be_nil
-        MyClass.delete('short-living-object')
-        MyClass.find('short-living-object').should be_nil
+        new_object = MyStoreClass.create!( 'short living object' )
+        MyStoreClass.find('short-living-object').should_not be_nil
+        MyStoreClass.delete('short-living-object')
+        MyStoreClass.find('short-living-object').should be_nil
       end
 
       it 'should change the key' do
-        obj = MyClass.find('object-to-test')
+        obj = MyStoreClass.find('object-to-test')
         obj.my_field = 'Object tested'
         obj.save
-        MyClass.find('object-to-test').should be_nil
-        MyClass.find('object-tested').should_not be_nil
+        MyStoreClass.find('object-to-test').should be_nil
+        MyStoreClass.find('object-tested').should_not be_nil
       end
 
     end
 
     context 'with two objects' do
       before :each do
-        MyClass.delete_store!
-        @object1 = MyClass.create('First Object')
-        @object2 = MyClass.create('Second Object')
+        MyStoreClass.delete_store!
+        @object1 = MyStoreClass.create('First Object')
+        @object2 = MyStoreClass.create('Second Object')
       end
 
       it 'creates and lists available objects' do
-        expect(MyClass.keys).to eq(['first-object', 'second-object'])
+        expect(MyStoreClass.keys).to eq(['first-object', 'second-object'])
       end
 
       it '.create! throws an exception on duplicate keys' do
-        expect { MyClass.create!('First Object') }.
-          to raise_error DuplicateKeyError, 'An object of class MyClass with key \'first-object\' already exists.'
+        expect { MyStoreClass.create!('First Object') }.
+          to raise_error DuplicateKeyError, 'An object of class MyStoreClass with key \'first-object\' already exists.'
       end
 
       it '.create returns an invalid object on duplicate keys' do
-        _p = MyClass.create('First Object')
-        expect( _p.errors.messages ).to eq(base:["An object of class MyClass with key 'first-object' already exists."] )
+        _p = MyStoreClass.create('First Object')
+        expect( _p.errors.messages ).to eq(base:["An object of class MyStoreClass with key 'first-object' already exists."] )
       end
 
       it 'loads all objects' do
-        expect(MyClass.all.map(&:my_field)).to eq( [@object1.my_field,@object2.my_field] )
+        expect(MyStoreClass.all.map(&:my_field)).to eq( [@object1.my_field,@object2.my_field] )
       end
     end
   end
@@ -133,7 +133,7 @@ describe Store do
       class SortableObject
         include Store
         key_method    :position
-        attribute     :position
+        attribute     :position, type: Integer
         default_order :position, :desc
         attr_accessor :position
       end
@@ -180,13 +180,13 @@ describe Store do
       include Store
       key_method :title
       attribute  :title
-      attribute  :draft, false
+      attribute  :draft, type: Boolean, default: true
     end
 
     before :all do
       TestPage.delete_store!
-      @p1 = TestPage.create title: 'is online'
-      @p2 = TestPage.create title: 'is a draft', draft: true
+      @p1 = TestPage.create title: 'is online', draft: false
+      @p2 = TestPage.create title: 'is a draft'
     end
 
     it "filters by a single flag" do

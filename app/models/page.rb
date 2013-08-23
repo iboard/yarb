@@ -8,9 +8,9 @@ class Page
   key_method :title
   attribute  :title
   attribute  :body
-  attribute  :position
+  attribute  :position, type: Integer
   default_order :position, :asc
-  attribute  :draft
+  attribute  :draft, type: Boolean
 
   def initialize _attributes={}
     set_attributes ensure_defaults(_attributes)
