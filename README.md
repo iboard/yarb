@@ -89,6 +89,26 @@ APP-Features
   * `/pages` lists all pages with Edit- and Delete- Buttons.
   * At `/pages/new` you can create new pages.
 
+Users
+-----
+
+We don't have a Sign-up form yet. You have to create a user at the
+console.
+
+```ruby
+
+rails console development
+
+user = User.create name: "Your name", email: "your@email.cc"
+user.password = "your secret word"
+user.roles = [ :admin ]
+user.save
+
+```
+
+Once this is done you can sign-in with email and password.
+
+
 Contribution
 ============
   
