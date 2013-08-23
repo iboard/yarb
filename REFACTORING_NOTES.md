@@ -5,7 +5,7 @@
 
 ## There is no Boolean class in Ruby
 
-### Commit: [Added Boolean Attribute for Store](https://github.com/iboard/yarb/commit/c9d261606955a15d8464470a7adf1ab91dda5276)
+#### Commit: [Added Boolean Attribute for Store](https://github.com/iboard/yarb/commit/c9d261606955a15d8464470a7adf1ab91dda5276)
 
 > The problem occurs first when Form submits "0"/"1" instead of
 > false/true for checkboxes. 
@@ -13,6 +13,15 @@
 I implemented a Boolean-class which handles "0"/0 as false and "1"/1 as true. 
 Therefore it was necessary to change the behavior of the class
 `AttributeDefinition`.
+
+[Short Summary](https://gist.github.com/iboard/6321356)
+
+#### Commit: [Removed Workaround in PagesController](https://github.com/iboard/yarb/commit/e2329ebf1417e05f37d77ae26b2629dd4e8e172c)
+
+> With the Boolean-Class working, it's possible to remove the Workaround
+> from the Controller.
+
+----
 
 
 ## Don't waste time on unimportant stuff
