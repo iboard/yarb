@@ -3,7 +3,8 @@
 module Store
 
   # An AttributeDefinition holds information about a Store-attribute
-  # definition, as defined in a Store-class by `attribute :name, 'some default'
+  # definition, as defined in a Store-class by 
+  # `attribute :name, default: 'some default', type: AnyClass
   class AttributeDefinition
 
     attr_reader :name, :type, :default
@@ -11,8 +12,8 @@ module Store
     def initialize name, *attr
       @name = name.to_sym
       _attr = attr.first
-      @type    = _attr ? _attr.fetch(:type)    { String } : String
-      @default = _attr ? initialize_default(@type,_attr.fetch(:default) { nil })    : nil
+      @type    = _attr ? _attr.fetch(:type){ String } : String
+      @default = _attr ? initialize_default(@type,_attr.fetch(:default) { nil }) : nil
     end
 
     # @param [Object] _value
@@ -32,9 +33,7 @@ module Store
     # @param [Object] object
     # @param [Hash] hash
     def update_value_of(object,hash)
-      if hash.has_key?(name)
-        object.send("#{name.to_s}=", normalize(hash.fetch(name))) if hash.has_key?(name) 
-      end
+      object.send("#{name.to_s}=", normalize(hash.fetch(name))) if hash.has_key?(name) 
     end
 
     private

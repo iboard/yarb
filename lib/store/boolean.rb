@@ -8,13 +8,17 @@ module Store
   class Boolean
 
     # @param [true|false|Integer] value
-    # @return [TrueClass|FalseClass] "1", 1, true will return true
+    # @return [TrueClass|FalseClass]
+    # @example
+    #   0 => false, 1,2,3... => true
+    #   'false', '0', 'no', 'off', '' => false, any other string => true
     def self.new value
       case value
       when String
-        value == '1' 
+        _ = value.strip
+        ! ['false', '0', 'no', 'off', ''].include?( _ )
       when Integer
-        value == 1 
+        value > 0 
       else
         value
       end

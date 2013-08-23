@@ -25,7 +25,19 @@ describe Store do
       expect(f).not_to be_true
     end
 
+    it "'false', '0', 'no', 'off', '' => false" do
+      ['false', '0', 'no', 'off', ''].each do |s|
+        expect( Store::Boolean.new s ).to be_false
+      end
+    end
 
+    it "other strings are 'true'" do
+      expect( Store::Boolean.new '1' ).to be_true
+      expect( Store::Boolean.new 'true' ).to be_true
+      expect( Store::Boolean.new 'on' ).to be_true
+      expect( Store::Boolean.new 'yes' ).to be_true
+      expect( Store::Boolean.new 'foo' ).to be_true
+    end
 
   end
 end
