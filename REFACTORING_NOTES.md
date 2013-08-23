@@ -3,6 +3,18 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## There is no Boolean class in Ruby
+
+### Commit: [Added Boolean Attribute for Store](https://github.com/iboard/yarb/commit/c9d261606955a15d8464470a7adf1ab91dda5276)
+
+> The problem occurs first when Form submits "0"/"1" instead of
+> false/true for checkboxes. 
+
+I implemented a Boolean-class which handles "0"/0 as false and "1"/1 as true. 
+Therefore it was necessary to change the behavior of the class
+`AttributeDefinition`.
+
+
 ## Don't waste time on unimportant stuff
 
 #### Commit: [Disabled Turbolinks](https://github.com/iboard/yarb/commit/e8afa42805baca0115870724efed3b405d6036eb)

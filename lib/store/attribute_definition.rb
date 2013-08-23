@@ -15,6 +15,12 @@ module Store
       @default = _attr ? initialize_default(@type,_attr.fetch(:default) { nil })    : nil
     end
 
+    # @param [Object] _value
+    # @return [Object] with proper datatype. eg. _value = 1 and type Boolean will return true
+    def normalize _value
+      initialize_default(@type, _value)
+    end
+
     # @param [Object] object
     # @return [Hash]  { key => value || default }
     def get_hash_for object
@@ -26,13 +32,15 @@ module Store
     # @param [Object] object
     # @param [Hash] hash
     def update_value_of(object,hash)
-      object.send("#{name.to_s}=", hash.fetch(name)) if hash.has_key?(name) 
+      if hash.has_key?(name)
+        object.send("#{name.to_s}=", normalize(hash.fetch(name))) if hash.has_key?(name) 
+      end
     end
 
     private
 
     def initialize_default _type, _value
-      _type.new( _value ) if _value
+      _type.new( _value )
     rescue
       _value
     end

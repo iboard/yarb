@@ -72,5 +72,13 @@ describe Store do
       expect( object.str_boolean_false).to be_false
     end
 
+
+    it "updates the record with the proper datatype" do
+      object.str_boolean_true = "1"
+      expect(object.str_boolean_true).to be_a(TrueClass)
+      object.str_boolean_true = "0"
+      expect(object.str_boolean_true).to be_a(FalseClass)
+    end
+
   end
 end

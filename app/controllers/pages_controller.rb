@@ -31,13 +31,9 @@ class PagesController < ApplicationController
   before_filter :authorize_terminators, only: [ :destroy ]
 
 
-  # TODO: Fix 0/false 1/true in Store - needs Datatype!
   # GET /pages
   def index
-    @pages = Page.where( draft: false )
-    @pages += Page.where( draft: "0" )
-    @pages += Page.where( draft: true ) if is_page_editor?
-    @pages += Page.where( draft: "1" ) if is_page_editor?
+    @pages = is_page_editor? ? Page.all : Page.where( draft: false )
   end
 
   # GET /pages/:id
@@ -106,8 +102,8 @@ class PagesController < ApplicationController
   def refresh_md_files
     Dir[md_files_wildcards].each do |file|
       _title = title_of_md_file file
-      page = Page.find(_title) || Page.create( title: _title.upcase, draft: false )
-      page.body = File.read(file)
+      page = Page.find(_title) || Page.create( title: _title.upcase, draft: false, updated_at: File.mtime(file) )
+      page.body = File.read(file) if page.updated_at != File.mtime(file)
       page.save
     end
   end

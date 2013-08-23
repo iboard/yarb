@@ -32,6 +32,12 @@ module Store
       _a.default if _a
     end
 
+    # @param [String|Symbol] _field
+    # @return [AttributeDefinition] for this field
+    def find_field(_field)
+      @attribute_definitions.detect{ |_attr| _attr.name == _field}
+    end
+
     # Update all attributes of object with values from hash
     # @param [Object] object - the object to be updated
     # @param [Hash] hash - params as in Rails params[:object]

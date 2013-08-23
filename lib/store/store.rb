@@ -204,7 +204,7 @@ module Store
         end
 
         define_method "#{name}=".to_sym do |new_value|
-          instance_variable_set "@#{name.to_s}", new_value 
+          instance_variable_set "@#{name.to_s}", normalize_value("#{name}", new_value)
         end
       end
     end
@@ -212,6 +212,12 @@ module Store
     # @return [AttributeDefinitions] the attribute definitions for this class.
     def attribute_definitions
       @attribute_definitions ||= AttributeDefinitions.new
+    end
+
+    # @param [String] field the name of the field to get the definition for
+    # @return [AttributeDefinition]
+    def attribute_definition_of(field)
+      @attribute_definitions.find_field(field)
     end
 
     # @param [Symbol] _attribute - the attribute to search for
@@ -383,6 +389,11 @@ module Store
         self.class.unique_key?(self) && 
         handle_key_changed
       )
+    end
+
+    def normalize_value(name,_value)
+      _attr = self.class.attribute_definition_of(name.to_sym)
+      _attr ? _attr.normalize(_value) : _value
     end
 
     def handle_key_changed
