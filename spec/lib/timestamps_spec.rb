@@ -55,10 +55,7 @@ describe Store::Timestamps do
       after(:all)  { MyObject.delete_store! }
 
       before :each do
-        PStore.any_instance.stub(:dump)
-        NilClass.any_instance.stub(:bytesize).and_return(0)
-        NilClass.any_instance.stub(:replace)
-        NilClass.any_instance.stub(:to_s).and_return('')
+        PStore.any_instance.stub(:transaction)
         allow_message_expectations_on_nil
       end
 
