@@ -4,7 +4,7 @@ require_relative '../../lib/store/store'
 
 describe Store::Timestamps do
 
-  it "throws an exception if class doesn't include Store" do
+  it "ensures module Store is included" do
     expect{
       class NonStoreObject
         include Store::Timestamps
@@ -12,7 +12,7 @@ describe Store::Timestamps do
     }.to raise_error( Store::NonStoreObjectError )
   end
 
-  it "loads module correctly if store is included" do
+  it "loads module with store included" do
     expect{
       class StoreObject
         include Store
@@ -21,7 +21,7 @@ describe Store::Timestamps do
     }.not_to raise_error
   end
 
-  context 'with a store-object' do
+  context 'Object' do
     class MyObject
       include Store
       include Store::Timestamps
@@ -31,7 +31,7 @@ describe Store::Timestamps do
       attr_accessor :name
     end
 
-    it "sets created_at and updated_at when saving" do
+    it "updates timestamps on save" do
       object = MyObject.new( name: 'First Object' )
       expect( object.created_at ).to be_nil
       expect( object.updated_at ).to be_nil
@@ -41,11 +41,38 @@ describe Store::Timestamps do
       object.delete
     end
 
-    it "updates updated_at at save but leaves created_at on save" do
+    it "doesn't overwrite created_at" do
       object = MyObject.create!( name: 'First Object' )
       expect( object.created_at ).to eq( object.updated_at )
       object.update_attributes( { created_at: Time.now - 1.week } )
-      expect( (object.updated_at - object.created_at).to_i ).to eq( 1.week.to_i )
+      object.created_at.should be_within(1).of(Time.now-1.week)
+      object.delete
+    end
+
+    context "Timestamps" do
+
+      before(:all) { @object = MyObject.create( id: 1, name: "Test Bunny") }
+      after(:all)  { MyObject.delete_store! }
+
+      before :each do
+        PStore.any_instance.stub(:dump)
+        NilClass.any_instance.stub(:bytesize).and_return(0)
+        NilClass.any_instance.stub(:replace)
+        allow_message_expectations_on_nil
+      end
+
+      it "on save" do
+        expect(@object).to receive(:update_timestamps)
+        @object.save
+      end
+
+      it "ignores updated_at if modified before" do
+        ts = Time.now - 1.week
+        @object.updated_at = ts
+        @object.save
+        @object.updated_at.to_i.should be_within(1).of(ts.to_i)
+      end
+
     end
 
   end

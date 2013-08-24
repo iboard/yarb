@@ -1,0 +1,10 @@
+@import '_variables';
+
+@mixin light_small_block {
+  font-size: $smallNoteFontSize * 0.3;
+  color: $lightTextColor;
+  font-family: $btnFontFamily;
+  display: block;
+  line-height: 100%;
+}
+

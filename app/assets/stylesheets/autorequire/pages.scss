@@ -1,4 +1,5 @@
 @import '_variables';
+@import 'mixins';
 
 h1.small-page-title {
   font-size: $smallNoteFontSize;
@@ -30,4 +31,10 @@ h1.small-page-title {
   margin-right: 1em;
 }
 
+.page-information {
+  @include light_small_block;
+}
 
+ul li .page-information {
+  text-indent: 8em;
+}

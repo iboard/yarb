@@ -1,4 +1,7 @@
 de:
-  en: 'English'
-  de: 'Deutsch'
+  en: "English"
+  de: "Deutsch"
+
+  created_at: "Erstellt am %{time}"
+  updated_at: "Zuletzt geändert am %{time}"
 

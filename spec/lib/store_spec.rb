@@ -7,7 +7,7 @@ describe Store do
     expect( Store::path ).to eq( File.join( Rails.root, 'db', Rails.env ) )
   end
 
-  context 'included in any class' do
+  context 'any Class' do
 
     class MyStoreClass
       include Store
@@ -95,6 +95,15 @@ describe Store do
         obj.save
         MyStoreClass.find('object-to-test').should be_nil
         MyStoreClass.find('object-tested').should_not be_nil
+      end
+
+      context "Dirty tracking" do
+
+        it "tracks updated attributes" do
+          object.my_other_field = 'Changed'
+          expect(object.modified_attributes).to eq([:my_other_field])
+        end
+
       end
 
     end

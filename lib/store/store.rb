@@ -192,7 +192,7 @@ module Store
 
     # Add an attribute and an rw-accessor for it to the class.
     # @param [Symbol] name - the Name of the attribute as symbol
-    # @param [Object] default - the default value of the attribute
+    # @param [Object] attr - type: Integer, default: 0
     def attribute name, *attr
       _attr = AttributeDefinition.new( name, *attr )
       attribute_definitions << _attr
@@ -204,6 +204,7 @@ module Store
         end
 
         define_method "#{name}=".to_sym do |new_value|
+          track_attribute(name, new_value)
           instance_variable_set "@#{name.to_s}", normalize_value("#{name}", new_value)
         end
       end
@@ -300,6 +301,18 @@ module Store
       attribute_definitions.get_hashmap_for(self)
     end
 
+    # @return [Array] list of modified attributes
+    def modified_attributes
+      @modified_attributes ||= []
+    end
+
+    # @param [Symbol|String] name of the attributed to be tracked
+    def track_attribute name, new_value
+      unless self.send(name).eql?(new_value)
+        self.modified_attributes << name.to_sym
+      end
+    end
+
     # @param [Symbol] _field
     # @return [Object] the default-value for _field
     def default_of _field
@@ -326,6 +339,7 @@ module Store
         @original_key = self.key
         @new_record = false
         store.transaction() { |s| s[self.key] = self }
+        self.send(:after_save)
       end
       self.valid_without_errors? and return self
     end
@@ -422,6 +436,11 @@ module Store
 
     def after_load
       @new_record = false
+      @modified_attributes = []
+    end
+
+    def after_save
+      @modified_attributes = []
     end
 
     def store

@@ -102,9 +102,16 @@ class PagesController < ApplicationController
   def refresh_md_files
     Dir[md_files_wildcards].each do |file|
       _title = title_of_md_file file
-      page = Page.find(_title) || Page.create( title: _title.upcase, draft: false, updated_at: File.mtime(file) )
-      page.body = File.read(file) if page.updated_at != File.mtime(file)
-      page.save
+      _text  = File.read(file)
+      page = Page.find(_title) || Page.create( title: _title.upcase, updated_at: File.mtime(file) )
+      if page.body != _text
+        page.update_attributes(
+          draft: false,
+          body: _text,
+          created_at: File.ctime(file),
+          updated_at: File.mtime(file)
+        )
+      end
     end
   end
 

@@ -92,6 +92,13 @@ module ApplicationHelper
    'btn btn-primary'
   end
 
+  # @return [String] create_at and updated_at concatinated
+  def model_date_information _model
+    c,m = _model.created_at, _model.updated_at
+    _str = t(:created_at, time: c.to_s(:short))
+    _str << ", " << t(:updated_at, time: m.to_s(:short)) unless c == m
+  end
+
   private
 
   def alert_box &block

@@ -6,4 +6,5 @@
   = render 'sortable_handles', page: page
   = link_to_unless_current page.title, page_path(page)
   .draft= t(:is_a_draft) if [1, "1", true].include?(page.draft)
+  = render "page_information", page: page
 

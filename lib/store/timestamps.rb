@@ -28,10 +28,16 @@ module Store
         attribute :updated_at, nil
 
           def save
-            ts = Time.now
-            self.created_at ||= ts
-            self.updated_at = ts
+            update_timestamps
             super
+          end
+
+          private
+
+          def update_timestamps
+            ts = Time.now
+            self.created_at ||= ts unless self.modified_attributes.include?(:created_at)
+            self.updated_at = ts   unless self.modified_attributes.include?(:updated_at)
           end
 
       end
