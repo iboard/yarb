@@ -1,6 +1,8 @@
 How the Store-Module works
 ==========================
 
+[API-Documentation](http://dav.iboard.cc/container/yarb/doc/Store.html)
+
 This project doesn't use
 [ActiveRecord](http://guides.rubyonrails.org/active_record_querying.html), 
 [Mongoid](http://mongoid.org/), neither any other ORM.
