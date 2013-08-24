@@ -56,7 +56,6 @@ describe Store::Timestamps do
 
       before :each do
         PStore.any_instance.stub(:transaction)
-        allow_message_expectations_on_nil
       end
 
       it "on save" do
