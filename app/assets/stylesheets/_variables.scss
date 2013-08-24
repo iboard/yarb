@@ -12,7 +12,7 @@ $headingsFontFamily: freight-sans-pro, Myriad Pro, Lucida Grande, Lucida Sans Un
 $baseFontSize: 21px;
 $baseLineHeight: 25px;
 $standardLineHeight: $baseLineHeight * 1.2;
-$largeFontSize:  1.8em;
+$largeFontSize:  30px;
 
 /* Header */
 $headerFontSize: $baseFontSize * 2.2;
@@ -33,11 +33,14 @@ $btnLineHeight: 22px;
 /* *******************************************
    Project (Non-Bootstrap) variables 
 ******************************************* */
+$iPadFactor:   0.8;
+$iPhoneFactor: 0.7;
 
 /* Fonts */
 $smallNoteFontSize: $footerFontSize;
 $largeListFontSize: $largeFontSize;
 $bigListFontSize: $largeFontSize;
+$codeFontSize: $footerFontSize;
 
 /* Colors */
 $standardShadowColor: #888;

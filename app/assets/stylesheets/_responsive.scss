@@ -2,20 +2,28 @@
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) { 
+  body { font-size: $baseFontSize * $iPadFactor; }
+  p { font-size: $baseFontSize * $iPadFactor; }
+  h1 { font-size: $largeFontSize * $iPadFactor !important; line-height: 100%; }
+  h2 { font-size: $largeFontSize * $iPadFactor * 0.8 !important; line-height: 100%; }
+  h3 { font-size: $largeFontSize * $iPadFactor * 0.6 !important; line-height: 100%; }
+  .list-entry { font-size: $bigListFontSize * $iPadFactor; }
+  blockquote p { font-size: $largeFontSize * $iPadFactor; }
+  code { font-size: $codeFontSize * $iPadFactor; line-height: 110%; }
 }
 
 /* Landscape phones and down */
 @media (max-width: 480px) { 
 
   /* Smaller H1 */
-  h1 {
-    font-size: $largeFontSize * 0.7;
-  }
-
-  /* Smaller list-entries */
-  .list-entry {
-    font-size: $bigListFontSize * 0.7;
-  }
+  body { font-size: $baseFontSize * $iPhoneFactor }
+  p { font-size: $baseFontSize    * $iPhoneFactor; }
+  h1 { font-size: $largeFontSize  * $iPhoneFactor !important; line-height: 100%; }
+  h2 { font-size: $largeFontSize  * $iPhoneFactor * 0.8 !important; line-height: 100%; }
+  h3 { font-size: $largeFontSize  * $iPhoneFactor * 0.6 !important; line-height: 100%; }
+  .list-entry { font-size: $bigListFontSize * $iPhoneFactor; }
+  blockquote p { font-size: $largeFontSize * $iPhoneFactor; }
+  code { font-size: $codeFontSize * $iPhoneFactor;  line-height: 110%;}
 
   /* Don't fix the footer on phones */
   footer {
