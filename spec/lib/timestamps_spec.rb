@@ -58,6 +58,7 @@ describe Store::Timestamps do
         PStore.any_instance.stub(:dump)
         NilClass.any_instance.stub(:bytesize).and_return(0)
         NilClass.any_instance.stub(:replace)
+        NilClass.any_instance.stub(:to_s).and_return('')
         allow_message_expectations_on_nil
       end
 
