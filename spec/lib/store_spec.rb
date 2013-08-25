@@ -1,10 +1,10 @@
 # -*- encoding : utf-8 -*-
-require_relative '../spec_helper'
+require_relative "../spec_helper"
 
 describe Store do
 
   it "uses db/:env/ to store files." do
-    expect( Store::path ).to eq( File.join( Rails.root, 'db', Rails.env ) )
+    expect( Store::path ).to eq( File.join( Rails.root, "db", Rails.env ) )
   end
 
   context "used in any class" do
@@ -13,18 +13,18 @@ describe Store do
       include Store
       key_method :my_field
       attribute  :my_field
-      attribute  :my_other_field, type: String, default: 'with a default'
+      attribute  :my_other_field, type: String, default: "with a default"
 
       def initialize _my_field
         @my_field = _my_field
       end
     end
 
-    let(:object) { MyStoreClass.new('my object') }
+    let(:object) { MyStoreClass.new("my object") }
 
     it "saves data in it's own path named by the class-name" do
        expect( object.send(:store_path) ).to eq( 
-         File.join(Store::path, 'my_store_class' ) 
+         File.join(Store::path, "my_store_class" ) 
        )
     end
 
@@ -35,19 +35,19 @@ describe Store do
     end
 
     it "can tell either an object is saved/persistent with new_record?()" do
-      obj = MyStoreClass.new 'A new Record'
+      obj = MyStoreClass.new "A new Record"
       obj.new_record?.should be_true
       obj.save
       obj.new_record?.should be_false
-      obj2 = MyStoreClass.find 'a-new-record'
+      obj2 = MyStoreClass.find "a-new-record"
       obj2.new_record?.should be_false
     end
 
     it "calls the callback 'loaded' after read from file" do
-      obj = MyStoreClass.new 'Load me'
+      obj = MyStoreClass.new "Load me"
       obj.save
       MyStoreClass.any_instance.should_receive(:after_load).once
-      obj_reloaded = MyStoreClass.find 'load-me'
+      obj_reloaded = MyStoreClass.find "load-me"
     end
 
     it "deletes the entire file with 'delete_store!()'" do 
@@ -66,37 +66,37 @@ describe Store do
     context "Single object operations" do
 
       before :each do
-        @object = MyStoreClass.find('object-to-test') || MyStoreClass.create( 'object to test')
+        @object = MyStoreClass.find("object-to-test") || MyStoreClass.create( "object to test")
       end
 
       it "defines attributes for the class" do
         expect( @object.attributes).to eq( [ 
-          { my_field: 'object to test' }, { my_other_field: 'with a default' } 
+          { my_field: "object to test" }, { my_other_field: "with a default" } 
         ] )
       end
 
       it "defines attribute getters for each attribute" do
-        expect( @object.my_field ).to eq( 'object to test' )
-        expect( @object.my_other_field ).to eq( 'with a default' )
-        expect( @object.default_of(:my_other_field)).to eq('with a default')
+        expect( @object.my_field ).to eq( "object to test" )
+        expect( @object.my_other_field ).to eq( "with a default" )
+        expect( @object.default_of(:my_other_field)).to eq("with a default")
       end
 
       it "validates uniqueness of key-field" do
         MyStoreClass.exist?(@object.key).should be_true
-        MyStoreClass.exist?('not-available-key').should be_false
+        MyStoreClass.exist?("not-available-key").should be_false
       end
 
       it "allows to change the key of an object" do
-        obj = MyStoreClass.find('object-to-test')
-        obj.my_field = 'Object tested'
+        obj = MyStoreClass.find("object-to-test")
+        obj.my_field = "Object tested"
         obj.save
-        MyStoreClass.find('object-to-test').should be_nil
-        MyStoreClass.find('object-tested').should_not be_nil
+        MyStoreClass.find("object-to-test").should be_nil
+        MyStoreClass.find("object-tested").should_not be_nil
       end
 
       context "Dirty tracking" do
         it "tracks updated attributes" do
-          object.my_other_field = 'Changed'
+          object.my_other_field = "Changed"
           expect(object.modified_attributes).to eq([:my_other_field])
         end
       end
@@ -106,23 +106,23 @@ describe Store do
 
       before :each do
         MyStoreClass.delete_store!
-        @object1 = MyStoreClass.create('First Object')
-        @object2 = MyStoreClass.create('Second Object')
+        @object1 = MyStoreClass.create("First Object")
+        @object2 = MyStoreClass.create("Second Object")
       end
 
       it "lists the keys of each object" do
-        expect(MyStoreClass.keys).to eq(['first-object', 'second-object'])
+        expect(MyStoreClass.keys).to eq(["first-object", "second-object"])
       end
 
       it "throws an exception on .create!() if key exists" do
-        expect { MyStoreClass.create!('First Object') }
+        expect { MyStoreClass.create!("First Object") }
         .to raise_error DuplicateKeyError, 
             "An object of class MyStoreClass "          +
             "with key 'first-object' already exists."
       end
 
       it "doesn't throw an exception but sets errors on .create() if key exists" do
-        _p = MyStoreClass.create('First Object')
+        _p = MyStoreClass.create("First Object")
         expect( _p.errors.messages ).to eq(
           base: [ "An object of class MyStoreClass with key 'first-object' " +
                   "already exists." ] 
@@ -176,7 +176,7 @@ describe Store do
     end
 
     it "compares as string when data-types are different" do
-      SortableObject.create!(position: 'As String')
+      SortableObject.create!(position: "As String")
       expect{ SortableObject.asc(:position) }.not_to raise_error
     end
   end
@@ -191,8 +191,8 @@ describe Store do
 
     before :all do
       TestPage.delete_store!
-      @p1 = TestPage.create title: 'is online', draft: false
-      @p2 = TestPage.create title: 'is a draft'
+      @p1 = TestPage.create title: "is online", draft: false
+      @p2 = TestPage.create title: "is a draft"
     end
 
     it "filters by a single attribute with .where(:a => value)" do

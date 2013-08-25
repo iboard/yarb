@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-
-require_relative '../spec_helper'
-require_relative '../../lib/store/store'
+require_relative "../spec_helper"
+require_relative "../../lib/store/store"
 
 describe Store::Timestamps do
 
@@ -21,7 +21,7 @@ describe Store::Timestamps do
     }.not_to raise_error
   end
 
-  context 'Object' do
+  context "With any Object" do
     class MyObject
       include Store
       include Store::Timestamps
@@ -32,7 +32,7 @@ describe Store::Timestamps do
     end
 
     it "updates timestamps on save" do
-      object = MyObject.new( name: 'First Object' )
+      object = MyObject.new( name: "First Object" )
       expect( object.created_at ).to be_nil
       expect( object.updated_at ).to be_nil
       object.save
@@ -42,14 +42,14 @@ describe Store::Timestamps do
     end
 
     it "doesn't overwrite created_at" do
-      object = MyObject.create!( name: 'First Object' )
+      object = MyObject.create!( name: "First Object" )
       expect( object.created_at ).to eq( object.updated_at )
       object.update_attributes( { created_at: Time.now - 1.week } )
       object.created_at.should be_within(1).of(Time.now-1.week)
       object.delete
     end
 
-    context "Timestamps" do
+    context "allows to be overwritten" do
 
       before(:all) { @object = MyObject.create( id: 1, name: "Test Bunny") }
       after(:all)  { MyObject.delete_store! }
@@ -58,7 +58,7 @@ describe Store::Timestamps do
         PStore.any_instance.stub(:transaction)
       end
 
-      it "on save" do
+      it "uses callback .update_timestamp() on save" do
         expect(@object).to receive(:update_timestamps)
         @object.save
       end

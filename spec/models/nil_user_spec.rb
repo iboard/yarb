@@ -6,7 +6,7 @@ describe NilUser, "(A replacement for current_user == nil)" do
   let(:user) { NilUser.new( name: "dont care", email: "no@where.at.all") }
 
   it "initialize and throws away arguments" do
-    expect( user.name ).to eq('(no name)')
+    expect( user.name ).to eq("(no name)")
     expect( user.email).to be_nil
   end
 
@@ -15,7 +15,7 @@ describe NilUser, "(A replacement for current_user == nil)" do
   end
 
   it "never authenticates" do
-    expect( user.authenticate('whatever')).to be_false
+    expect( user.authenticate("whatever")).to be_false
   end
 
   it "has no roles" do
