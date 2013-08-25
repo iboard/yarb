@@ -3,7 +3,7 @@
 cd $HOME/apps/yarb
 
 echo "UPDATE AND RESTART yarb ON EDGE.IBOARD.CC"
-rvm use `cat .ruby-gemset`
+echo "USING `rvm current`"
 git pull
 if [ $? == "0" ]
 then
