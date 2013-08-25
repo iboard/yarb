@@ -8,7 +8,7 @@ namespace "deploy" do
 
   desc "Deploy to live-demo (needs authentication with ssh-keys)"
   task :app do
-    system "ssh deployer@edge.iboard.cc apps/yarb/bin/update_and_restart.sh"
+    system "ssh deployer@edge.iboard.cc bash --login apps/yarb/bin/update_and_restart.sh"
   end
 
 end
