@@ -3,11 +3,11 @@ require_relative '../spec_helper'
 
 describe Store do
 
-  it 'uses path for current environment' do
+  it "uses db/:env/ to store files." do
     expect( Store::path ).to eq( File.join( Rails.root, 'db', Rails.env ) )
   end
 
-  context 'any Class' do
+  context "used in any class" do
 
     class MyStoreClass
       include Store
@@ -22,17 +22,19 @@ describe Store do
 
     let(:object) { MyStoreClass.new('my object') }
 
-    it 'uses the name of the base-class for pstore-files' do
-       expect( object.send(:store_path) ).to eq( File.join(Store::path, 'my_store_class' ) )
+    it "saves data in it's own path named by the class-name" do
+       expect( object.send(:store_path) ).to eq( 
+         File.join(Store::path, 'my_store_class' ) 
+       )
     end
 
-    it 'saves and retrieves an object from the store' do
+    it "finds entries by keys" do
       object.save
       read_object = MyStoreClass.find( object.key )
       expect(read_object.my_field).to eq(object.my_field)
     end
 
-    it 'reports new_record? if object is not saved or loaded from store yet' do
+    it "can tell either an object is saved/persistent with new_record?()" do
       obj = MyStoreClass.new 'A new Record'
       obj.new_record?.should be_true
       obj.save
@@ -41,55 +43,50 @@ describe Store do
       obj2.new_record?.should be_false
     end
 
-    it 'calls callback loaded after loading the object from the store' do
+    it "calls the callback 'loaded' after read from file" do
       obj = MyStoreClass.new 'Load me'
       obj.save
       MyStoreClass.any_instance.should_receive(:after_load).once
       obj_reloaded = MyStoreClass.find 'load-me'
     end
 
-    it 'deletes the store' do 
+    it "deletes the entire file with 'delete_store!()'" do 
       object.save
       MyStoreClass.delete_store!
       expect( File.exist?(MyStoreClass.send(:store_path)) ).to be_false
     end
 
-    it 'deletes an entry from the store' do
+    it "deletes single entries with object.delete()" do
       object.save
       expect( MyStoreClass.find(object.key) ).to_not be_nil
       object.delete
       expect( MyStoreClass.find(object.key) ).to be_nil
     end
 
-    context 'with a single object' do
+    context "Single object operations" do
 
       before :each do
         @object = MyStoreClass.find('object-to-test') || MyStoreClass.create( 'object to test')
       end
 
-      it 'implements attributes method' do
+      it "defines attributes for the class" do
         expect( @object.attributes).to eq( [ 
           { my_field: 'object to test' }, { my_other_field: 'with a default' } 
         ] )
+      end
 
+      it "defines attribute getters for each attribute" do
         expect( @object.my_field ).to eq( 'object to test' )
         expect( @object.my_other_field ).to eq( 'with a default' )
         expect( @object.default_of(:my_other_field)).to eq('with a default')
       end
 
-      it 'can check if key exists' do
+      it "validates uniqueness of key-field" do
         MyStoreClass.exist?(@object.key).should be_true
         MyStoreClass.exist?('not-available-key').should be_false
       end
 
-      it 'can delete objects by key' do
-        new_object = MyStoreClass.create!( 'short living object' )
-        MyStoreClass.find('short-living-object').should_not be_nil
-        MyStoreClass.delete('short-living-object')
-        MyStoreClass.find('short-living-object').should be_nil
-      end
-
-      it 'should change the key' do
+      it "allows to change the key of an object" do
         obj = MyStoreClass.find('object-to-test')
         obj.my_field = 'Object tested'
         obj.save
@@ -98,38 +95,41 @@ describe Store do
       end
 
       context "Dirty tracking" do
-
         it "tracks updated attributes" do
           object.my_other_field = 'Changed'
           expect(object.modified_attributes).to eq([:my_other_field])
         end
-
       end
-
     end
 
-    context 'with two objects' do
+    context "With a collection of object" do
+
       before :each do
         MyStoreClass.delete_store!
         @object1 = MyStoreClass.create('First Object')
         @object2 = MyStoreClass.create('Second Object')
       end
 
-      it 'creates and lists available objects' do
+      it "lists the keys of each object" do
         expect(MyStoreClass.keys).to eq(['first-object', 'second-object'])
       end
 
-      it '.create! throws an exception on duplicate keys' do
-        expect { MyStoreClass.create!('First Object') }.
-          to raise_error DuplicateKeyError, 'An object of class MyStoreClass with key \'first-object\' already exists.'
+      it "throws an exception on .create!() if key exists" do
+        expect { MyStoreClass.create!('First Object') }
+        .to raise_error DuplicateKeyError, 
+            "An object of class MyStoreClass "          +
+            "with key 'first-object' already exists."
       end
 
-      it '.create returns an invalid object on duplicate keys' do
+      it "doesn't throw an exception but sets errors on .create() if key exists" do
         _p = MyStoreClass.create('First Object')
-        expect( _p.errors.messages ).to eq(base:["An object of class MyStoreClass with key 'first-object' already exists."] )
+        expect( _p.errors.messages ).to eq(
+          base: [ "An object of class MyStoreClass with key 'first-object' " +
+                  "already exists." ] 
+        )
       end
 
-      it 'loads all objects' do
+      it "retrieves all objects with .all()" do
         expect(MyStoreClass.all.map(&:my_field)).to eq( [@object1.my_field,@object2.my_field] )
       end
     end
@@ -137,51 +137,48 @@ describe Store do
 
   context "Ordering" do
 
-    context "with default order" do
-
-      class SortableObject
-        include Store
-        key_method    :position
-        attribute     :position, type: Integer
-        default_order :position, :desc
-        attr_accessor :position
-      end
-
-      before :each do 
-        @objects = [
-          SortableObject.create!(position: 3),
-          SortableObject.create!(position: 1),
-          SortableObject.create!(position: 2),
-        ]
-      end
-      after(:each) { SortableObject.delete_store! }
-
-      it "sorts ascending" do
-        expect( SortableObject.asc(:position).map(&:position)).to eq( [ 1, 2, 3 ] )
-      end
-
-      it "sorts descending" do
-        expect( SortableObject.desc(:position).map(&:position)).to eq( [ 3, 2, 1 ] )
-      end
-
-      it "sorts by default" do
-        expect( SortableObject.all.map(&:position)).to eq( [ 3, 2, 1 ] )
-      end
-
-      it "sorts as pushed on asc without field" do
-        expect( SortableObject.asc.map(&:position)).to eq( [ 3, 1, 2 ] )
-      end
-
-      it "reverse sorts as pushed on desc without field" do
-        expect( SortableObject.desc.map(&:position)).to eq( [ 2, 1, 3 ] )
-      end
-
-      it "handles different data-types of sort-fields" do
-        SortableObject.create!(position: 'As String')
-        expect{ SortableObject.asc(:position) }.not_to raise_error
-      end
+    class SortableObject
+      include Store
+      key_method    :position
+      attribute     :position, type: Integer
+      default_order :position, :desc
+      attr_accessor :position
     end
 
+    before :each do 
+      @objects = [
+        SortableObject.create!(position: 3),
+        SortableObject.create!(position: 1),
+        SortableObject.create!(position: 2),
+      ]
+    end
+
+    after(:each) { SortableObject.delete_store! }
+
+    it "sorts .asc(:attribute)" do
+      expect( SortableObject.asc(:position).map(&:position)).to eq( [ 1, 2, 3 ] )
+    end
+
+    it "sorts .desc(:attribute)" do
+      expect( SortableObject.desc(:position).map(&:position)).to eq( [ 3, 2, 1 ] )
+    end
+
+    it "sorts by default as defined with default_order" do
+      expect( SortableObject.all.map(&:position)).to eq( [ 3, 2, 1 ] )
+    end
+
+    it "returns objects as pushed on .asc() without attribute" do
+      expect( SortableObject.asc.map(&:position)).to eq( [ 3, 1, 2 ] )
+    end
+
+    it "returns in reverse order .desc() without attribute" do
+      expect( SortableObject.desc.map(&:position)).to eq( [ 2, 1, 3 ] )
+    end
+
+    it "compares as string when data-types are different" do
+      SortableObject.create!(position: 'As String')
+      expect{ SortableObject.asc(:position) }.not_to raise_error
+    end
   end
 
   context "Selecting" do
@@ -198,16 +195,18 @@ describe Store do
       @p2 = TestPage.create title: 'is a draft'
     end
 
-    it "filters by a single flag" do
+    it "filters by a single attribute with .where(:a => value)" do
       expect(TestPage.where( draft: false).map(&:title)).to include( "is online" )
       expect(TestPage.where( draft: false).map(&:title)).not_to include( "is a draft" )
       expect(TestPage.where( draft: true ).map(&:title)).to include("is a draft" )
       expect(TestPage.where( draft: true ).map(&:title)).not_to include("is online")
     end
 
-    it "filters with more arguments" do
-      expect(TestPage.where( draft: false, title: "is online").map(&:title)).to include("is online")
-      expect(TestPage.where( draft: true, title: "is online").map(&:title)).to be_empty
+    it "filters with more arguments .where(:a => value, :b => value) (AND)" do
+      expect(TestPage.where( draft: false, title: "is online").map(&:title)).
+        to include("is online")
+      expect(TestPage.where( draft: true, title: "is online").map(&:title)).
+        to be_empty
     end
   end
 end
