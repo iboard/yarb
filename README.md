@@ -59,8 +59,22 @@ HOW TO START
 What You Can do
 ===============
 
+## With the source
+
   * Run `rake` to run all specs and then `open coverage/index.html` to see your test-coverage.
+  * Run `rake full` will also run Jasmine-tests. 
+  * Run `rake fast` will skip specs invoking javascript (they are slow)
+  * Run `rake long` will display not only dots but spec-descriptions.
   * Run `yard` to generate the current documentation and `open doc/index.html`
+
+## With the Application
+
+Start `rails server` and visit `http://0.0.0.0:3000`. You'll see a list
+of "Pages" which are the html-representation of all markdown-files found
+in the root-path of the application.
+
+If you create a User with admin-role on the console (see below) you'll
+be able to add, edit, and delete pages.
 
 TDD
 ===
@@ -90,9 +104,10 @@ APP-Features
   * Reads all *md-files from project's root and stores them as Pages.
   * `/pages` lists all pages with Edit- and Delete- Buttons.
   * At `/pages/new` you can create new pages.
+  * It implements a responsive design using Twitter-bootstrap and sass.
 
 Users
------
+=====
 
 We don't have a Sign-up form yet. You have to create a user at the
 console.
@@ -109,6 +124,17 @@ user.save
 ```
 
 Once this is done you can sign-in with email and password.
+
+Deploy
+======
+
+There are two rake-tasks in `lib/tasks/deploy.rake` which alows to
+rsync doc/* to a web-server and the application itself to a
+production-server, running 'thin'.
+
+It's planed to implement a full capistano-deploy-script when the project
+grows up. By now you have to change the user and hostnames for your
+needs.
 
 
 Contribution
