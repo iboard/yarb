@@ -1,42 +1,41 @@
 # -*- encoding : utf-8 -*-
-require_relative '../spec_helper'
+require_relative "../spec_helper"
 
 describe ApplicationController do
 
   render_views
 
-  context 'on the root_path' do
+  context "handles global session behavior" do
+
     before :each do
+      I18n.locale = :en
       visit root_path
     end
 
-    it 'initialize session' do
+    it "initialize the session" do
       ApplicationController.any_instance.should_receive(:init_session)
       visit root_path
     end
 
-    it 'should switch locales' do
-      within '#container.container' do
-        page.should have_css('h1', :text => 'Welcome', match: :prefer_exact)
+    it "switches locales" do
+      within "#container.container" do
+        page.should have_css("h1", :text => "Welcome", match: :prefer_exact)
       end
-      within 'footer .locales' do
-        click_link 'Deutsch'
+      within "footer .locales" do
+        click_link "Deutsch"
       end
-      within '#container.container' do
-        page.should have_css('h1', :text => 'Willkommen', match: :prefer_exact)
+      within "#container.container" do
+        page.should have_css("h1", :text => "Willkommen", match: :prefer_exact)
       end
     end
-  end
 
-  context 'on any pages' do
-    it 'stays on the same page when switching locales' do
-      I18n.locale = :en
+    it "stays on the same page when switching locales" do
       visit pages_path
-      page.should have_content 'Available Pages'
-      within '.locales' do
-        click_link 'Deutsch'
+      page.should have_content "Available Pages"
+      within ".locales" do 
+        click_link "Deutsch" 
       end
-      page.should have_content 'Alle Seiten'
+      page.should have_content "Alle Seiten"
     end
   end
 
