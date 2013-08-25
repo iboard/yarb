@@ -25,6 +25,10 @@ in simple
     necessary methods within Store, thus we can use <em>Store</em> in any other
     ruby-environment, not only for Rails. (Sinatra, command-line,
     whatever)</p>
+    
+    <p>
+      See [Discussion](https://groups.google.com/forum/#!topic/iboard-collaboration/Jfo2HuQG_yA)
+    </p>
   </div>
   <div class='span6'>
     <img src='http://dav.iboard.cc/container/yarb/PStore-Model.png'/>
