@@ -27,11 +27,3 @@ task :long do
   system "rspec", "-f", "d", "spec/"
   system "guard-jasmine"
 end
-
-desc "Deploy (needs authentication with ssh-keys)"
-task :deploy do
-  system "yard"
-  system "rsync", "-avze", "ssh", "doc", "www-data@dav.iboard.cc:/var/www/dav/container/yarb/"
-end
-
-
