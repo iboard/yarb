@@ -27,7 +27,7 @@ in simple
     whatever)</p>
     
     <p>
-      See [Discussion](https://groups.google.com/forum/#!topic/iboard-collaboration/Jfo2HuQG_yA)
+      See <a href='https://groups.google.com/forum/#!topic/iboard-collaboration/Jfo2HuQG_yA'>Discussion</a>
     </p>
   </div>
   <div class='span6'>
