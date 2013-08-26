@@ -7,6 +7,7 @@ require_relative './attribute_definition'
 require_relative './attribute_definitions'
 require_relative './timestamps'
 require_relative './boolean'
+require_relative './selector'
 
 # A Wrapper for PStore
 # @example
