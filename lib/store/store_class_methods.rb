@@ -105,6 +105,16 @@ module Store
       @key_method
     end
 
+    # Attr Accessor
+    def default_order_field
+      @default_order_field
+    end
+
+    # Attr Accessor
+    def default_order_direction
+      @default_order_direction
+    end
+
     # Define the default order
     def default_order field, direction=:asc
       @default_order_field = field
@@ -180,11 +190,11 @@ module Store
       _key.to_s.parameterize
     end
 
-    private
-
     def roots
       store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
     end
+
+    private
 
     def sort_descending _objects, field
       _objects.sort { |b,a| safe_compare(a,b, field) }

@@ -1,8 +1,9 @@
 # -*- encoding : utf-8 -*-
 require_relative "../spec_helper"
-require_relative "../../lib/store/store"
 
-describe Store::Timestamps do
+describe "Timestamps" do
+
+  include Store
 
   it "ensures module Store is included" do
     expect{
