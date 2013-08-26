@@ -2,9 +2,10 @@ README
 ======
 
 This is a Rails4-Starter-Application.
-(See in [Action](http://yarb.iboard.cc/))
 
-API-Documentation at [dav.iboard.cc](http://dav.iboard.cc/container/yarb/doc/index.html)
+* [See in Action](http://yarb.iboard.cc/))
+* [API-Documentation](http://dav.iboard.cc/container/yarb/doc/index.html)
+* [Test-Coverage](http://dav.iboard.cc/container/yarb/coverage/index.html)
 
 <div style='float: right; padding: 1em; margin-right: 1em; border: 1px solid #ddd; border-radius: 0.25em; '>
 <strong>Travis-CI</strong><br/>
