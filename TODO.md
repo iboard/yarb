@@ -5,6 +5,32 @@ Bugs, Features, and Milestones are tracked officially at
 [Github](https://github.com/iboard/yarb/issues)
 This TODO.md-file is used for quick-notes and brainstorming only.
 
+TODO: A Selector for Store-classes
+----------------------------------
+
+`.where(...)` should return a Selector which can be used in another
+`where(...)` instead of an `Array`.
+
+This leads to the question, should any of the selecting methods (.all, .asc,
+.desc, where) return a Selector?
+
+To write code like this
+
+```ruby
+
+    @pages = Page
+      .where( draft: false )
+      .where( author: 'xy')
+      .asc(:updated_at)
+
+```
+
+
+
+
+Less important stuff
+--------------------
+
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this
          title exists?
