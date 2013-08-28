@@ -1,8 +1,14 @@
 # -*- encoding : utf-8 -*-
 module Store
 
-  # This is a draft only and not used by the rest of the application!
 
+  # A Selector is a wrapper for Store-objects.
+  # The most important method is where() which returns another Selector, 
+  # thus one can cascade where() to filter the Store-objects in steps.
+  # Use _selection.all() to get the array of selected objects.
+  # @example
+  #   admins = User.where(admin: true)
+  #   local_admins = admins.where( zip: 4053 )
   class Selector
 
     attr_reader :objects
