@@ -1,4 +1,4 @@
-<div class='page-index'></div>
+<div id='page-index'></div>
 
 README
 ======
