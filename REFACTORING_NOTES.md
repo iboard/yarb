@@ -1,7 +1,32 @@
 # YARB Refactoring Notes on [Commits](https://github.com/iboard/yarb/commits/master)
 
 <!-- Place this tag where you want the +1 button to render. -->
-<div class="g-plusone" data-annotation="inline" data-width="300"></div>
+<div style='height: 35px; min-height: 35px;' class="g-plusone" data-annotation="inline" data-width="300"></div>
+
+## Implemented a Selector class
+
+### Commit: [Fully implemented Selector](https://github.com/iboard/yarb/commit/4a958a7ceab029566eb9dd03d483887697abd11d) 
+
+> A Selector wraps the objects in a Store-class.
+
+```ruby
+  admins = User.where admin: true
+  local_admins = admins.where zip: 4053
+  local_admins.each do |admin|
+    admin.class #=> User
+  end
+  admins.class #=> Selector
+  loacaladmins.class #=> Selector
+```
+
+**Changes to the Store-module**
+
+  1. roots() initialize a Selector with all objects/records.
+  2. where() and other methods moved to the Selector-class.
+
+This means, if you `.where(...)` on a _StoreClass_ you no longer get an
+Array of objects but a _Selector-object_, you can use for further restricting with
+an `.where()` on this selector.
 
 ## There is no Boolean class in Ruby
 
