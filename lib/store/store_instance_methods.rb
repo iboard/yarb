@@ -154,7 +154,7 @@ module Store
     end
 
     def after_save
-      self.class.send(:expire_selector)
+      self.class.expire_selector
       @modified_attributes = []
     end
 

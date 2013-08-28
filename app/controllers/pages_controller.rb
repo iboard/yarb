@@ -25,6 +25,9 @@ class PagesController < ApplicationController
   # Load @page if param :id is present
   before_filter :load_resource
 
+  # Invalidate Cache
+  before_filter :expire_selection
+
   # Redirect with access denied if action is not allowed
   before_filter :authorize_creators, only: [ :new, :create ]
   before_filter :authorize_editors,  only: [ :edit, :update ]
@@ -145,4 +148,7 @@ class PagesController < ApplicationController
     @page ||= Page.find(params[:id]) if params[:id].present?
   end
   
+  def expire_selection
+    Page.expire_selector
+  end
 end

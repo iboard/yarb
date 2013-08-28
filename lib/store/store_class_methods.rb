@@ -193,14 +193,15 @@ module Store
       _key.to_s.parameterize
     end
 
+    # Expires the cache, so next read will reread from file
+    def expire_selector
+      @selector = nil
+    end
+
     private
 
     def selector
       @selector ||= Selector.new self, roots
-    end
-
-    def expire_selector
-      @selector = nil
     end
 
     def roots
