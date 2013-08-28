@@ -1,3 +1,5 @@
+<div id='page-index'></div>
+
 # YARB Refactoring Notes on [Commits](https://github.com/iboard/yarb/commits/master)
 
 <!-- Place this tag where you want the +1 button to render. -->
