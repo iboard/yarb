@@ -1,0 +1,12 @@
+@import "_variables";
+
+#page-index {
+  float: right;
+  margin-left: 2em;
+  border: 1px solid $standardShadowColor;
+  border-radius: 0.25em;
+  padding: 1.5em;
+  font-family: $btnFontFamily;
+  font-size: $btnFontSize;
+
+}
