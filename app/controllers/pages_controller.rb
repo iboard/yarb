@@ -33,7 +33,7 @@ class PagesController < ApplicationController
 
   # GET /pages
   def index
-    @pages = is_page_editor? ? Page.all : Page.where( draft: false )
+    @pages = is_page_editor? ? Page.all : Page.where( draft: false ).all
   end
 
   # GET /pages/:id

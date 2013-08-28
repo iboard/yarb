@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Store
 
   # Methods to be included by objects of the class.
@@ -153,6 +154,7 @@ module Store
     end
 
     def after_save
+      self.class.send(:expire_selector)
       @modified_attributes = []
     end
 

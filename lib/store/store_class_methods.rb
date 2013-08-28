@@ -1,3 +1,4 @@
+# -*- encoding : utf-8 -*-
 module Store
 
   # ClassMethods for including class
@@ -8,6 +9,7 @@ module Store
     # @return [Object] a new object of class which is saved
     # @raise [DuplicateKeyError] if object with same key exists
     def create! *args
+      expire_selector
       new_object = new(*args)
       prevent_duplicate_keys(new_object)
       new_object.save or new_object
@@ -19,6 +21,7 @@ module Store
     # @param [Array] args - are passed to the initializer of class
     # @return [Object] a new object of class.
     def create *args
+      expire_selector
       object = create! *args
     rescue DuplicateKeyError => e
       e.object.errors.add :base, e.message
@@ -44,12 +47,9 @@ module Store
     # Filter by arguments
     # @param [Hash] args 
     def where *args
-      _filter = args.first
-      all.select do |s|
-        _filter.keys.all? { |k| s.send(k) == _filter.fetch(k) }
-      end
+      selector.where *args
     end
-    
+
     # Delete an entry from store
     # @param [Symbol|string] _key
     # @return [nil|Object] the object removed if there is one.
@@ -66,21 +66,23 @@ module Store
     # Load all objects
     # @return [Array] of all objects in the store
     def all
-      ordered( roots )
+      selector.all #ordered( roots )
     end
 
     # Sort Ascending
     # @param [Symbol] field - the attribute to sort on
     # @return [Array] of Objects
     def asc field=nil
-      (field ? sort_ascending(roots, field) : roots).compact
+      selector.asc(field)
+      #(field ? sort_ascending(roots, field) : roots).compact
     end
 
     # Sort Descending
     # @param [Symbol] field - the attribute to sort on
     # @return [Array] of Objects
     def desc field=nil
-      (field ? sort_descending(roots, field) : roots.reverse).compact
+      selector.desc(field)
+      #(field ? sort_descending(roots, field) : roots.reverse).compact
     end
 
     # Define the key-method for this class and add validates_presence_of
@@ -178,10 +180,11 @@ module Store
     # @param [Object] _value - the value this attribute should have
     # @return [Object|nil]
     def find_by _attribute, _value
-      store.transaction(:read_only) do |s|
-        _key = s.roots.detect { |entry| s[entry].send(_attribute).eql?(_value) }
-        s[_key] if _key
-      end
+      selector.find_by _attribute, _value
+      #store.transaction(:read_only) do |s|
+        #_key = s.roots.detect { |entry| s[entry].send(_attribute).eql?(_value) }
+        #s[_key] if _key
+      #end
     end
 
     # @param [String|Symbol] _key
@@ -190,35 +193,18 @@ module Store
       _key.to_s.parameterize
     end
 
-    def roots
-      store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
-    end
-
     private
 
-    def sort_descending _objects, field
-      _objects.sort { |b,a| safe_compare(a,b, field) }
+    def selector
+      @selector ||= Selector.new self, roots
     end
 
-    def sort_ascending _objects, field
-      _objects.sort { |a,b| safe_compare(a,b, field) }
+    def expire_selector
+      @selector = nil
     end
 
-    def safe_compare a, b, field
-      result = a.send(field) <=> b.send(field)
-      result ||= a.send(field).to_s <=> b.send(field).to_s
-    end
-
-
-    def ordered _objects
-      case @default_order_direction || :none
-      when :asc
-        sort_ascending(_objects, @default_order_field )
-      when :desc
-        sort_descending(_objects, @default_order_field )
-      else
-        _objects
-      end
+    def roots
+      store.transaction(:read_only) { |s| s.roots.map {|r| s[r]} }
     end
 
     def store_path
