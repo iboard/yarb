@@ -5,28 +5,7 @@ Bugs, Features, and Milestones are tracked officially at
 [Github](https://github.com/iboard/yarb/issues)
 This TODO.md-file is used for quick-notes and brainstorming only.
 
-TODO: A Selector for Store-classes
-----------------------------------
-
-`.where(...)` should return a Selector which can be used in another
-`where(...)` instead of an `Array`.
-
-This leads to the question, should any of the selecting methods (.all, .asc,
-.desc, where) return a Selector?
-
-To write code like this
-
-```ruby
-
-    @pages = Page
-      .where( draft: false )
-      .where( author: 'xy')
-      .asc(:updated_at)
-
-```
-
-
-
+TODO: Refactor page_index.coffee and do link with smooth moving.
 
 Less important stuff
 --------------------
