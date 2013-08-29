@@ -13,7 +13,8 @@ class SessionController < ApplicationController
     user = User.find_by( :email, params[:email] ) || NilUser.new
     if user.authenticate(params[:password])
       session[:user_id] = user.email
-      redirect_to root_path, notice: t(:successfully_logged_in_as, user: user.name).html_safe
+      redirect_to root_path, 
+        notice: t(:successfully_logged_in_as, user: user.name).html_safe
     else
       flash.now[:error] = t(:invalid_credentials)
       render :new

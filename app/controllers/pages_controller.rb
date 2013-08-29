@@ -16,7 +16,7 @@ class PagesController < ApplicationController
   # ruby 2.0 only #PAGE_TERMINATOR_ROLES  = %i( admin maintainer )
   PAGE_TERMINATOR_ROLES  = [ :admin, :maintainer ]
 
-
+  # Catch 404 errors
   rescue_from PageNotFoundError, with: :render_not_found
 
   # Loading all *.md-files from project's root into Page-store
@@ -32,7 +32,6 @@ class PagesController < ApplicationController
   before_filter :authorize_creators, only: [ :new, :create ]
   before_filter :authorize_editors,  only: [ :edit, :update ]
   before_filter :authorize_terminators, only: [ :destroy ]
-
 
   # GET /pages
   def index
@@ -108,7 +107,6 @@ class PagesController < ApplicationController
     end
   end
 
-    
   def md_files_wildcards
     File.join(Rails.root,'*.md')
   end
@@ -134,7 +132,7 @@ class PagesController < ApplicationController
   def load_resource
     @page ||= Page.find(params[:id]) if params[:id].present?
   end
-  
+
   def expire_selection
     Page.expire_selector
   end

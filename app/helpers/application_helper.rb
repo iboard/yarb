@@ -33,9 +33,10 @@ module ApplicationHelper
   # @param [String] path
   # @return [String] html
   def delete_link_tag path
-    link_to icon_with_text('icon-trash icon-white',t(:delete)), path, 
-      method: :delete, 
-      data: { confirm: t(:are_you_sure) }, 
+    link_to icon_with_text('icon-trash icon-white', t(:delete)), 
+      path, 
+      method: :delete,
+      data: { confirm: t(:are_you_sure) },
       class: 'btn btn-danger'
   end
 
@@ -44,7 +45,9 @@ module ApplicationHelper
   # @param [String] path
   # @return [String] html-link
   def new_button_tag label, path
-    link_to icon_with_text('icon-plus-sign icon-white',label), path, class: 'btn btn-success'
+    link_to icon_with_text('icon-plus-sign icon-white',label),
+      path,
+      class: 'btn btn-success'
   end
 
   # Insert a 'default' button with a list-sign
@@ -52,7 +55,9 @@ module ApplicationHelper
   # @param [String] path
   # @return [String] html-link
   def list_button_tag label, path
-    link_to icon_with_text('icon-list',label), path, class: 'btn btn-default'
+    link_to icon_with_text('icon-list',label),
+      path,
+      class: 'btn btn-default'
   end
 
   # Insert a 'primary' button with an edit-icon
@@ -60,7 +65,9 @@ module ApplicationHelper
   # @param [String] path
   # @return [String] html-link
   def edit_button_tag label, path
-    link_to icon_with_text('icon-edit icon-white',label), path, class: 'btn btn-primary'
+    link_to icon_with_text('icon-edit icon-white',label),
+      path,
+      class: 'btn btn-primary'
   end
 
   # Insert a 'default' button with a cancel-sign
@@ -68,7 +75,9 @@ module ApplicationHelper
   # @param [String] path
   # @return [String] html-link
   def cancel_button_tag label, path
-    link_to icon_with_text('icon-remove',label), path, class: 'btn btn-default'
+    link_to icon_with_text('icon-remove',label),
+      path,
+      class: 'btn btn-default'
   end
 
   # @param [Symbol] locale

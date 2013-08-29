@@ -42,7 +42,7 @@ class ApplicationController < ActionController::Base
     redirect_to (can_go_back? ? :back : path), *args
   end
 
-  private 
+  private
 
   def set_locale_from_param
     I18n.locale = session[:locale] = params[:locale].to_sym
