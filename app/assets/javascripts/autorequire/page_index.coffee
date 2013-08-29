@@ -10,20 +10,40 @@ class @PageIndex
     idx = "<ol>"
     l1 = 1
     $("h1").each ->
-      $(this).attr("id", "idx-#{l1}")
-      idx += "<li><a href='#idx-#{l1}'>#{$(this).html()}</a></li>"
-      _next = $(this).next()
-      l2 = 1
-      while _next != undefined && _next.length > 0
-        if _next.is("h1") 
-          break
-        if _next.is("h2")
-          idx += "<ul>"
-          _next.attr("id", "idx-#{l1}-#{l2}")
-          idx += "<li><a href='#idx-#{l1}-#{l2}'>#{_next.html()}</a></li>"
-          l2 += 1
-          idx += "</ul>"
-        _next = _next.next()
+      idx += addH1Link $(this), l1
+      idx += iterateToNextH1 $(this), l1
       l1 += 1
     idx += "</ol>"
     index.html idx
+
+
+  setIdOfTarget= (target, level) ->
+    target.attr("id", "idx-#{level}")
+
+  liOfTarget= (target, level) ->
+    "<li><a href='#idx-#{level}'>#{target.html()}</a></li>"
+
+  addH1Link= (target, level) ->
+    setIdOfTarget target, level
+    liOfTarget target, level
+
+  addH2Link= (target, parent_level, level) ->
+    str = "<ul>"
+    setIdOfTarget target, "#{parent_level}-#{level}"
+    str += liOfTarget target, "#{parent_level}-#{level}"
+    str += "</ul>"
+    str
+
+  iterateToNextH1= (from, level) ->
+    str = ""
+    _next = from.next()
+    sublevel = 1
+    while _next != undefined && _next.length > 0
+      if _next.is("h1") 
+        break
+      if _next.is("h2")
+        str += addH2Link _next, level, sublevel
+        sublevel += 1
+      _next = _next.next()
+    str
+
