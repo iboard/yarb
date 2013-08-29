@@ -11,7 +11,22 @@
   padding: 1.5em;
   box-shadow: 0px 1px 3px darken($standardShadowColor, 20%);
   font-family: $btnFontFamily;
-  font-size: $btnFontSize;
+  font-size: $smallNoteFontSize * 0.75;
+  ol {
+    margin-left: 1.25em;
+    line-height: 120%;
+    li {
+      line-height: 120%;
+      margin-top: 0.5em;
+    }
+    ul {
+      line-height: 120%;
+      margin-left: 0.25em;
+      li {
+      line-height: 120%;
+      }
+    }
+  }
 
 }
 
