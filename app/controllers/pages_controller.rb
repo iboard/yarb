@@ -104,26 +104,13 @@ class PagesController < ApplicationController
 
   def refresh_md_files
     Dir[md_files_wildcards].each do |file|
-      _title = title_of_md_file file
-      _text  = File.read(file)
-      page = Page.find(_title) || Page.create( title: _title.upcase, updated_at: File.mtime(file) )
-      if page.body != _text
-        page.update_attributes(
-          draft: false,
-          body: _text,
-          created_at: File.ctime(file),
-          updated_at: File.mtime(file)
-        )
-      end
+      MdFileToPageService.new file
     end
   end
 
+    
   def md_files_wildcards
     File.join(Rails.root,'*.md')
-  end
-
-  def title_of_md_file _file
-    File.basename(_file, '.md')
   end
 
   def render_not_found
