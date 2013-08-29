@@ -5,6 +5,17 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div style='height: 35px; min-height: 35px;' class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## Use Services
+
+### Commit: [Extracted Service to read MD-files for PagesController](https://github.com/iboard/yarb/commit/2fd8b908ff3646636ae3f0489e23d59f1bcaef96)
+
+> Reading a markdown-file and create and update the Page-model shouldn't
+> be a response of the PagesController.
+
+This commit extracts a simple Service into a separate class in a new
+path `app/services`.
+
+
 ## Implemented a Selector class
 
 ### Commit: [Fully implemented Selector](https://github.com/iboard/yarb/commit/4a958a7ceab029566eb9dd03d483887697abd11d) 
