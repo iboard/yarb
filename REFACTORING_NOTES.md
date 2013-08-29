@@ -15,6 +15,14 @@
 This commit extracts a simple Service into a separate class in a new
 path `app/services`.
 
+#### Commit: [Refactored MD-service](https://github.com/iboard/yarb/commit/2fd8b908ff3646636ae3f0489e23d59f1bcaef96)
+
+> I was not satisfied by the first choice of naming. So I renamed the
+> service and extracted the specs for it to `spec/services`.
+
+While writing the documentation of the service I wrote, "maybe the
+content for the pages will come from different source in future
+versions". So, the name MD... is misleading and should be more general.
 
 ## Implemented a Selector class
 
