@@ -18,7 +18,7 @@ path `app/services`.
 
 ## Implemented a Selector class
 
-### Commit: [Fully implemented Selector](https://github.com/iboard/yarb/commit/4a958a7ceab029566eb9dd03d483887697abd11d) 
+#### Commit: [Fully implemented Selector](https://github.com/iboard/yarb/commit/4a958a7ceab029566eb9dd03d483887697abd11d) 
 
 > A Selector wraps the objects in a Store-class.
 
