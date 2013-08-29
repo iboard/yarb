@@ -1,9 +1,11 @@
 # -*- encoding : utf-8 -*-
+
 ENV["RAILS_ENV"] ||= 'test'
 require 'simplecov'
 SimpleCov.start do
   add_filter 'spec/support/matchers'
   add_filter 'spec/spec_helper'
+  add_filter 'spec/warning_suppressor'
   add_group "App", 'app/'
   add_group "Library", 'lib/'
 end
@@ -14,6 +16,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'capybara/rails'
 require 'capybara/rspec'
+require 'warning_suppressor'
 
 Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
