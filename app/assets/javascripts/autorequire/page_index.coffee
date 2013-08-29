@@ -15,18 +15,24 @@ class @PageIndex
       l1 += 1
     idx += "</ol>"
     index.html idx
+    installSmoothScroll()
 
 
+  # Sets the css-id for target, thus it is addressable
   setIdOfTarget= (target, level) ->
     target.attr("id", "idx-#{level}")
 
+  # format the li-line with the link to target
   liOfTarget= (target, level) ->
-    "<li><a href='#idx-#{level}'>#{target.html()}</a></li>"
+    "<li><a class='page-index-link' href='#idx-#{level}'>#{target.html()}</a></li>"
 
+  # Set the id of the target, thus it can be addressed
+  # and return <li><a href...</li>
   addH1Link= (target, level) ->
     setIdOfTarget target, level
     liOfTarget target, level
 
+  # Wrap the link for a H2 into <ul>..</ul>
   addH2Link= (target, parent_level, level) ->
     str = "<ul>"
     setIdOfTarget target, "#{parent_level}-#{level}"
@@ -34,6 +40,7 @@ class @PageIndex
     str += "</ul>"
     str
 
+  # Do next() until another H1 or end of file occurs
   iterateToNextH1= (from, level) ->
     str = ""
     _next = from.next()
@@ -47,3 +54,16 @@ class @PageIndex
       _next = _next.next()
     str
 
+  # Smooth Scrolling
+  installSmoothScroll= () ->
+    $('.page-index-link').each ->
+      $(this).click (event) ->
+        event.preventDefault()
+        scrollSmoothTo $(this).attr('href')
+
+  # actually scroll and highlight
+  scrollSmoothTo= (target) ->
+    element = $(target)
+    y = element.position().top
+    $('body').animate( { scrollTop: y-40 }, 250 )
+    element.effect( 'highlight', 750 )
