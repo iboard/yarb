@@ -1,33 +1,32 @@
 jQuery ->
 
+  # Install PageIndex if there is a css-element with id 'page-index'
+  # Though .each is used here, it makes no sense to have more than 
+  # one 'page-index' on the html-page.
   $('#page-index').each ->
     new PageIndex( $(this) )
 
 
+# Collect H1 and H2 divs
+# Create an outer ordered list for H1 and an inner unordered list for H2
+# Insert the list to #page-index
+# Install an on-click event for links in the list and scroll 
+# smoothly to the target 
+# Note: the @-sign for the class exports the class for the jasmine-tests.
 class @PageIndex
 
   constructor: (index) ->
     idx = "<ol>"
-    l1 = 1
+    level = 1
     $("h1").each ->
-      idx += addH1Link $(this), l1
-      idx += iterateToNextH1 $(this), l1
-      l1 += 1
+      idx += addH1Link $(this), level
+      idx += iterateToNextH1 $(this), level
+      level += 1
     idx += "</ol>"
     index.html idx
     installSmoothScroll()
 
-
-  # Sets the css-id for target, thus it is addressable
-  setIdOfTarget= (target, level) ->
-    target.attr("id", "idx-#{level}")
-
-  # format the li-line with the link to target
-  liOfTarget= (target, level) ->
-    "<li><a class='page-index-link' href='#idx-#{level}'>#{target.html()}</a></li>"
-
-  # Set the id of the target, thus it can be addressed
-  # and return <li><a href...</li>
+  # Format the line for target <li><a href...</li>
   addH1Link= (target, level) ->
     setIdOfTarget target, level
     liOfTarget target, level
@@ -53,6 +52,14 @@ class @PageIndex
         sublevel += 1
       _next = _next.next()
     str
+
+  # Sets the css-id for target, thus it is addressable
+  setIdOfTarget= (target, level) ->
+    target.attr("id", "idx-#{level}")
+
+  # format the li-line with the link to target
+  liOfTarget= (target, level) ->
+    "<li><a class='page-index-link' href='#idx-#{level}'>#{target.html()}</a></li>"
 
   # Smooth Scrolling
   installSmoothScroll= () ->
