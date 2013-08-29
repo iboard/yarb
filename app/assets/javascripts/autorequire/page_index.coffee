@@ -6,7 +6,6 @@ jQuery ->
   $('#page-index').each ->
     new PageIndex( $(this) )
 
-
 # Collect H1 and H2 divs
 # Create an outer ordered list for H1 and an inner unordered list for H2
 # Insert the list to #page-index
