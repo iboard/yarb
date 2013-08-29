@@ -10,8 +10,9 @@ jQuery ->
 # Collect H1 and H2 divs
 # Create an outer ordered list for H1 and an inner unordered list for H2
 # Insert the list to #page-index
-# Install an on-click event for links in the list and scroll 
-# smoothly to the target 
+# Install an on-click event for links in the list and scroll smoothly to the target.
+# An example of a css-definition for #page-index is at
+#    https://github.com/iboard/yarb/blob/master/app/assets/stylesheets/autorequire/page_index.scss
 # Note: the @-sign for the class exports the class for the jasmine-tests.
 class @PageIndex
 
