@@ -7,7 +7,7 @@
 
 ## Use Services
 
-### Commit: [Extracted Service to read MD-files for PagesController](https://github.com/iboard/yarb/commit/2fd8b908ff3646636ae3f0489e23d59f1bcaef96)
+#### Commit: [Extracted Service to read MD-files for PagesController](https://github.com/iboard/yarb/commit/2fd8b908ff3646636ae3f0489e23d59f1bcaef96)
 
 > Reading a markdown-file and create and update the Page-model shouldn't
 > be a response of the PagesController.
