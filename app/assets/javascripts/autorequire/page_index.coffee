@@ -66,4 +66,5 @@ class @PageIndex
     element = $(target)
     y = element.position().top
     $('body').animate( { scrollTop: y-40 }, 250 )
+    $('#page-index').animate( { "margin-top": "#{y-100}" }, 250 )
     element.effect( 'highlight', 750 )
