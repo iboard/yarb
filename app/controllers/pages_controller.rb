@@ -103,7 +103,7 @@ class PagesController < ApplicationController
 
   def refresh_md_files
     Dir[md_files_wildcards].each do |file|
-      MdFileToPageService.new file
+      StaticPageUpdateService.new file
     end
   end
 
