@@ -65,6 +65,13 @@ module Store
       @objects.detect { |entry| entry.send(_attribute).eql?(_value) }
     end
 
+    # @param [Object] _id
+    # @return [Object|nil] the object found or nil
+    def find _id
+      @objects.detect { |entry| entry.send(:key).eql?(_id) } or
+        raise PageNotFoundError.new _id
+    end
+
     # Sort Ascending
     # @param [Symbol] field - the attribute to sort on
     # @return [Array] of Objects

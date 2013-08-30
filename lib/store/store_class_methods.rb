@@ -44,6 +44,15 @@ module Store
       _object
     end
 
+    # Find an object and update_attributes if found
+    # @param [String] id - the key to find
+    # @param [Hash] attr - parameters to update
+    # @return [Object|false] - see Store::InstanceMethods::save
+    def find_and_update_attributes(id, attr)
+      object = find(id)
+      object.update_attributes( attr ) if object
+    end
+
     # Filter by arguments
     # @param [Hash] args 
     def where *args

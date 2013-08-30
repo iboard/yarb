@@ -35,7 +35,7 @@ class PagesController < ApplicationController
 
   # GET /pages
   def index
-    @pages = is_page_editor? ? Page.all : Page.where( draft: false ).all
+    @pages = visible_pages.all
   end
 
   # GET /pages/:id
@@ -90,14 +90,17 @@ class PagesController < ApplicationController
 
   private
 
+  def visible_pages
+    is_page_editor? ? Page : Page.where( draft: false )
+  end
+
   def is_page_editor?
     has_roles?(PagesController::PAGE_EDITOR_ROLES)
   end
 
   def update_positions ordered_ids
     ordered_ids.each_with_index do |id, idx|
-      p = Page.find(id.gsub(/^page-/,''))
-      p.update_attributes( { position: idx + 1 } ) if p
+      Page.find_and_update_attributes(id.gsub(/^page-/,''), { position:  idx+1 })
     end
   end
 
@@ -113,7 +116,7 @@ class PagesController < ApplicationController
 
   def render_not_found
     flash[:alert]=t(:page_does_not_exists, title: params[:id])
-    @pages = Page.all
+    @pages = visible_pages.all
     render :index, status: :not_found
   end
 
@@ -130,7 +133,7 @@ class PagesController < ApplicationController
   end
 
   def load_resource
-    @page ||= Page.find(params[:id]) if params[:id].present?
+    @page ||= visible_pages.find(params[:id]) if params[:id].present?
   end
 
   def expire_selection
