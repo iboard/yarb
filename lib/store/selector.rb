@@ -68,8 +68,7 @@ module Store
     # @param [Object] _id
     # @return [Object|nil] the object found or nil
     def find _id
-      @objects.detect { |entry| entry.send(:key).eql?(_id) } or
-        raise PageNotFoundError.new _id
+      @objects.detect{ |entry| entry.send(:key).eql?(_id) }
     end
 
     # Sort Ascending

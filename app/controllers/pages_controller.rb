@@ -41,7 +41,6 @@ class PagesController < ApplicationController
   # GET /pages/:id
   # @raise [PageNotFoundError] if page doesn't exist
   def show
-    raise PageNotFoundError.new(params[:id]) unless @page
   end
 
   # GET /pages/new
@@ -133,7 +132,10 @@ class PagesController < ApplicationController
   end
 
   def load_resource
-    @page ||= visible_pages.find(params[:id]) if params[:id].present?
+    if params[:id].present?
+      @page ||= visible_pages.find(params[:id]) 
+      raise PageNotFoundError.new(params[:id]) unless @page
+    end
   end
 
   def expire_selection
