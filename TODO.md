@@ -13,6 +13,8 @@ Smells
    as an Integer, .find(1) will not find the entry. Types for
    key-fields?!
 
+To be done
+----------
 
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this
