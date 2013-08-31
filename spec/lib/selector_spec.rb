@@ -56,6 +56,12 @@ describe "Selector" do
       expect(_second.first.value).to eq('Four')
     end
 
+    it "finds objects by key" do
+      object = Selectable.where( character: "d" ).find("3")
+      expect(object.value).to eq('Four')
+    end
+
+
   end
 
 end
