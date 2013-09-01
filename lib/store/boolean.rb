@@ -7,10 +7,10 @@ module Store
   # a TrueClass or FalseClass
   class Boolean
 
-    # This words are :true, any other string is :false
     NO_WORDS = %w(false no off disabled 0) + ['']
-
+    # This words are :true, any other string is :false
     # @param [true|false|Integer] value
+
     # @return [TrueClass|FalseClass]
     # @example
     #   0, -1, -2,... => false, 1,2,3... => true
