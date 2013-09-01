@@ -3,6 +3,9 @@
 table {
 
   border: 1px solid $tableBorderColor;
+  font-family: $btnFontFamily;
+  font-size: $btnFontSize;
+  width: 100%;
 
   thead {
 
@@ -28,6 +31,10 @@ table {
 
     tr:nth-child(od) {
       background: $tableOddBackground;
+    }
+
+    tr:hover {
+      background: lighten($tableHeaderBackground, 10%);
     }
 
   }
