@@ -7,7 +7,7 @@
   .form-actions
     %span
     = f.input :draft, inline_label: t(:draft), as: :boolean, label: t(:save_as_draft)
-    = f.submit t(:save), class: save_button_classes 
+    = f.submit t(:save), class: save_button_classes
     = cancel_button_tag t(:cancel),  pages_path
     .pull-right= render 'terminator_buttons', page: page
 

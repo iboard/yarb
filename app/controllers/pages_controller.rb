@@ -74,7 +74,7 @@ class PagesController < ApplicationController
 
   # DELETE /pages/:id
   def destroy
-    @page.delete 
+    @page.delete
     redirect_to pages_path, notice: t(:page_deleted, title: @page.title)
   end
 
@@ -133,7 +133,7 @@ class PagesController < ApplicationController
 
   def load_resource
     if params[:id].present?
-      @page ||= visible_pages.find(params[:id]) 
+      @page ||= visible_pages.find(params[:id])
       raise PageNotFoundError.new(params[:id]) unless @page
     end
   end

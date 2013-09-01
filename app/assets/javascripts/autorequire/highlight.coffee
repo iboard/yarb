@@ -1,6 +1,8 @@
-# Execute higlight.js on code-blocks
 
 jQuery ->
+
+  # Execute higlight.js for all pre-elements.
+  # Adjusts output from JS to fit our domain.
 
   $(document).ready ->
     $('pre').each ->
@@ -14,7 +16,7 @@ jQuery ->
 # Results in:
 #   <pre lang='ruby'>
 #     <code lang='something set by github-markdown'>
-# But what we need for Highlight.js is:
+#   # But for Highlight.js we need this:
 #   <pre>
 #     <code class='ruby'>
 class @CodeHighlighter
@@ -38,3 +40,4 @@ class @CodeHighlighter
     @code.addClass(@lang)
     _hl = hljs.highlightAuto(@code.text())
     @code[0].innerHTML = _hl.value
+

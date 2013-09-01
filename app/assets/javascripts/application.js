@@ -6,7 +6,7 @@
 //= require_tree ./autorequire
 
 
-/* 
+/*
    require turbolinks
    require jquery.turbolinks
 */

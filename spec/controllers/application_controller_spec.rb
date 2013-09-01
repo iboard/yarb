@@ -32,8 +32,8 @@ describe ApplicationController do
     it "stays on the same page when switching locales" do
       visit pages_path
       page.should have_content "Available Pages"
-      within ".locales" do 
-        click_link "Deutsch" 
+      within ".locales" do
+        click_link "Deutsch"
       end
       page.should have_content "Alle Seiten"
     end

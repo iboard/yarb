@@ -43,7 +43,7 @@ module Store
     #   )
     def update_attributes( hash={} )
       set_attributes hash
-      self.save 
+      self.save
     end
 
     # Validate and save object to store-file
@@ -112,9 +112,9 @@ module Store
 
     def proof_key
       (
-        self.errors.empty?           && 
-        self.valid?                  && 
-        self.class.unique_key?(self) && 
+        self.errors.empty?           &&
+        self.valid?                  &&
+        self.class.unique_key?(self) &&
         handle_key_changed
       )
     end
@@ -125,7 +125,7 @@ module Store
     end
 
     def handle_key_changed
-      return true unless key_changed? 
+      return true unless key_changed?
       if self.class.exist?(self.key)
         self.errors.add(:base, format_duplicate_key_error)
         self.restore_original_key
@@ -138,8 +138,8 @@ module Store
 
     def format_duplicate_key_error
       I18n.t(
-        :key_already_exists, 
-        key_name: self.class.key_method_name, 
+        :key_already_exists,
+        key_name: self.class.key_method_name,
         value: self.key
       )
     end

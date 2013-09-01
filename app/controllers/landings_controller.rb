@@ -7,7 +7,7 @@
 class LandingsController < ApplicationController
 
   # The REAMDE.md is displayed on the Landing-page
-  README_FILE = File.expand_path('../../../README.md',__FILE__) 
+  README_FILE = File.expand_path('../../../README.md',__FILE__)
 
   # GET /
   def index

@@ -1,7 +1,7 @@
 # -*- encoding : utf-8 -*-
 
 # Global Application Controller.
-#   Define all global accessible Controller methods here 
+#   Define all global accessible Controller methods here
 class ApplicationController < ActionController::Base
 
   # Prevent CSRF attacks by raising an exception.
@@ -12,7 +12,7 @@ class ApplicationController < ActionController::Base
   before_filter :init_session
 
   # Set the locale from session if possible
-  before_filter :set_locale
+  before_filter :set_locale_from_session
 
   # get the current user which maybe a NilUser-object
   helper_method :current_user
@@ -20,15 +20,20 @@ class ApplicationController < ActionController::Base
   # Is someone currently signed in?
   helper_method :signed_in?
 
-  # has the current user some roles?
+  # does have the current user some roles?
   helper_method :has_roles?
 
 
-  # GET /switch_locale/:locale
-  def switch_locale
+  # RESPOND TO
+
+  # GET /set_locale/:locale
+  def set_locale
     set_locale_from_param if params[:locale].present?
     redirect_back_or_to root_path
   end
+
+
+  # HELPER
 
   # @return [Boolean] if current_user is logged ins
   def signed_in?
@@ -72,7 +77,7 @@ class ApplicationController < ActionController::Base
     roles.any? { |role| current_user.has_role? role }
   end
 
-  def set_locale
+  def set_locale_from_session
     unless params[:locale].present?
       I18n.locale = session[:locale] || I18n.default_locale
     end

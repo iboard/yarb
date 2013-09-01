@@ -20,12 +20,12 @@ module Roles
 
   def self.included base
     base.class_eval do
-      attribute :roles, type: Array, default: [] 
+      attribute :roles, type: Array, default: []
       include InstanceMethods
     end
   end
 
-  # Defines instance methods for objects of classes 
+  # Defines instance methods for objects of classes
   # which includes this module.
   module InstanceMethods
 

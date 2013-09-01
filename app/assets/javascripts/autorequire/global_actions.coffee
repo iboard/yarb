@@ -3,6 +3,7 @@ jQuery ->
   # Initialize the globalAction class
   $(document).ready -> new GlobalActions()
 
+  # 1. Click on Header or Footer scrolls to top of page.
 
 class @GlobalActions
 
@@ -10,7 +11,7 @@ class @GlobalActions
     $.fn.globalActor = this
     @installHooks()
 
-  # 
+  #
   # install jQuery-callbacks for various selectors and call
   # GlobalAction-Function when it's triggerd.
   #

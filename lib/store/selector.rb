@@ -3,12 +3,15 @@ module Store
 
 
   # A Selector is a wrapper for Store-objects.
-  # The most important method is where() which returns another Selector, 
+  # The most important method is where() which returns another Selector,
   # thus one can cascade where() to filter the Store-objects in steps.
   # Use _selection.all() to get the array of selected objects.
+  # `count`, `each`, and `map` are delegated to the objects.array
+  # `all`, and `to_a` returns the objects-array.
   # @example
   #   admins = User.where(admin: true)
   #   local_admins = admins.where( zip: 4053 )
+  #   local_admins.each(&:print)
   class Selector
 
     attr_reader :objects
@@ -19,7 +22,7 @@ module Store
     end
 
     # Filter by arguments
-    # @param [Hash] args 
+    # @param [Hash] args
     # @return [Selector]
     def where *args
       _filter = args.first
@@ -51,6 +54,7 @@ module Store
     def all
       ordered @objects
     end
+    alias_method :to_a, :all
 
     # The first entry in objects
     # @return [Object]
@@ -99,7 +103,6 @@ module Store
       result = a.send(field) <=> b.send(field)
       result ||= a.send(field).to_s <=> b.send(field).to_s
     end
-
 
     def ordered _objects
       case @klass.default_order_direction || :none

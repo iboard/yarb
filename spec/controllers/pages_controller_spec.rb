@@ -2,13 +2,13 @@
 require_relative "../spec_helper"
 
 describe PagesController do
-  
+
   render_views
 
   before :each do
     Page.delete_store!
-    @page1 = Page.create( title: "Page One", body: "Body of page number one", position: 3, draft: false) 
-    @page2 = Page.create( title: "Page Two", body: "Body of page number two", position: 1, draft: false) 
+    @page1 = Page.create( title: "Page One", body: "Body of page number one", position: 3, draft: false)
+    @page2 = Page.create( title: "Page Two", body: "Body of page number two", position: 1, draft: false)
     @page_to_delete = Page.create( title: "Delete Me", body: "A victim page", position: 2, draft: false)
     @draft = Page.create( title: "Draft by default", body: "A Draft ...",     position: 4 )
   end
@@ -55,7 +55,7 @@ describe PagesController do
     end
 
     context "with different user roles" do
-      before :all do 
+      before :all do
         User.delete_all!
         Roles::ROLES.each do |role|
           user = User.create name: role.to_s.humanize, email: "#{role.to_s}@example.com", roles: [role]
@@ -117,7 +117,7 @@ describe PagesController do
       context "as admin"  do
 
         before :each do
-          sign_in_as "admin@example.com", "secret"   
+          sign_in_as "admin@example.com", "secret"
           visit pages_path
         end
 
@@ -242,9 +242,9 @@ describe PagesController do
       end
 
       it "saves new positions" do
-        within("#pages-list") do 
+        within("#pages-list") do
           # check order as given in before each
-          text.should match /Page Two.*Delete Me.*Page One/ 
+          text.should match /Page Two.*Delete Me.*Page One/
         end
         last_page = find("#page-page-one")
         first_page = find("#page-page-two")
@@ -253,7 +253,7 @@ describe PagesController do
         # TODO: Get rid of this sleep!
         sleep 0.5 # let the post-request finish it's work
         visit pages_path
-        within("#pages-list") do 
+        within("#pages-list") do
           text.should match /Page One.*Page Two.*Delete Me/
         end
       end

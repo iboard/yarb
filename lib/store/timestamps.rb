@@ -20,7 +20,7 @@ module Store
 
     def self.included base_class
       unless base_class.included_modules.include?(Store)
-        raise Store::NonStoreObjectError.new 
+        raise Store::NonStoreObjectError.new
       end
       base_class.class_eval do
 
@@ -36,8 +36,12 @@ module Store
 
           def update_timestamps
             ts = Time.now
-            self.created_at ||= ts unless self.modified_attributes.include?(:created_at)
-            self.updated_at = ts   unless self.modified_attributes.include?(:updated_at)
+            self.created_at ||= ts unless modified?(:created_at)
+            self.updated_at = ts   unless modified?(:updated_at)
+          end
+
+          def modified? _attr
+            self.modified_attributes.include?(_attr)
           end
 
       end

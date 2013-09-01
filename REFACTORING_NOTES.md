@@ -26,7 +26,7 @@ versions". So, the name MD... is misleading and should be more general.
 
 ## Implemented a Selector class
 
-#### Commit: [Fully implemented Selector](https://github.com/iboard/yarb/commit/4a958a7ceab029566eb9dd03d483887697abd11d) 
+#### Commit: [Fully implemented Selector](https://github.com/iboard/yarb/commit/4a958a7ceab029566eb9dd03d483887697abd11d)
 
 > A Selector wraps the objects in a Store-class.
 
@@ -54,9 +54,9 @@ an `.where()` on this selector.
 #### Commit: [Added Boolean Attribute for Store](https://github.com/iboard/yarb/commit/c9d261606955a15d8464470a7adf1ab91dda5276)
 
 > The problem occurs first when Form submits "0"/"1" instead of
-> false/true for checkboxes. 
+> false/true for checkboxes.
 
-I implemented a Boolean-class which handles "0"/0 as false and "1"/1 as true. 
+I implemented a Boolean-class which handles "0"/0 as false and "1"/1 as true.
 Therefore it was necessary to change the behavior of the class
 `AttributeDefinition`.
 
@@ -79,8 +79,8 @@ Therefore it was necessary to change the behavior of the class
 > same page containing a video already shown before, this videos will not
 > work anymore unless you press the browser's reload-button.
 
-I spent to much time on figuring out how to solve this problem. 
-But, at the moment _turbolinks_ are not important. 
+I spent to much time on figuring out how to solve this problem.
+But, at the moment _turbolinks_ are not important.
 At least at this point of the project.  So, I disabled it completely.
 
 ----
@@ -109,7 +109,7 @@ At least at this point of the project.  So, I disabled it completely.
 * Added some documentation-remarks to CSS.
 * _Controllers_ – Made public methods more readable. Added caching for
   instance-variables.
-* _ApplicationHelper_ – defined more helpers, in order to get rid of 
+* _ApplicationHelper_ – defined more helpers, in order to get rid of
   Twitter-Bootstrap-stuff in views.
 * _Views_ – remove all hardcoded _Bootstrap_-code
 * _General_ – removed `to_s` where not necessary.
@@ -150,7 +150,7 @@ we now can write just
 
 #### commit: [Extracted Attribute-definition-pairs into a class](https://github.com/iboard/yarb/commit/b5a4829ca6176385f7f31173466d0bb2193de758)
 
-> Attribute-definitions exists as a pair of :key, :default, and :key, :value 
+> Attribute-definitions exists as a pair of :key, :default, and :key, :value
 > and it became a mess to type this Array-braces everywhere.
 > _AttributeDefinition_ should really be a class on it's own, thus we
 > can pass a single parameter instead of the array.
@@ -226,7 +226,7 @@ and that's why they are 'covered' when the app runs.
 > files are readed –loaded from the md-file into a Page-object– every
 > time. So this pages will refresh not only be created once.
 
-This change seams to be ridiculous at the moment, tho. Little changes like this 
+This change seams to be ridiculous at the moment, tho. Little changes like this
 maybe a real time-safer when the project grows.
 
 ----
@@ -238,7 +238,7 @@ maybe a real time-safer when the project grows.
 > Often you want the user to be redirected where they come from after
 > an action. `redirect_to :back` may fail so you have to check for the
 > existence of HTTP_REFERRER every time.
-  
+
 I moved this `if` into a helper named `redirect_back_or_to`. And I use
 this helper where it make sense but no :back-redirection was done yet.
 
@@ -247,11 +247,11 @@ this helper where it make sense but no :back-redirection was done yet.
 No, it definitely belongs to the public API of `ApplicationController`,
 thus a user –_when I talk about a user here, I mean a programmer using
 this code, not a consumer_– can benefit from and use it instead of
-defining a duple. 
+defining a duple.
 
 
-[7stud]:  http://stackoverflow.com/users/926143/7stud 
-[so_spaceship]:  http://stackoverflow.com/questions/18346352/how-does-the-spaceship-operator-in-ruby-throw-exceptions  
+[7stud]:  http://stackoverflow.com/users/926143/7stud
+[so_spaceship]:  http://stackoverflow.com/questions/18346352/how-does-the-spaceship-operator-in-ruby-throw-exceptions
 
 
 <!-- Place this tag after the last +1 button tag. -->

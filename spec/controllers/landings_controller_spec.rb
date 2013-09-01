@@ -6,7 +6,7 @@ describe LandingsController do
   render_views
 
   before :each do
-    visit switch_locale_path(:en)
+    visit set_locale_path(:en)
   end
 
   it "displays a welcome message on the root_path" do

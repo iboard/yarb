@@ -1,17 +1,21 @@
 jQuery ->
 
   # Install PageIndex if there is a css-element with id 'page-index'
-  # Though .each is used here, it makes no sense to have more than 
+  # Though '.each()' is used here, it makes no sense to have more than
   # one 'page-index' on the html-page.
   $('#page-index').each ->
     new PageIndex( $(this) )
 
 # Collect H1 and H2 divs
-# Create an outer ordered list for H1 and an inner unordered list for H2
-# Insert the list to #page-index
-# Install an on-click event for links in the list and scroll smoothly to the target.
+# Create an outear, ordered list for H1 and an inner, unordered list for H2.
+# Insert the list to element #page-index
+# Install an on-click event to links in the list.
+# Scroll smoothly to the clicked element. Also moves the #page-index
+# element to the new position, thus the menu seems to be fixed on the
+# page.
 # An example of a css-definition for #page-index is at
 #    https://github.com/iboard/yarb/blob/master/app/assets/stylesheets/autorequire/page_index.scss
+#
 # Note: the @-sign for the class exports the class for the jasmine-tests.
 class @PageIndex
 
@@ -45,7 +49,7 @@ class @PageIndex
     _next = from.next()
     sublevel = 1
     while _next != undefined && _next.length > 0
-      if _next.is("h1") 
+      if _next.is("h1")
         break
       if _next.is("h2")
         str += addH2Link _next, level, sublevel

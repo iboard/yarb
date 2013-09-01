@@ -23,8 +23,8 @@ describe Store do
     let(:object) { MyStoreClass.new("my object") }
 
     it "saves data in it's own path named by the class-name" do
-       expect( object.send(:store_path) ).to eq( 
-         File.join(Store::path, "my_store_class" ) 
+       expect( object.send(:store_path) ).to eq(
+         File.join(Store::path, "my_store_class" )
        )
     end
 
@@ -50,7 +50,7 @@ describe Store do
       obj_reloaded = MyStoreClass.find "load-me"
     end
 
-    it "deletes the entire file with 'delete_store!()'" do 
+    it "deletes the entire file with 'delete_store!()'" do
       object.save
       MyStoreClass.delete_store!
       expect( File.exist?(MyStoreClass.send(:store_path)) ).to be_false
@@ -70,8 +70,8 @@ describe Store do
       end
 
       it "defines attributes for the class" do
-        expect( @object.attributes).to eq( [ 
-          { my_field: "object to test" }, { my_other_field: "with a default" } 
+        expect( @object.attributes).to eq( [
+          { my_field: "object to test" }, { my_other_field: "with a default" }
         ] )
       end
 
@@ -84,6 +84,12 @@ describe Store do
       it "validates uniqueness of key-field" do
         MyStoreClass.exist?(@object.key).should be_true
         MyStoreClass.exist?("not-available-key").should be_false
+      end
+
+      it "adds an error if not unique" do
+        MyStoreClass.exist?(@object.key).should be_true
+        duplication = MyStoreClass.create @object.key
+        expect( duplication.errors[:base].first ).to match( "already exists." )
       end
 
       it "allows to change the key of an object" do
@@ -116,7 +122,7 @@ describe Store do
 
       it "throws an exception on .create!() if key exists" do
         expect { MyStoreClass.create!("First Object") }
-        .to raise_error DuplicateKeyError, 
+        .to raise_error DuplicateKeyError,
             "An object of class MyStoreClass "          +
             "with key 'first-object' already exists."
       end
@@ -125,7 +131,7 @@ describe Store do
         _p = MyStoreClass.create("First Object")
         expect( _p.errors.messages ).to eq(
           base: [ "An object of class MyStoreClass with key 'first-object' " +
-                  "already exists." ] 
+                  "already exists." ]
         )
       end
 
@@ -145,7 +151,7 @@ describe Store do
       attr_accessor :position
     end
 
-    before :each do 
+    before :each do
       @objects = [
         SortableObject.create!(position: 3),
         SortableObject.create!(position: 1),

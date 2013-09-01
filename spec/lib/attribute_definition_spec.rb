@@ -21,11 +21,11 @@ describe Store do
       attribute  :int_boolean_false,  type: Boolean, default: 0
     end
 
-    let(:object) { 
-      MyClass.new( id: 0, 
-                  another_string: "A String", 
+    let(:object) {
+      MyClass.new( id: 0,
+                  another_string: "A String",
                   set_boolean: true,
-                 ) 
+                 )
     }
 
     it "default string is nil" do
@@ -55,7 +55,7 @@ describe Store do
     it "returns a Boolean as initialized at new" do
       expect( object.set_boolean ).to be_true
     end
-    
+
     it "returns a boolean initialized with 1 as true" do
       expect( object.int_boolean_true ).to be_true
     end

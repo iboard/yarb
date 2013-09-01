@@ -33,8 +33,8 @@ module ApplicationHelper
   # @param [String] path
   # @return [String] html
   def delete_link_tag path
-    link_to icon_with_text('icon-trash icon-white', t(:delete)), 
-      path, 
+    link_to icon_with_text('icon-trash icon-white', t(:delete)),
+      path,
       method: :delete,
       data: { confirm: t(:are_you_sure) },
       class: 'btn btn-danger'
@@ -83,7 +83,7 @@ module ApplicationHelper
   # @param [Symbol] locale
   # @return [String] html-link
   def switch_to_locale_path_link locale
-    link_to t(locale.to_sym), switch_locale_path(locale) 
+    link_to t(locale.to_sym), set_locale_path(locale)
   end
 
   # @return [String] 'active' if path is current.
@@ -118,8 +118,8 @@ module ApplicationHelper
 
   def render_alert_box_for object
     alert_box do
-      object.errors.map { |tag, error| 
-        error_entry_for(tag,error) 
+      object.errors.map { |tag, error|
+        error_entry_for(tag,error)
       }.join("\n").html_safe
     end
   end

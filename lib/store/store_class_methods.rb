@@ -3,7 +3,7 @@ module Store
 
   # ClassMethods for including class
   module ClassMethods
-    
+
     # Initialize and store new object
     # @param [Array] args - are passed to the initializer of class
     # @return [Object] a new object of class which is saved
@@ -30,7 +30,7 @@ module Store
 
     # @return [Boolean] true if key exists
     def exist? _key
-      store.transaction(:read_only) do |s| 
+      store.transaction(:read_only) do |s|
         s.roots.any? { |r| r.to_sym == _key.to_sym }
       end
     end
@@ -54,7 +54,7 @@ module Store
     end
 
     # Filter by arguments
-    # @param [Hash] args 
+    # @param [Hash] args
     def where *args
       selector.where *args
     end
@@ -150,28 +150,19 @@ module Store
     def unique_key? object
       _check = self.find(object.key)
       _unique = !_check || _check != object
-      object.errors.add(@key_method, "Key '#{object.key}' already exists.") unless _unique
-      _unique
     end
 
     # Add an attribute and an rw-accessor for it to the class.
     # @param [Symbol] name - the Name of the attribute as symbol
     # @param [Object] attr - type: Integer, default: 0
     def attribute name, *attr
+
+      # Add the attribute
       _attr = AttributeDefinition.new( name, *attr )
       attribute_definitions << _attr
-      class_eval do
-        define_method name do
-          _v = instance_variable_get("@#{name.to_s}") 
-          _v ||= _attr.default if _v.nil?
-          _v
-        end
 
-        define_method "#{name}=".to_sym do |new_value|
-          track_attribute(name, new_value)
-          instance_variable_set "@#{name.to_s}", normalize_value("#{name}", new_value)
-        end
-      end
+      # Inject object with getter and setter for attribute
+      define_setter_and_getter(name, _attr)
     end
 
     # @return [AttributeDefinitions] the attribute definitions for this class.
@@ -231,8 +222,27 @@ module Store
     end
 
     def prevent_duplicate_keys(object)
-      raise DuplicateKeyError.new( object ) if keys.include?(object.key) 
+      raise DuplicateKeyError.new( object ) if keys.include?(object.key)
     end
+
+    def define_setter_and_getter(name, _attr)
+      class_eval do
+
+        define_method name do
+          _v = instance_variable_get("@#{name.to_s}")
+          _v ||= _attr.default if _v.nil?
+          _v
+        end
+
+        define_method "#{name}=".to_sym do |new_value|
+          track_attribute(name, new_value)
+          instance_variable_set(
+            "@#{name.to_s}", normalize_value("#{name}", new_value)
+          )
+        end
+      end
+    end
+
 
   end
 end

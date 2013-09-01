@@ -3,7 +3,7 @@
 module Store
 
   # An AttributeDefinition holds information about a Store-attribute
-  # definition, as defined in a Store-class by 
+  # definition, as defined in a Store-class by
   # `attribute :name, default: 'some default', type: AnyClass
   class AttributeDefinition
 
@@ -12,12 +12,12 @@ module Store
     def initialize name, *attr
       @name = name.to_sym
       _attr = attr.first
-      @type    = _attr ? _attr.fetch(:type){ String } : String
-      @default = _attr ? initialize_default(@type,_attr.fetch(:default) { nil }) : nil
+      @type    = get_type_from _attr
+      @default = get_default_from _attr
     end
 
     # @param [Object] _value
-    # @return [Object] with proper datatype. eg. _value = 1 and type Boolean will return true
+    # @return [Object] with proper datatype
     def normalize _value
       initialize_default(@type, _value)
     end
@@ -33,10 +33,20 @@ module Store
     # @param [Object] object
     # @param [Hash] hash
     def update_value_of(object,hash)
-      object.send("#{name.to_s}=", normalize(hash.fetch(name))) if hash.has_key?(name) 
+      object.send("#{name.to_s}=",
+                  normalize(hash.fetch(name))
+                 ) if hash.has_key?(name)
     end
 
     private
+
+    def get_default_from _attr
+      _attr ? initialize_default(@type,_attr.fetch(:default){nil}) : nil
+    end
+
+    def get_type_from(_attr)
+      _attr ? _attr.fetch(:type){ String } : String
+    end
 
     def initialize_default _type, _value
       _type.new( _value )

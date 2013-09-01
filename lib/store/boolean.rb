@@ -7,18 +7,18 @@ module Store
   # a TrueClass or FalseClass
   class Boolean
 
+    NO_WORDS = %w(false no off disabled 0) + ['']
     # @param [true|false|Integer] value
     # @return [TrueClass|FalseClass]
     # @example
-    #   0 => false, 1,2,3... => true
+    #   0, -1, -2,... => false, 1,2,3... => true
     #   'false', '0', 'no', 'off', '' => false, any other string => true
     def self.new value
       case value
       when String
-        _ = value.strip
-        ! ['false', '0', 'no', 'off', ''].include?( _ )
+        ! NO_WORDS.include?( value.strip )
       when Integer
-        value > 0 
+        value > 0
       else
         value
       end

@@ -2,7 +2,7 @@
 #
 require 'bcrypt'
 
-# The User-class 
+# The User-class
 # * uses BCrypt to encrypt passwords
 # * key :id is equal to :email but used parameterized by module Store
 class User
@@ -20,9 +20,9 @@ class User
   validates_presence_of :name
 
   attribute :password_digest
-  
+
   # id is used as the key_method.
-  # Since keys are parameterized we can't use email directly 
+  # Since keys are parameterized we can't use email directly
   # Therefore we return the email-field as id.
   # TODO: Something smells here - refactor this.
   # @return [String]

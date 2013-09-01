@@ -1,12 +1,18 @@
 jQuery ->
 
+    # Install drag-and-drop callback for all
+    # elements with class .sortable
+    #
+    # Element must have a css-id and a data-attribute "action".
+    # "actions" is fired with a POST-request on drop.
+    # Action appends param "sorted_ids" as an Array of
+    # new sorted [ item-ids ]. The called action must
+    # persist the new order.
+
     $('.sortable').each ->
       new SortableList( $(this).attr('id') )
 
 
-# Element must have an id and a data-attribute 'action'
-# actions is fired with a POST-request appending
-# sorted_ids: item-ids in new order
 class SortableList
 
   constructor: (_id) ->
@@ -16,7 +22,7 @@ class SortableList
 
   setupListElement= (element, action) ->
     element.disableSelection()
-    element.sortable 
+    element.sortable
       dropOnEmpty: false,
       update:  (event, ui) ->
         fireRequest( collectItems(element), action )
