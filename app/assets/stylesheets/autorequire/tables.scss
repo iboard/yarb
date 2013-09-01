@@ -1,0 +1,36 @@
+@import "_variables";
+
+table {
+
+  border: 1px solid $tableBorderColor;
+
+  thead {
+
+    th {
+      border: 1px solid $tableBorderColor;
+      padding: 0.25em;
+      background: $tableHeaderBackground;
+    }
+
+  }
+
+  tbody {
+
+    td {
+      border: 1px solid $tableBorderColor;
+      border-right: none;
+      padding: 0.25em;
+    }
+
+    tr:nth-child(even) {
+      background: $tableEvenBackground;
+    }
+
+    tr:nth-child(od) {
+      background: $tableOddBackground;
+    }
+
+  }
+
+}
+
