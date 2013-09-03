@@ -19,11 +19,11 @@ To be done
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this
          title exists?
-1. TODO: Create a `COLLABORATION.md` with instructions for
-         collaborators.         
+1. _TODO: Create a `COLLABORATION.md` with instructions for
+         collaborators. (done as a static page on yarb.iboard.cc now)_
 1. TODO: Investigate in 'invalid hash error' with "rbx-19mode", and
          "jruby-19mode" on Travis-CI (disabled at the moment)
-1. TODO: Localize Error Messages in exceptions         
-1. TODO: Redirect to the page where 'Sign In' was clicked.         
+1. TODO: Localize Error Messages in exceptions
+1. TODO: Redirect to the page where 'Sign In' was clicked.
 1. TODO: There is a dependency we should get rid of. Store depends on
          Rails ActiveModel::**.
