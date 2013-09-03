@@ -55,6 +55,7 @@ module Store
 
     # Filter by arguments
     # @param [Hash] args
+    # @return [Selector]
     def where *args
       selector.where *args
     end
