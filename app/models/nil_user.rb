@@ -13,7 +13,6 @@ class NilUser
 
   # @return [nil]
   def password
-     nil
   end
 
   # No op, you may pass in whatever you want
