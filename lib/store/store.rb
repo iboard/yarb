@@ -1,5 +1,5 @@
 # -*- encoding : utf-8 -*-
-#
+
 require 'pstore'
 require_relative './store_class_methods'
 require_relative './store_instance_methods'
@@ -57,3 +57,4 @@ module Store
   end
 
 end
+

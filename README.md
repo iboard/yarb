@@ -5,7 +5,7 @@ README
 
 This is a Rails4-Starter-Application.
 
-* [See in Action](http://yarb.iboard.cc/))
+* [See in Action](http://yarb.iboard.cc/)
 * [API-Documentation](http://dav.iboard.cc/container/yarb/doc/index.html)
 * [Test-Coverage](http://dav.iboard.cc/container/yarb/coverage/index.html)
 
@@ -26,7 +26,7 @@ Ready to be used with
 **It integrates:**
 
   * Rails4
-  * Twitter-Bootstrap (sass) 
+  * Twitter-Bootstrap (sass)
   * rspec
   * Jasmine Javascript Testing
   * HAML
@@ -65,7 +65,7 @@ What You Can do
 ## With the source
 
   * Run `rake` to run all specs and then `open coverage/index.html` to see your test-coverage.
-  * Run `rake full` will also run Jasmine-tests. 
+  * Run `rake full` will also run Jasmine-tests.
   * Run `rake fast` will skip specs invoking javascript (they are slow)
   * Run `rake long` will display not only dots but spec-descriptions.
   * Run `yard` to generate the current documentation and `open doc/index.html`
@@ -100,7 +100,7 @@ The Starter App
   * The main menu is defined in `app/views/layouts/_navigation.haml` add your menu-items there.
   * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
   * Overwrite Bootstrap-css in `app/assets/stylesheets/_bootstrap_overwrite.scss`
-  
+
 APP-Features
 ------------
 
@@ -142,14 +142,14 @@ needs.
 
 Contribution
 ============
-  
+
   * Pull-requests are appreciated if full test-covered, clean, and in
     their own branch.
   * Story tracking is maintained at:
     [PivotalTracker](https://www.pivotaltracker.com/projects/891652/overview)
     Please pick from currently defined stories before you start your
     own.
-  * Issues and Bug-reports are tracked at 
+  * Issues and Bug-reports are tracked at
     [Github](https://github.com/iboard/yarb/issues)
 
 
@@ -160,7 +160,7 @@ Why use Pstore instead of ActiveRecord, MongoId, ...
 > ActiveRecord, MongoId, whathever, you may find yourself developing
 > an AR, Mongo, Whatever application.
 > Postpone this decision as long as possible and start developing
-> *Your-Application*. 
+> *Your-Application*.
 
 *[PStore](http://ruby-doc.org/stdlib-1.9.3/libdoc/pstore/rdoc/PStore.html)* is a class from ruby's standard-library.
 
@@ -175,7 +175,7 @@ ActiveModel, you will see… not much.
 
 When I decide to use ActiveModel, it was not about, “I’m using
 ActiveModel, so, how I have to implement validations?”. The question
-was, “Ok, every Store-model will have a need of validations; let’s see 
+was, “Ok, every Store-model will have a need of validations; let’s see
 how easy it is to do this with ActiveModel::Validations.”
 
 
@@ -188,7 +188,7 @@ Permission is hereby granted, free of charge, to any person obtaining
 a copy of this software and associated documentation files (the "Software"),
 to deal in the Software without restriction, including without limitation
 the rights to use, copy, modify, merge, publish, distribute, sublicense,
-and/or sell copies of the Software, and to permit persons to whom the 
+and/or sell copies of the Software, and to permit persons to whom the
 Software is furnished to do so, subject to the following conditions:
 
 The above copyright notice and this permission notice shall be included
