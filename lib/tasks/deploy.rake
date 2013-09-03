@@ -4,9 +4,9 @@ namespace "deploy" do
   task :docs do
     system "yard"
     system "rsync", "-avze", "ssh", "--delete", "doc",
-      "www-data@dav.iboard.cc:/var/www/dav/container/yarb/"
+           "www-data@dav.iboard.cc:/var/www/dav/container/yarb/"
     system "rsync", "-avze", "ssh", "--delete", "coverage",
-      "www-data@dav.iboard.cc:/var/www/dav/container/yarb/"
+           "www-data@dav.iboard.cc:/var/www/dav/container/yarb/"
   end
 
   desc "Deploy to live-demo (needs authentication with ssh-keys)"
