@@ -3,7 +3,7 @@ module LayoutHelper
 
   # @param [String] concatinator
   # @return [String]
-  # @yields [Symbol] locale
+  # @yield [Symbol] locale
   def join_all_locales concatinator, &block
     if block_given?
       I18n.available_locales.map { |locale|
