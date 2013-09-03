@@ -1,7 +1,9 @@
 View and Application Helpers
 ============================
 
-Please use the following helpers instead defining your own
+Please use the following helpers instead defining your own.
+Find the definition of this functions in `helpers/application_helper.rb`
+or in `helpers/layout_helper.rb`
 
 
 File                  | Method                                | Description
