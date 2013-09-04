@@ -74,6 +74,4 @@ describe SignUpController do
     page_should_have_error page, "name: Name can't be blank."
   end
 
-
-
 end
