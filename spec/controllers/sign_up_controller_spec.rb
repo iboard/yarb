@@ -37,7 +37,7 @@ describe SignUpController do
       fill_in "Password", with: "secret"
       fill_in "Confirmation", with: "secret"
       click_button "Register"
-    }.not_to change { User.all.count }.by(1)
+    }.not_to change { User.all.count }
     page_should_have_error page, "email: e-mail already exists."
   end
 
@@ -48,7 +48,7 @@ describe SignUpController do
       fill_in "Password", with: "secret"
       fill_in "Confirmation", with: "word"
       click_button "Register"
-    }.not_to change { User.all.count }.by(1)
+    }.not_to change { User.all.count }
     page_should_have_error page, "password_confirmation: Confirmation doesn't match."
   end
 
@@ -59,7 +59,7 @@ describe SignUpController do
       fill_in "Password", with: "sec"
       fill_in "Confirmation", with: "sec"
       click_button "Register"
-    }.not_to change { User.all.count }.by(1)
+    }.not_to change { User.all.count }
     page_should_have_error page, "password: Password is to short. Minimum 4 characters."
   end
 
@@ -70,7 +70,7 @@ describe SignUpController do
       fill_in "Password", with: "secure"
       fill_in "Confirmation", with: "secure"
       click_button "Register"
-    }.not_to change { User.all.count }.by(1)
+    }.not_to change { User.all.count }
     page_should_have_error page, "name: Name can't be blank."
   end
 
