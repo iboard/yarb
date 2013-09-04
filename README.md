@@ -1,7 +1,6 @@
 <div id='page-index'></div>
 
-README
-======
+# README
 
 This is a Rails4-Starter-Application.
 
@@ -40,8 +39,7 @@ Ready to be used with
   * use ActiveRecord or any other database
   * See file STORE.md for a short description
 
-HOW TO START
-============
+# HOW TO START
 
 **Requirements**
 
@@ -59,8 +57,7 @@ HOW TO START
 
   * Edit files `config/locales/site.*.yml` to setup your copyright and URL
 
-What You Can do
-===============
+# What You Can do
 
 ## With the source
 
@@ -79,41 +76,45 @@ in the root-path of the application.
 If you create a User with admin-role on the console (see below) you'll
 be able to add, edit, and delete pages.
 
-TDD
-===
+# TDD
 
 The project follows 100% TDD. Run `rake` to run all test.
 To get more response as green dots run `rspec -f d`. The readable list
 of specs will give you an idea what the app is doing so far.
 
-Continuous Testing
-------------------
+## Using Solid State Disks
+
+Running the tests will write files in `db/test` and `./tmp` over and over
+again. This will harm your SSD. I recommend to use a RAM-Disk for your
+`/tmp` path of the maschine and sym-link the directories `db/test` and
+`./tmp` to this RAM-disk.
+
+See [this blog](http://blog.alutam.com/2012/04/01/optimizing-macos-x-lion-for-ssd/)
+
+## Continuous Testing
 
 The app uses [Travis-CI](https://travis-ci.org/iboard/yarb) for continuous testing
 the integration with different Ruby-environments. – _See the list of
 tested rubies and the current Travis-state on top of this page._
 
-The Starter App
-===============
+# The Starter App
 
   * The root-path goes to LandingsController#index
   * The main menu is defined in `app/views/layouts/_navigation.haml` add your menu-items there.
   * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
   * Overwrite Bootstrap-css in `app/assets/stylesheets/_bootstrap_overwrite.scss`
 
-APP-Features
-------------
+## APP-Features
 
   * Reads all *md-files from project's root and stores them as Pages.
   * `/pages` lists all pages with Edit- and Delete- Buttons.
   * At `/pages/new` you can create new pages.
   * It implements a responsive design using Twitter-bootstrap and sass.
 
-Users
-=====
+## Users
 
-We don't have a Sign-up form yet. You have to create a user at the
-console.
+Though, you can create a new user at `/sign_up`. There is no way
+to make this new user an admin. You have to do this through the console.
 
 ```ruby
 
@@ -128,8 +129,7 @@ user.save
 
 Once this is done you can sign-in with email and password.
 
-Deploy
-======
+# Deploy
 
 There are two rake-tasks in `lib/tasks/deploy.rake` which alows to
 rsync doc/* to a web-server and the application itself to a
@@ -140,8 +140,7 @@ grows up. By now you have to change the user and hostnames for your
 needs.
 
 
-Contribution
-============
+# Contribution
 
   * Pull-requests are appreciated if full test-covered, clean, and in
     their own branch.
@@ -153,8 +152,7 @@ Contribution
     [Github](https://github.com/iboard/yarb/issues)
 
 
-Why use Pstore instead of ActiveRecord, MongoId, ...
-====================================================
+# Why use Pstore instead of ActiveRecord, MongoId, ...
 
 > If you start your application-development after you decide to use
 > ActiveRecord, MongoId, whathever, you may find yourself developing
@@ -179,8 +177,7 @@ was, “Ok, every Store-model will have a need of validations; let’s see
 how easy it is to do this with ActiveModel::Validations.”
 
 
-License: MIT
-============
+# License: MIT
 
 Copyright (C) 2013 Andreas Altendorfer
 
