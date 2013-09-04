@@ -6,9 +6,7 @@ describe "Sign Up Service" do
     # Make sure guard will run it
     _source = File.expand_path( '../../../app/services/sign_up_service.rb', __FILE__ )
     _spec   = File.expand_path('../../controllers/sign_up_controller_spec.rb', __FILE__)
-    if File.mtime(_source) > File.mtime(_spec)
-      FileUtils.touch(_spec)
-    end
+    FileUtils.touch(_spec) if File.mtime(_source) > File.mtime(_spec)
 
     expect( File.mtime(_source) <= File.mtime(_spec) ).to be_true
   end
