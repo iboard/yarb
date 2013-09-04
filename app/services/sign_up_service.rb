@@ -11,7 +11,7 @@ class SignUpService
   end
 
   # Try to create the user
-  # @return [Boolean] true on success
+  # @return [User|nil|false] the just created user or false
   def create_user
     create_valid_user
   end
