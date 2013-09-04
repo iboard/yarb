@@ -1,0 +1,23 @@
+.row
+  .span6.offset3
+    .gap-top.gap-bottom
+      %h1= t("sign_up.welcome")
+      %br/
+
+      = render_errors_for @sign_up
+      = simple_form_for @sign_up,
+        html: { class: 'form-horizontal'} do |f|
+        %fieldset
+          = f.input :name, label: t("sign_up.name")
+          = f.input :email, as: 'email',
+            label: t("sign_up.email")
+          = f.input :password, as: 'password',
+            label: t("sign_up.password")
+          = f.input :password_confirmation, as: 'password',
+            label: t("sign_up.password_confirmation")
+
+        .form-actions
+          = f.submit t("sign_up.register_button"), class: 'btn btn-primary'
+
+.row
+  %p &nbsp;

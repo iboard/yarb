@@ -8,6 +8,9 @@ Yarb::Application.routes.draw do
   match 'sign_in' => 'session#create', via: 'POST', as: 'create_session'
   match 'sign_out' => 'session#delete', via: 'GET', as: 'sign_out'
 
+  match 'sign_up' => 'sign_up#new', via: 'GET', as: 'sign_up'
+  match 'sign_ups' => 'sign_up#create', via: 'POST', as: 'sign_ups'
+
   resources :pages do
     collection do
       post 'update_order'

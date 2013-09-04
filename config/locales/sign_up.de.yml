@@ -1,0 +1,14 @@
+de:
+  sign_up:
+    label: "Registrieren"
+    welcome: "Neue Anmeldung"
+    register_button: "Registrieren"
+    password_confirmation: "Wiederholen"
+    password: "Passwort"
+    email: "E-Mail"
+    successfully_created: "Benutzer %{email} wurde erfolgreich erzeugt."
+    confirmation_does_not_match: "Bestätigung stimmt nicht überein."
+    email_exists: "Diese Email-Adresse existiert bereits."
+    password_to_short: "Passwort zu kurz. Mindestlänge %{min} Zeichen."
+    name_cant_be_blank: "Name kann nicht leer sein."
+

@@ -2,5 +2,6 @@
   %li= link_to "<strong>#{current_user.name}</strong>".html_safe, '#', title: current_user.roles.map(&:to_s).join(', ')
   %li= link_to t(:sign_out), sign_out_path
 - else
+  %li{class: current_page?(sign_up_path) ? 'active':''}= link_to t("sign_up.label"), sign_up_path
   %li{class: current_page?(sign_in_path) ? 'active':''}= link_to t(:sign_in), sign_in_path
 

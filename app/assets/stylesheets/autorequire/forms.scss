@@ -7,5 +7,37 @@
     font-size: $btnFontSize;
     margin-bottom: 0.75em;
     margin-left: 0.75em;
+    width: auto;
   }
+}
+
+.form-horizontal {
+  .input {
+    clear: both;
+    margin-bottom: 0.5em;
+  }
+  label {
+    font-family: $btnFontFamily;
+    display: inline-block;
+    width: 30%;
+  }
+  input {
+    margin-left: 7%;
+    width: 60%;
+  }
+
+  .field_with_errors {
+    input {
+      border: 1px solid $alertColor;
+    }
+    .error {
+      font-size: $btnFontSize * 0.75;
+      font-family: $btnFontFamily;
+      color: $alertColor;
+      float: right;
+      padding: 0px;
+      margin: 0px;
+    }
+  }
+
 }

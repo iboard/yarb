@@ -10,8 +10,9 @@ class SessionController < ApplicationController
 
   # POST /sign_in
   def create
-    user = User.find_by( :email, params[:email] ) || NilUser.new
-    if user.authenticate(params[:password])
+    email, password = extract_params(params["/sign_in"])
+    user = User.find_by( :email, email ) || NilUser.new
+    if user.authenticate(password)
       session[:user_id] = user.email
       redirect_to root_path,
         notice: t(:successfully_logged_in_as, user: user.name).html_safe
@@ -27,4 +28,9 @@ class SessionController < ApplicationController
     redirect_to root_path, notice: t(:successfully_signed_out)
   end
 
+  private
+
+  def extract_params _params
+    [ _params.fetch(:email), _params.fetch(:password) ]
+  end
 end

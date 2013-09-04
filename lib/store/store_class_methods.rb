@@ -136,15 +136,14 @@ module Store
     # Deletes the entire store
     def delete_store!
       FileUtils.remove_dir( self.send(:store_path), :force )
+      expire_selector
     end
 
     # Delete all entries
     def delete_all!
-      store.transaction do |s|
-        s.roots.each do |r|
-          s.delete r
-        end
-      end
+      _keys = keys
+      store.transaction { |s| _keys.each { |k| s.delete k } }
+      expire_selector
     end
 
     # @return [Boolean] true if object's key is unique
