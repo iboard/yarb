@@ -50,5 +50,14 @@ module Store
       end
       object
     end
+
+    # Validate all attributes of object and add errors if detected.
+    # @param [Object] object
+    def validate_object object
+      @attribute_definitions.each do |attr|
+        attr.validate_object object
+      end
+
+    end
   end
 end

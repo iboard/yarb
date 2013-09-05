@@ -41,6 +41,17 @@ module Store
       end
     end
 
+
+    # Validate all fields of object for which a validation exists
+    # Adds errors to object.errors if detected.
+    # @param [Object] object the object to be validated
+    def validate_object object
+      validations.each do |validation|
+        validator = validator_for(validation, object)
+        validator.validate( name.to_s => object.send(name) )
+      end
+    end
+
     private
 
     def validate_update(object,hash)

@@ -217,7 +217,6 @@ describe Store do
   end
 
   context "Validations" do
-
     class ValidatedObject
       include Store
       key_method  :id

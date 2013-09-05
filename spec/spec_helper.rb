@@ -41,6 +41,7 @@ RSpec.configure do |config|
 
   # MAKE SURE WE START WITH A CLEAN/EMPTY DATA-PATH
   config.before(:all) do
+    I18n.locale = :en
     if Rails.env.test? || Rails.env.cucumber?
       FileUtils.rm_rf(Dir["#{pstore_path}/[^.]*"])
     end

@@ -199,21 +199,13 @@ module Store
     end
 
 
-    # Validate all attributes
+    # Validate all attributes of object if a validation is defined for an attribute.
+    # @param [Object] object - the object to be validated
     def validate_object object
-      attribute_definitions.each do |attr|
-        attr.validations.each do |validation|
-          validator = validator_for(attr, validation, object)
-          validator.validate( attr.name.to_s => object.send(attr.name) )
-        end
-      end
+      attribute_definitions.validate_object(object)
     end
 
     private
-
-    def validator_for attr, validation, object
-      eval("Store::#{validation[0].to_s.camelcase}Validator").new( attr.name, object )
-    end
 
     def selector
       @selector ||= Selector.new self, roots
