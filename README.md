@@ -151,6 +151,10 @@ needs.
   * Issues and Bug-reports are tracked at
     [Github](https://github.com/iboard/yarb/issues)
 
+If you collaborate or just be interested in this project, I recommend to
+follow [Refactoring Notes](http://yarb.iboard.cc/pages/refactoring_notes). It
+gives you an idea what 'Clean' means in this project. Any notice,
+comment, hint, and arguing is welcome!
 
 # Why use Pstore instead of ActiveRecord, MongoId, ...
 
