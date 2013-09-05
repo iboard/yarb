@@ -11,7 +11,6 @@ class SessionController < ApplicationController
   # POST /sign_in
   def create
     email, password = extract_params(params["/sign_in"])
-    User.expire_selector
     user = User.find_by( :email, email ) || NilUser.new
     if user.authenticate(password)
       session[:user_id] = user.id
