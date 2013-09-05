@@ -2,9 +2,11 @@
 
 # YARB TODO
 
-Bugs, Features, and Milestones are tracked officially at
+Bugs, Features, and Milestones are tracked at
 [Github](https://github.com/iboard/yarb/issues)
 This TODO.md-file is used for quick-notes and brainstorming only.
+
+Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/891652)
 
 ## Smells
 
