@@ -2,7 +2,12 @@ de:
   activemodel:
     errors:
       models:
+        validated_object:
+          attributes:
+            name:
+              already_exists: "Name existiert bereits"
         page:
           attributes:
             title:
               blank: 'Kann nicht leer sein'
+

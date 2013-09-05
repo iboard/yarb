@@ -7,13 +7,14 @@ module Store
   # `attribute :name, default: 'some default', type: AnyClass
   class AttributeDefinition
 
-    attr_reader :name, :type, :default
+    attr_reader :name, :type, :default, :validations
 
     def initialize name, *attr
       @name = name.to_sym
       _attr = attr.first
       @type    = get_type_from _attr
       @default = get_default_from _attr
+      @validations = get_validations_from _attr
     end
 
     # @param [Object] _value
@@ -33,12 +34,35 @@ module Store
     # @param [Object] object
     # @param [Hash] hash
     def update_value_of(object,hash)
-      object.send("#{name.to_s}=",
-                  normalize(hash.fetch(name))
-                 ) if hash.has_key?(name)
+      if validate_update(object, hash)
+        object.send("#{name.to_s}=",
+                    normalize(hash.fetch(name))
+                   ) if hash.has_key?(name)
+      end
     end
 
     private
+
+    def validate_update(object,hash)
+      return true unless has_validations?
+      @validations.all? do |validation|
+        validator = validator_for( validation, object )
+        validator.validate(hash)
+      end
+    end
+
+    def validator_for validation, object
+      eval("Store::#{validation[0].to_s.camelcase}Validator").new( name, object )
+    end
+
+    def has_validations?
+      !@validations.empty?
+    end
+
+    def get_validations_from _attr
+      return [] unless _attr
+      _attr.select { |key, _value| [:unique].include?(key) }
+    end
 
     def get_default_from _attr
       _attr ? initialize_default(@type,_attr.fetch(:default){nil}) : nil

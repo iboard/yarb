@@ -95,7 +95,19 @@ module Store
       self.errors.empty? && self.valid?
     end
 
+    def valid?
+      _errors_before = self.errors.dup
+      _s = super
+      validate_attributes
+      _errors_before.each { |e| self.errors.add e }
+      self.errors.empty?
+    end
+
     private
+
+    def validate_attributes
+      self.class.validate_object(self)
+    end
 
     def prepare_key _key
       self.class.prepare_key _key

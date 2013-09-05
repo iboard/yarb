@@ -5,10 +5,14 @@ module Store
   # A List of AttributeDefiniton-object
   class AttributeDefinitions
 
+    attr_reader :attribute_definitions
+
     # @param [Array|nil] definitions - pre-defined attribute-definitions
     def initialize definitions=[]
       @attribute_definitions = definitions
     end
+
+    delegate :each, to: :attribute_definitions
 
     # Add a new AttributeDefinition to the list
     # @param [AttributeDefiniton] new_attribute - the definition to add.

@@ -1,0 +1,8 @@
+en:
+  activemodel:
+    errors:
+      models:
+        validated_object:
+          attributes:
+            name:
+              already_exists: "Name already exists"

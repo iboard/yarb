@@ -215,4 +215,28 @@ describe Store do
         to be_empty
     end
   end
+
+  context "Validations" do
+
+    class ValidatedObject
+      include Store
+      key_method  :id
+      attribute   :name, unique: true
+
+      def initialize name
+        set_attributes name: name
+      end
+
+      def id
+        @id ||= SecureRandom::hex(4)
+      end
+    end
+
+    it "validates uniqueness of a field" do
+      o1 = ValidatedObject.create "I am here"
+      o2 = ValidatedObject.new    "I am here"
+      expect(o2.valid?).to be_false
+      expect(o2.errors.messages[:name]).to include("Name already exists")
+    end
+  end
 end
