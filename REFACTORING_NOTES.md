@@ -5,6 +5,41 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div style='height: 35px; min-height: 35px;' class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## Move Knowledge down as far as possible
+
+### Commit: [Refactored Validations](https://github.com/iboard/yarb/commit/b5ff13a289374ac3a6e3bb293e996218fbb04dd4)
+
+> Before, store_class_methods implements the logic for validating an
+> attribute in 'validate_object'. But it's not a responsibility of
+> store-class.
+
+First, just call `attribute_definitions.validate_object(object)` from
+within Store::ClassMethods.
+
+Then move and implement `validate_object` in `AttributeDefinitions` which just
+iterates over all attribute_definitions and calls
+`attr.validate_object`. This does the first level of nested iterations.
+
+Now, the logic is where it belongs to, in the `AttributeDefinition`.
+As a benefit we doesn't have a nested iteration anymore.
+
+Before (in `store_class_methods`) 2 levels of iteration.
+
+    attribute_definitions.each do |attr|
+      attr.validations.each do |validation|
+        validator = validator_for(attr, validation, object)
+        validator.validate( attr.name.to_s => object.send(attr.name) )
+      end
+    end
+
+After (in `attribute_definition`) only one level.
+
+    validations.each do |validation|
+      validator = validator_for(validation, object)
+      validator.validate( name.to_s => object.send(name) )
+    end
+
+
 ## Use Services
 
 #### Commit: [Extracted Service to read MD-files for PagesController](https://github.com/iboard/yarb/commit/2fd8b908ff3646636ae3f0489e23d59f1bcaef96)
