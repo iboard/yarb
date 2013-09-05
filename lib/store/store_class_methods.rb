@@ -206,20 +206,21 @@ module Store
       attribute_definitions.validate_object(object)
     end
 
+
     private
 
     def raise_on_uniqueness_errors(object)
-      _validators =  object.class.attribute_definitions.map { |definition|
-        definition.has_uniqueness_validator? ? definition.name : nil
-      }.compact
-
-      if _validators.any?
-        object.valid?
-        _validators.all? do |_v|
-          object.valid?
-          raise UniquenessError.new( object, _v ) unless object.errors[_v].empty?
-        end
+      uniqueness_validators(object).all? do |_v|
+        raise UniquenessError.new( object, _v ) unless object.errors[_v].empty?
       end
+    end
+
+    def uniqueness_validators object
+      object.class.attribute_definitions.map { |definition|
+        definition.has_uniqueness_validator? ? definition.name : nil
+      }.compact.tap { |v|
+        object.valid? if v.any?
+      }
     end
 
     def selector
