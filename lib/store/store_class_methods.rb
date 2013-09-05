@@ -12,6 +12,7 @@ module Store
       expire_selector
       new_object = new(*args)
       prevent_duplicate_keys(new_object)
+      raise_on_uniqueness_errors(new_object)
       new_object.save or new_object
     end
 
@@ -23,7 +24,7 @@ module Store
     def create *args
       expire_selector
       object = create! *args
-    rescue DuplicateKeyError => e
+    rescue DuplicateKeyError, UniquenessError => e
       e.object.errors.add :base, e.message
       e.object
     end
@@ -207,6 +208,20 @@ module Store
 
     private
 
+    def raise_on_uniqueness_errors(object)
+      _validators =  object.class.attribute_definitions.map { |definition|
+        definition.has_uniqueness_validator? ? definition.name : nil
+      }.compact
+
+      if _validators.any?
+        object.valid?
+        _validators.all? do |_v|
+          object.valid?
+          raise UniquenessError.new( object, _v ) unless object.errors[_v].empty?
+        end
+      end
+    end
+
     def selector
       @selector ||= Selector.new self, roots
     end
@@ -228,7 +243,7 @@ module Store
       PStore.new File.join( store_path, class_file )
     end
 
-    def prevent_duplicate_keys(object)
+    def prevent_duplicate_keys object
       raise DuplicateKeyError.new( object ) if keys.include?(object.key)
     end
 

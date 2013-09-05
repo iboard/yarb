@@ -12,7 +12,10 @@ module Store
       @attribute_definitions = definitions
     end
 
-    delegate :each, to: :attribute_definitions
+    delegate :each,   to: :attribute_definitions
+    delegate :any?,   to: :attribute_definitions
+    delegate :select, to: :attribute_definitions
+    delegate :map,    to: :attribute_definitions
 
     # Add a new AttributeDefinition to the list
     # @param [AttributeDefiniton] new_attribute - the definition to add.

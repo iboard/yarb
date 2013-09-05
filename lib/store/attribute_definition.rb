@@ -52,6 +52,11 @@ module Store
       end
     end
 
+    # @param [Boolean] true if one of the validators is an uniqueness-validator.
+    def has_uniqueness_validator?
+      validations.any? { |v| v[0] == :unique }
+    end
+
     private
 
     def validate_update(object,hash)

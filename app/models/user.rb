@@ -13,7 +13,7 @@ class User
   include Roles
 
   key_method :id
-  attribute  :email
+  attribute  :email, unique: true
   validates_presence_of :email
 
   attribute  :name
@@ -27,7 +27,7 @@ class User
   # TODO: Something smells here - refactor this.
   # @return [String]
   def id
-    email
+    @id ||= "%x-%s" % [ Time.now.to_i, SecureRandom::hex(2) ]
   end
 
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)

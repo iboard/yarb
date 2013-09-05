@@ -21,7 +21,7 @@ describe User do
     u1 = User.create! email: "test@example.com", name: "Me"
     u2 = User.create  email: "test@example.com", name: "Me"
     expect( u2.errors.any? ).to be_true
-    expect{ User.create! email: "test@example.com" }.to raise_error DuplicateKeyError
+    expect{ User.create! email: "test@example.com" }.to raise_error UniquenessError
   end
 
   it "doesn't allow blank name" do
