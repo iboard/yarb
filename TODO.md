@@ -15,21 +15,6 @@ Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/pr
    as an Integer, .find(1) will not find the entry. Types for
    key-fields?!
 
-## Needs refactoring
-
-### User ID
-
-Currently the parameterized email is used as the unique-id for the user
-model. _Bad_. People may change their email-addresses and when we start
-to implement a 'Page-Owner' it will no longer be allowed to change the
-id of a user unless we goin' to implement some kinda ugly migration-task
-which changes the key in all objects the User is connected to.
-
-_Better_, we change the behavior of User by implementing a real, never
-changing :id. Using the parameterized email in URLs should still be
-supported but connecting objects to the user (foreign key) should be
-done using the :id field instead of the email-key.
-
 
 # Todos
 
@@ -46,3 +31,19 @@ done using the :id field instead of the email-key.
 ## Done
 1. _TODO: Create a `COLLABORATION.md` with instructions for
          collaborators. (done as a static page on yarb.iboard.cc now)_
+
+### Needs refactoring
+
+#### User ID
+
+Currently the parameterized email is used as the unique-id for the user
+model. _Bad_. People may change their email-addresses and when we start
+to implement a 'Page-Owner' it will no longer be allowed to change the
+id of a user unless we goin' to implement some kinda ugly migration-task
+which changes the key in all objects the User is connected to.
+
+_Better_, we change the behavior of User by implementing a real, never
+changing :id. Using the parameterized email in URLs should still be
+supported but connecting objects to the user (foreign key) should be
+done using the :id field instead of the email-key.
+
