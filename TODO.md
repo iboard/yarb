@@ -18,6 +18,7 @@ Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/pr
 
 # Todos
 
+1. TODO: Rewrite STORE.md ;-)
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this
          title exists?
