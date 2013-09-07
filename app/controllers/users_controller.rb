@@ -18,7 +18,6 @@ class UsersController < ApplicationController
   # PUT /users/:id
   def update
     if @user.update_attributes( user_update_params ) && change_password
-      User.expire_selector
       redirect_to @user, notice: t("user.successfully_updated", email: @user.email)
     else
       render :edit

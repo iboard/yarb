@@ -70,7 +70,10 @@ class ApplicationController < ActionController::Base
   end
 
   def user_from_session
-    User.find_by(:id, session[:user_id]) if session[:user_id].present?
+    if session[:user_id].present?
+      User.expire_selector
+      User.find_by(:id, session[:user_id])
+    end
   end
 
   def has_roles? roles
