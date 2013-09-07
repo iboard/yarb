@@ -26,8 +26,6 @@ class UsersController < ApplicationController
 
   private
 
-  # @param [User] user - is this user allowed to edit the profile?
-  # @return [Boolean] true if current user or admin
   def allow_edit_user? user
     user.id == current_user.id || current_user.has_role?(:admin)
   end

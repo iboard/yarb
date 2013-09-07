@@ -11,7 +11,7 @@ class ChangePasswordService
   # @param [User] user to change password for
   # @param [Hash] params
   def self.new view, user, params
-    return true unless password_change_params_present(params)
+    return true unless password_change_params_present?(params)
     service = super
     service.valid? ? service : false
   end
@@ -24,6 +24,17 @@ class ChangePasswordService
 
   # @return [Boolean] true if ok. Otherwise false and add errors to # user.
   def valid?
+    user.password=@params[:new_password] if params_valid?
+  end
+
+  private
+  def self.password_change_params_present? _params
+    [:old_password, :new_password, :password_confirmation].all? do |param|
+      _params[param].present?
+    end
+  end
+
+  def params_valid?
     unless user.authenticate @params[:old_password]
       user.errors.add(:old_password, :invalid_old_password)
       return false
@@ -39,15 +50,7 @@ class ChangePasswordService
       return false
     end
 
-    user.password=@params[:new_password]
     true
-  end
-
-  private
-  def self.password_change_params_present _params
-    [:old_password, :new_password, :password_confirmation].all? do |param|
-      _params[param].present?
-    end
   end
 
 end
