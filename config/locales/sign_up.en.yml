@@ -11,3 +11,13 @@ en:
     email_exists: "e-mail already exists."
     password_to_short: "Password is to short. Minimum %{min} characters."
     name_cant_be_blank: "Name can't be blank."
+
+  activemodel:
+    errors:
+      models:
+        user:
+          attributes:
+            old_password:
+              invalid_old_password: "Old password isn't correct."
+            password_confirmation:
+              confirmation_does_not_match: "Password confirmation doesn't match."

@@ -7,6 +7,10 @@ describe Page do
     I18n.locale = :en
   end
 
+  before :each do
+    Page.delete_store!
+  end
+
   it "requires a non-blank title" do
     p = Page.new title: ""
     expect( p.valid? ).to be_false
@@ -21,7 +25,6 @@ describe Page do
   end
 
   it "has a draft flag" do
-    Page.delete_store!
     p1 = Page.create(title: "This is for real", draft: false)
     p2 = Page.create(title: "This is a draft")
     expect( Page.where( draft: false).map(&:title)).to include( p1.title )

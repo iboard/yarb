@@ -1,0 +1,12 @@
+de:
+  user:
+    edit_user_title: "Benutzerprofil ändern"
+    password_confirmation: "Bestätigung"
+    password: "Passwort"
+    email: "Email"
+    successfully_updated: "Benutzerprofil für %{email} wurde geändert."
+    confirmation_does_not_match: "Bestätigung stimmt nicht überein"
+    email_exists: "Email wird bereits benutzt."
+    password_to_short: "Das passwort muss mindestens %{min} Zeichen lang sein."
+    name_cant_be_blank: "Der Name kann nicht leer sein."
+    change_password: "Passwort ändern"

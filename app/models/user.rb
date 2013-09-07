@@ -27,6 +27,11 @@ class User
     @id ||= "%x-%s" % [ Time.now.to_i, SecureRandom::hex(2) ]
   end
 
+  # ensure we have a valid id
+  def save
+    id and super
+  end
+
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
   # @return [String] the crypted password string
   def password
@@ -47,6 +52,26 @@ class User
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
   def authenticate _password
     self.password == _password
+  end
+
+  # Virtual Attribute
+  # NOOP
+  def old_password
+  end
+
+  # Virtual Attribute
+  # NOOP
+  def old_password= _
+  end
+
+  # Virtual Attribute
+  # NOOP
+  def password_confirmation
+  end
+
+  # Virtual Attribute
+  # NOOP
+  def password_confirmation= _
   end
 
 end

@@ -1,0 +1,12 @@
+en:
+  user:
+    edit_user_title: "Edit User Profile"
+    password_confirmation: "Confirmation"
+    password: "Password"
+    email: "e-mail"
+    successfully_updated: "User Profile for %{email} successfully updated."
+    confirmation_does_not_match: "Confirmation doesn't match."
+    email_exists: "e-mail already exists."
+    password_to_short: "Password is to short. Minimum %{min} characters."
+    name_cant_be_blank: "Name can't be blank."
+    change_password: "Change Your Password"

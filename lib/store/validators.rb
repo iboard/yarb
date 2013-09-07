@@ -33,7 +33,7 @@ module Store
       unless _existing.nil? || _existing.key == object.key
         object.errors.add(field.to_sym, :already_exists)
       end
-      object.errors[field.to_sym].nil?
+      object.errors[field.to_sym].empty?
     end
 
   end

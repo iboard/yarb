@@ -12,3 +12,13 @@ de:
     password_to_short: "Passwort zu kurz. Mindestlänge %{min} Zeichen."
     name_cant_be_blank: "Name kann nicht leer sein."
 
+
+  activemodel:
+    errors:
+      models:
+        user:
+          attributes:
+            old_password:
+              invalid_old_password: "Altes Passwort ist nicht korrekt."
+            password_confirmation:
+              confirmation_does_not_math: "Passwort Bestätigung stimmt nicht überein."

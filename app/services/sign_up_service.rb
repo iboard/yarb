@@ -3,6 +3,9 @@
 # Try to create a new user and set errors of @sign_up if not possible.
 class SignUpService
 
+  # Sets the minimum length of password for sign_up and change_password.
+  PASSWORD_MIN_LENGTH = 4
+
   # @param [SignUp] sign_up - the model containing user, password,...
   # @param [ActionController|ActionView] view - used to access I18n
   def initialize sign_up, view
@@ -58,7 +61,7 @@ class SignUpService
 
   def check_password_length
     if @sign_up.password.length < 5
-      @sign_up.errors.add( :password, @view.t("sign_up.password_to_short", min: 4 ))
+      @sign_up.errors.add( :password, @view.t("sign_up.password_to_short", min: PASSWORD_MIN_LENGTH ))
       return false
     else
       true

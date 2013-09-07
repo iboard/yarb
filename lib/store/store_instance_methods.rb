@@ -43,7 +43,7 @@ module Store
     #   )
     def update_attributes( hash={} )
       set_attributes hash
-      self.save
+      valid_without_errors? and save
     end
 
     # Validate and save object to store-file
@@ -56,6 +56,12 @@ module Store
         self.send(:after_save)
       end
       self.valid_without_errors? and return self
+    end
+
+    # Reload current object
+    def reload
+      self.class.expire_selector
+      self.class.find(self.key)
     end
 
     # Remove the object from the store
@@ -99,7 +105,9 @@ module Store
       _errors_before = self.errors.dup
       _s = super
       validate_attributes
-      _errors_before.each { |e| self.errors.add e }
+      _errors_before.each do |e|
+        self.errors.messages[e] += _errors_before.messages[e]
+      end
       self.errors.empty?
     end
 

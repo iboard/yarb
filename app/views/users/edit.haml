@@ -1,0 +1,4 @@
+.row{id: "edit-user-#{@user.id}"}
+  .span6.offset2
+    %h1= t("user.edit_user_title")
+    = render "form", user: @user

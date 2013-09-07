@@ -217,6 +217,7 @@ describe Store do
   end
 
   context "Validations" do
+
     class ValidatedObject
       include Store
       key_method  :id
@@ -231,11 +232,24 @@ describe Store do
       end
     end
 
+    before :each do
+      ValidatedObject.delete_store!
+    end
+
     it "validates uniqueness of a field" do
       o1 = ValidatedObject.create "I am here"
       o2 = ValidatedObject.new    "I am here"
       expect(o2.valid?).to be_false
       expect(o2.errors.messages[:name]).to include("Name already exists")
+    end
+
+    it "updates if unique" do
+      o1 = ValidatedObject.create "First Object"
+      o2 = ValidatedObject.create "Second Object"
+      o1.update_attributes name: "1st Object"
+      expect( o1.name ).to eq("1st Object")
+      expect(o2.update_attributes name: "1st Object").to be_false
+      expect(o2.valid?).to be_false
     end
   end
 end

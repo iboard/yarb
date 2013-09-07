@@ -25,6 +25,12 @@
     margin-left: 7%;
     width: 60%;
   }
+  .hint {
+    margin-left: 37%;
+    color: $lightTextColor;
+    font-size: $btnFontSize;
+    font-family: $btnFontFamily;
+  }
 
   .field_with_errors {
     input {

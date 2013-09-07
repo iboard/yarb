@@ -8,6 +8,8 @@ en:
   canceled: "Canceled."
   are_you_sure: "Are you sure?"
   could_not_be_saved: "%{what} couldn't be saved."
+  can_not_be_changed: "Can't be changed."
+  save: "Save"
   sign_in: "Sign In"
   sign_out: "Sign Out"
   email: "EMail"

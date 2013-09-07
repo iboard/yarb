@@ -11,6 +11,7 @@ Yarb::Application.routes.draw do
   match 'sign_up' => 'sign_up#new', via: 'GET', as: 'sign_up'
   match 'sign_ups' => 'sign_up#create', via: 'POST', as: 'sign_ups'
 
+  resources :users
   resources :pages do
     collection do
       post 'update_order'
