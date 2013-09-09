@@ -96,22 +96,28 @@ module Store
       self.send(:"#{self.class.key_method_name}=", @original_key)
     end
 
+
+    # Temporary saves errors, calls valid? from ActiveModel (which clears errors)
+    # and appends previous existing errors again.
+    # @return [Boolean] true if no errors
+    def valid?
+      _errors_before = self.errors.dup
+      _s = super
+      validate_attributes
+      _errors_before.each { |e| append_error(_errors_before,e) }
+      self.errors.empty?
+    end
+
     # @return [Boolean] true if no errors and valid?
     def valid_without_errors?
       self.errors.empty? && self.valid?
     end
 
-    def valid?
-      _errors_before = self.errors.dup
-      _s = super
-      validate_attributes
-      _errors_before.each do |e|
-        self.errors.messages[e] += _errors_before.messages[e]
-      end
-      self.errors.empty?
-    end
-
     private
+
+    def append_error(_errors,field)
+      ((self.errors.messages[field]||=[]) << _errors.messages[field]).flatten!
+    end
 
     def validate_attributes
       self.class.validate_object(self)

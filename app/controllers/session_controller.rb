@@ -12,14 +12,7 @@ class SessionController < ApplicationController
   def create
     email, password = extract_params(params["/sign_in"])
     user = User.find_by( :email, email ) || NilUser.new
-    if user.authenticate(password)
-      session[:user_id] = user.id
-      redirect_to root_path,
-        notice: t(:successfully_logged_in_as, user: user.name).html_safe
-    else
-      flash.now[:error] = t(:invalid_credentials)
-      render :new
-    end
+    authenticate_and_redirect(user, password)
   end
 
   # DELETE /sign_out
@@ -33,4 +26,16 @@ class SessionController < ApplicationController
   def extract_params _params
     [ _params.fetch(:email), _params.fetch(:password) ]
   end
+
+  def authenticate_and_redirect(user, password)
+    if user.authenticate(password)
+      session[:user_id] = user.id
+      redirect_to root_path,
+        notice: t(:successfully_logged_in_as, user: user.name).html_safe
+    else
+      flash.now[:error] = t(:invalid_credentials)
+      render :new
+    end
+  end
+
 end

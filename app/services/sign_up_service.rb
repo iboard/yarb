@@ -8,9 +8,10 @@ class SignUpService
 
   # @param [SignUp] sign_up - the model containing user, password,...
   # @param [ActionController|ActionView] view - used to access I18n
-  def initialize sign_up, view
+  def initialize sign_up, view, &block
     @sign_up = sign_up
     @view = view
+    yield self if block_given?
   end
 
   # Try to create the user
@@ -22,12 +23,15 @@ class SignUpService
   private
 
   def create_valid_user
-    return unless check_name && check_existing_users && check_password_length
-    if check_confirmation
+    if allow_creation? && check_confirmation
       _user = User.create email: @sign_up.email, name: @sign_up.name
       _user.password = @sign_up.password
       _user.save
     end
+  end
+
+  def allow_creation?
+    check_name && check_existing_users && check_password_length
   end
 
   def check_name
