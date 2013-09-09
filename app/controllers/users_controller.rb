@@ -35,7 +35,15 @@ class UsersController < ApplicationController
   end
 
   def user_update_params
-    { name:  params[:user].fetch(:name) { @user.name}, email: params[:user].fetch(:email) { @user.email } }
+    { name: name_param , email: email_param }
+  end
+
+  def name_param
+    params[:user].fetch(:name)  { @user.name}
+  end
+
+  def email_param
+    params[:user].fetch(:email) { @user.email }
   end
 
   def authenticate_user
