@@ -117,6 +117,30 @@ describe UsersController do
 
   end
 
+  context "as a non-admin" do
+
+    it "doesn't show the user-index-page" do
+      pending "Current iteration"
+    end
+
+  end
+
+  context "as an admin-user" do
+
+    it "shows the user-index page" do
+      pending "Current iteration"
+    end
+
+    it "allows to delete a user" do
+      pending "Current iteration"
+    end
+
+    it "has checkboxes for roles in user#edit" do
+      pending "Current iteration"
+    end
+
+  end
+
 end
 
 
