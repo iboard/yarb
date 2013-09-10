@@ -1,0 +1,8 @@
+%h1= t("user.index_title")
+
+#user-list
+  %ul
+    - @users.each do |user|
+      = render "user_list_entry", user: user
+
+

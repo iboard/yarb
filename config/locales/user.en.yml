@@ -10,3 +10,4 @@ en:
     password_to_short: "Password is to short. Minimum %{min} characters."
     name_cant_be_blank: "Name can't be blank."
     change_password: "Change Your Password"
+    index_title: "Listing Users"

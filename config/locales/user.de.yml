@@ -10,3 +10,4 @@ de:
     password_to_short: "Das passwort muss mindestens %{min} Zeichen lang sein."
     name_cant_be_blank: "Der Name kann nicht leer sein."
     change_password: "Passwort ändern"
+    index_title: "Benutzerliste"

@@ -4,9 +4,9 @@ def pstore_path
   r = File.join(Rails.root, 'db', Rails.env.to_s)
 end
 
-def sign_in_as user, password
+def sign_in_as email, password
   visit sign_in_path
-  fill_in 'EMail', with: user
+  fill_in 'EMail', with: email
   fill_in 'Password', with: password
   click_button 'Sign In'
 end
@@ -19,6 +19,12 @@ end
 def create_valid_user email, name, password
   u= User.new email: email, name: name
   u.password = password
+  u.save
+end
+
+def create_admin_user email, name, password
+  u = create_valid_user email, name, password
+  u.roles = [:admin]
   u.save
 end
 

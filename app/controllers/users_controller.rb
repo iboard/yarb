@@ -3,9 +3,18 @@
 # Show and edit User's profile
 class UsersController < ApplicationController
 
-  before_filter :load_resource
-  before_filter :authenticate_user
+  before_filter :load_resource,     except: [:index]
+  before_filter :authenticate_user, except: [:index]
   helper_method :allow_edit_user?
+
+  # GET /users
+  def index
+    if !current_user.has_role?( :admin )
+      redirect_back_or_to root_path, status: 404
+    else
+      @users = User.asc(:name)
+    end
+  end
 
   # GET /users/:id
   def show

@@ -120,15 +120,31 @@ describe UsersController do
   context "as a non-admin" do
 
     it "doesn't show the user-index-page" do
-      pending "Current iteration"
+      get :index, { controller: "users" }
+      expect(response.status).to eq(404)
     end
 
   end
 
   context "as an admin-user" do
 
+    before :each do
+      I18n.locale = :en
+      User.delete_store!
+      @admin = create_admin_user "Admin", "admin@example.com", "secret"
+      create_valid_user "User1", "user1@example.com", "secret"
+      create_valid_user "User2", "user2@example.com", "secret"
+      sign_in_as "admin@example.com", "secret"
+      visit users_path
+    end
+
     it "shows the user-index page" do
-      pending "Current iteration"
+      page.should have_content "Listing Users"
+      whithin("#user-list") do
+        page.should have_content "Admin"
+        page.should have_content "User1"
+        page.should have_content "User2"
+      end
     end
 
     it "allows to delete a user" do
