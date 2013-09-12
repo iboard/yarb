@@ -134,13 +134,13 @@ describe UsersController do
       @admin = create_admin_user "Admin", "admin@example.com", "secret"
       create_valid_user "User1", "user1@example.com", "secret"
       create_valid_user "User2", "user2@example.com", "secret"
-      sign_in_as "admin@example.com", "secret"
+      ApplicationController.any_instance.stub(:current_user).and_return( User.all.first )
       visit users_path
     end
 
     it "shows the user-index page" do
       page.should have_content "Listing Users"
-      whithin("#user-list") do
+      within("#user-list") do
         page.should have_content "Admin"
         page.should have_content "User1"
         page.should have_content "User2"
