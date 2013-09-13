@@ -1,0 +1,27 @@
+@import "_variables";
+
+#user-list {
+  font-family: $btnFontFamily;
+  font-size:   $btnFontSize;
+
+  ul {
+    list-style: none;
+    margin-left: 0px;
+    width: 100%;
+
+    li {
+      display: block;
+      padding: 0.5em;
+      height: 2em;
+      baseline: bottom;
+    }
+
+    li:nth-child(even) {
+      background: $tableEvenBackground;
+    }
+
+    li:nth-child(odd) {
+      background: $tableOddBackground;
+    }
+  }
+}

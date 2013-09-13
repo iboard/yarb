@@ -9,5 +9,13 @@
   = f.input :old_password, label: t("user.old_password")
   = f.input :new_password, label: t("user.new_password")
   = f.input :password_confirmation, label: t("user.password_confirmation")
+
+  - if current_user.has_role?( :admin )
+    %h4.gap-top= I18n.t("roles.headline")
+    = f.input :roles, as: :check_boxes, collection: Roles::ROLES.map{|r| [ t("roles.#{r}"), r] }, label: false, input_html: { class: 'roles-check-boxes' }
+
+
+
   .form-actions
     = f.submit t(:save), class: save_button_classes
+

@@ -11,3 +11,13 @@ de:
     name_cant_be_blank: "Der Name kann nicht leer sein."
     change_password: "Passwort ändern"
     index_title: "Benutzerliste"
+    successfully_deleted: "Benutzer '%{name}' wurde gelöscht."
+  roles:
+    guest: "Guest"
+    confirmed: "Confirmed"
+    author: "Author"
+    maintainer: "Maintainer"
+    editor: "Editor"
+    admin: "Admin"
+    headline: "Rollen"
+

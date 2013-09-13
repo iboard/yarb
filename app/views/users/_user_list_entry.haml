@@ -1,3 +1,6 @@
-%li{id: "user-#{user.id}"}
-  %strong= user.name
-  = user.email
+- UserPresenter.present(user,self) do |presenter|
+  %li{id: "user-#{user.id}"}
+    .pull-right
+      = presenter.delete_user_link
+      = presenter.edit_user_link
+    = presenter.name_and_email

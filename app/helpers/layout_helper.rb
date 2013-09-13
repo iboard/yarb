@@ -38,6 +38,11 @@ module LayoutHelper
       class: 'btn btn-danger'
   end
 
+  # @return [String] html
+  def mail_link_to label, email
+    link_to icon_with_text('icon-envelope', label), "mailto:#{email}"
+  end
+
   # Insert a 'green' button with a +-sign
   # @param [String] label
   # @param [String] path

@@ -33,9 +33,16 @@ class UsersController < ApplicationController
     end
   end
 
+  # DELETE /users/:id
+  def destroy
+    @user.delete
+    User.expire_selector
+    redirect_to users_path, notice: t("user.successfully_deleted", name: @user.name)
+  end
+
   private
 
-  def allow_edit_user? user
+  def allow_edit_user? user=NilUser.new
     user.id == current_user.id || current_user.has_role?(:admin)
   end
 
@@ -44,7 +51,13 @@ class UsersController < ApplicationController
   end
 
   def user_update_params
-    { name: name_param , email: email_param }
+    _p = { name: name_param , email: email_param }
+    _p.merge!( roles: roles_param ) if current_user.has_role?(:admin)
+    _p
+  end
+
+  def roles_param
+    params[:user].fetch(:roles).reject(&:blank?).map!(&:to_sym).compact
   end
 
   def name_param
@@ -62,4 +75,5 @@ class UsersController < ApplicationController
   def load_resource
     @user = User.find( params[:id] )
   end
+
 end

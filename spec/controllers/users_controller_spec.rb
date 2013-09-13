@@ -131,9 +131,9 @@ describe UsersController do
     before :each do
       I18n.locale = :en
       User.delete_store!
-      @admin = create_admin_user "Admin", "admin@example.com", "secret"
-      create_valid_user "User1", "user1@example.com", "secret"
-      create_valid_user "User2", "user2@example.com", "secret"
+      @admin = create_admin_user "admin@example.com", "Admin",  "secret"
+               create_valid_user "user1@example.com", "User1",  "secret"
+      @user2 = create_valid_user "user2@example.com", "User2", "secret"
       ApplicationController.any_instance.stub(:current_user).and_return( User.all.first )
       visit users_path
     end
@@ -148,11 +148,24 @@ describe UsersController do
     end
 
     it "allows to delete a user" do
-      pending "Current iteration"
+      within("#user-#{@user2.id}") do
+        click_link "Delete"
+      end
+      page_should_have_notice page, "× User 'User2' successfully deleted."
+      within("#user-list") do
+        page.should have_content "Admin"
+        page.should have_content "User1"
+        page.should_not have_content "User2"
+      end
     end
 
     it "has checkboxes for roles in user#edit" do
-      pending "Current iteration"
+       visit edit_user_path(@user2)
+       check "Admin"
+       check "Editor"
+       click_button "Save"
+       u = User.find(@user2.id)
+       expect( u.roles ).to eq( [:editor, :admin] )
     end
 
   end
