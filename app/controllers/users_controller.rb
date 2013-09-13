@@ -36,7 +36,6 @@ class UsersController < ApplicationController
   # DELETE /users/:id
   def destroy
     @user.delete
-    User.expire_selector
     redirect_to users_path, notice: t("user.successfully_deleted", name: @user.name)
   end
 
@@ -51,9 +50,11 @@ class UsersController < ApplicationController
   end
 
   def user_update_params
-    _p = { name: name_param , email: email_param }
-    _p.merge!( roles: roles_param ) if current_user.has_role?(:admin)
-    _p
+    roles_if_admin.merge({ name: name_param , email: email_param })
+  end
+
+  def roles_if_admin
+    current_user.has_role?(:admin) ? { roles: roles_param } : {}
   end
 
   def roles_param

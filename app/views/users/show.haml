@@ -1,6 +1,7 @@
-.user-profile{ id: "user-#{@user.id}" }
-  .pull-right=edit_button_tag( t(:edit), edit_user_path(@user) ) if allow_edit_user?(@user)
-  %h1= @user.name
-  %small
-    =@user.id
-  %h2= @user.email
+- UserPresenter.present(@user,self) do |presenter|
+  = presenter.user_listing_tag do
+    %h1= @user.name
+    %small
+      =presenter.user_id
+    %h2= presenter.user_email
+    %p.small=presenter.user_roles

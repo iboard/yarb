@@ -67,6 +67,7 @@ module Store
     # Remove the object from the store
     def delete
       store.transaction() { |s| s.delete(self.key) }
+      self.class.expire_selector
     end
 
     # @return [Boolean] true if object is not saved yet

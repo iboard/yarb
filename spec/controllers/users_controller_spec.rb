@@ -45,7 +45,7 @@ describe UsersController do
         click_button "Save"
       end
       page_should_have_notice page, "User Profile for frank@zappa.com successfully updated."
-      within( "#user-#{user.id}" ) do
+      within( "#user-#{user.id}.user-fields" ) do
         page.should have_content "Frank Zappa"
         page.should have_content "frank@zappa.com"
       end
