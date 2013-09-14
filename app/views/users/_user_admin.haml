@@ -1,0 +1,11 @@
+- if current_user.has_role?(:admin)
+  .pull-right
+    %span.pad-left
+      &nbsp;
+      .btn-group
+        .btn.btn-default
+          = link_to icon_with_text('icon-list', t("user.listing")), users_path
+        .btn.btn-default
+          = link_to icon_with_text('icon-plus-sign', t("user.new")), sign_up_path
+
+

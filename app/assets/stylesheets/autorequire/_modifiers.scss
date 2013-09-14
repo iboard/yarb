@@ -30,6 +30,30 @@
   margin-bottom: $gapBottom;
 }
 
+.gap-left {
+  margin-top: $gapLeft;
+}
+
+.gap-right {
+  margin-top: $gapRight;
+}
+
+.pad-top {
+  padding-top: $padTop;
+}
+
+.pad-bottom {
+  padding-bottom: $padBottom;
+}
+
+.pad-left {
+  padding-top: $padLeft;
+}
+
+.pad-right {
+  padding-top: $padRight;
+}
+
 .draft {
   display: inline;
   font-size: $smallNoteFontSize * 0.5;

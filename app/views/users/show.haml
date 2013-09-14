@@ -1,3 +1,5 @@
+= render "user_admin"
+
 - UserPresenter.present(@user,self) do |presenter|
   = presenter.user_listing_tag do
     %h1= @user.name

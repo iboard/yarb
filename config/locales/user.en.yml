@@ -12,6 +12,7 @@ en:
     change_password: "Change Your Password"
     index_title: "Listing Users"
     successfully_deleted: "User '%{name}' successfully deleted."
+    listing: "All Users"
   roles:
     guest: "Guest"
     confirmed: "Confirmed"
