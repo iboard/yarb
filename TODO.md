@@ -16,9 +16,8 @@ Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/pr
    key-fields?!
 
 
-# Todos
+# Todos and Questions to answer
 
-1. TODO: Rewrite STORE.md ;-)
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this
          title exists?
@@ -30,10 +29,13 @@ Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/pr
          Rails ActiveModel::**.
 
 ## Done
+
 1. _TODO: Create a `COLLABORATION.md` with instructions for
          collaborators. (done as a static page on yarb.iboard.cc now)_
 
 ### Needs refactoring
+
+Last global review done 9/14/2013
 
 #### User ID
 
