@@ -5,6 +5,18 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div style='height: 35px; min-height: 35px;' class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## Move into the right place
+
+### Commit: [Moved sign-up-validation to model SignUp](https://github.com/iboard/yarb/commit/53e37c372f829d9bb88c6ed0c4f61f4a3c82ec66)
+
+> Validations should be a responsibility of the model not the service.
+
+I realized that `SignUpService::MIN_PASSWORD_LENGTH` was in the wrong
+place. The service should rely on the model and should not decide on
+itself. The Service is responsible to call the validations but not to
+do the checks.
+
+
 ## Move Knowledge down as far as possible
 
 ### Commit: [Refactored Validations](https://github.com/iboard/yarb/commit/b5ff13a289374ac3a6e3bb293e996218fbb04dd4)
