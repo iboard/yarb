@@ -45,8 +45,8 @@ class ChangePasswordService
       return false
     end
 
-    if @params[:new_password].length < SignUpService::PASSWORD_MIN_LENGTH
-      user.errors.add(:new_password, @view.t("sign_up.password_to_short", min: SignUpService::PASSWORD_MIN_LENGTH))
+    if @params[:new_password].length < SignUp::PASSWORD_MIN_LENGTH
+      user.errors.add(:new_password, @view.t("sign_up.password_to_short", min: SignUp::PASSWORD_MIN_LENGTH))
       return false
     end
 
