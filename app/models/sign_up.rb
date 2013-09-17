@@ -43,7 +43,7 @@ class SignUp
   private
 
   def add_error_unless condition, field, message
-    errors.add( field, message)
+    errors.add( field, message) unless !!condition
     condition
   end
 
