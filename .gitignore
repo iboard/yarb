@@ -1,3 +1,5 @@
+config/secrets.rb
+
 .DS_Store
 .ruby-*
 /coverage
