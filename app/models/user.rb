@@ -1,6 +1,5 @@
 # -*- encoding : utf-8 -*-
 
-require 'bcrypt'
 
 # The User-class
 # * uses BCrypt to encrypt passwords
@@ -9,7 +8,6 @@ class User
 
   include Store
   include Store::Timestamps
-  include BCrypt
   include Roles
 
   key_method :id
@@ -19,7 +17,11 @@ class User
   attribute  :name
   validates_presence_of :name
 
-  attribute :password_digest
+
+  def initialize args={}
+    set_attributes args
+    ensure_authentication
+  end
 
   # Creates a unique id for the user.
   # @return [String]
@@ -29,49 +31,25 @@ class User
 
   # ensure we have a valid id
   def save
-    id and super
+    id and ensure_authentication and super
   end
 
-  # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
-  # @return [String] the crypted password string
-  def password
-     @password ||= Password.new(password_digest) unless password_digest.nil?
+
+  def authentication provider=:identity
+    Authentication.where(user_id: id, provider: provider).all.first
   end
 
-  # Set new crypted password from plain_text parameter.
-  # If new_password is nil, a random hex-password will be set.
-  # @param [String] new_password (plain text)
-  def password= new_password
-    new_password ||= SecureRandom::hex(8)
-    @password = Password.create new_password
-    self.password_digest = @password.to_s
-  end
+  delegate "password",     to: :authentication
+  delegate "password=",    to: :authentication
+  delegate "password_confirmation",     to: :authentication
+  delegate "password_confirmation=",    to: :authentication
+  delegate "authenticate", to: :authentication
+  delegate "old_password", to: :authentication
+  delegate "old_password=",to: :authentication
 
-  # @param [String] _password (plain-text)
-  # @return [Boolean] true if plain-text matches crypted password
-  # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
-  def authenticate _password
-    self.password == _password
-  end
-
-  # Virtual Attribute
-  # NOOP
-  def old_password
-  end
-
-  # Virtual Attribute
-  # NOOP
-  def old_password= _
-  end
-
-  # Virtual Attribute
-  # NOOP
-  def password_confirmation
-  end
-
-  # Virtual Attribute
-  # NOOP
-  def password_confirmation= _
+  private
+  def ensure_authentication
+    Authentication.find_by( :user_id, id ) || Authentication.create!(user_id: id)
   end
 
 end

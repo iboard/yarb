@@ -36,4 +36,8 @@ describe User do
     expect(u.has_role?(:root)).to be_false
   end
 
+  it "creates an authentication entry on create" do
+    u1 = User.create! email: "test@example.com", name: "Me"
+    expect( Authentication.find_by( :user_id,  u1.id ) ).not_to be_nil
+  end
 end
