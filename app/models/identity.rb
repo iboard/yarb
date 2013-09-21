@@ -2,6 +2,7 @@
 
 require 'bcrypt'
 
+# Identity belongs to an Authentication and stores the password_digest
 class Identity
   include Store
   include Store::Timestamps
@@ -9,7 +10,6 @@ class Identity
 
   key_method :authentication_id
   attribute  :authentication_id
-  attribute  :provider, default: :identity
   attribute  :password_digest
 
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
@@ -56,25 +56,3 @@ class Identity
   end
 end
 
-class NilIdentity
-  def authenticate _password
-    false
-  end
-
-  def password
-    #noop
-  end
-
-  def password= _
-    #noop
-  end
-
-  def old_password
-    #noop
-  end
-
-  def old_password= _
-    #noop
-  end
-
-end

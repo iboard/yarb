@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-"
 
+# An Authentication belongs to a user.
+# A User can have more authentications (Identity, Google, Twitter, ...)
 class Authentication
 
   include Store
@@ -14,40 +16,35 @@ class Authentication
     ensure_identity
   end
 
+  # @return [String] "hex1-hex2" hex1=Time.now, hex2=random
   def id
     @id ||= "%x-%s" % [Time.now.to_i, SecureRandom::hex(4)]
   end
 
-  def authenticate password
-    identity.authenticate(password) if provider == :identity
-  end
+  delegate "password",               to: :identity
+  delegate "authenticate",           to: :identity
+  delegate "old_password",           to: :identity
+  delegate "old_password=",          to: :identity
+  delegate "password_confirmation",  to: :identity
+  delegate "password_confirmation=", to: :identity
 
+  # @return [Identity] joined by authentication_id if provider is :identity
   def identity
     if provider == :identity
-      Identity.find_by(:authentication_id, id) || NilIdentity.new
+      Identity.find_by(:authentication_id, id)
     end
   end
 
-  def identity= new_identity
-    #noop
-  end
 
-
-  delegate "password",     to: :identity
-  delegate "authenticate", to: :identity
-  delegate "old_password", to: :identity
-  delegate "old_password=",to: :identity
-  delegate "password_confirmation",     to: :identity
-  delegate "password_confirmation=",    to: :identity
-
+  # Set new password
+  # @param [String] new_password
   def password= new_password
-    Identity.create( authentication_id: self.id ) if identity.is_a?(NilIdentity)
-    identity.password=new_password
+    Identity.create( authentication_id: self.id, password: new_password ) if identity
   end
 
   private
   def ensure_identity
-    if provider == :identity && identity.is_a?(NilIdentity)
+    if provider == :identity && identity.nil?
       Identity.create authentication_id: id
     end
   end

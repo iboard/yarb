@@ -35,17 +35,19 @@ class User
   end
 
 
+  # @param [Symbol] provider (default :identity)
+  # @return [Authentication]
   def authentication provider=:identity
     Authentication.where(user_id: id, provider: provider).all.first
   end
 
-  delegate "password",     to: :authentication
-  delegate "password=",    to: :authentication
-  delegate "password_confirmation",     to: :authentication
-  delegate "password_confirmation=",    to: :authentication
-  delegate "authenticate", to: :authentication
-  delegate "old_password", to: :authentication
-  delegate "old_password=",to: :authentication
+  delegate "password",               to: :authentication
+  delegate "password=",              to: :authentication
+  delegate "password_confirmation",  to: :authentication
+  delegate "password_confirmation=", to: :authentication
+  delegate "authenticate",           to: :authentication
+  delegate "old_password",           to: :authentication
+  delegate "old_password=",          to: :authentication
 
   private
   def ensure_authentication
