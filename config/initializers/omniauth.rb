@@ -1,5 +1,10 @@
 # -*- encoding : utf-8 -*-
-require_relative "../secrets"
+
+if Rails.env.test?
+  require_relative "../test_secrets"
+else
+  require_relative "../secrets"
+end
 
 Rails.application.config.middleware.use OmniAuth::Builder do
 
