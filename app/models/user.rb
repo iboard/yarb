@@ -26,6 +26,7 @@ class User
   # Create a user without Identity but with an OAuth-probider
   # @param [Hash] auth OmniAuth authentication-hash
   def self.create_from_auth auth
+     [ User, Identity, Authentication ].each { |_model| _model.expire_selector }
      _user = create name: auth[:info][:name], email: auth[:info][:email]
      _user.authentication.delete unless auth[:provider] == :identity
      _user
