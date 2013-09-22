@@ -22,6 +22,14 @@ def create_valid_user email, name, password
   u.save
 end
 
+def create_valid_user_with_authentication args
+  user = create_valid_user args[:info][:email], args[:info][:name], "notused"
+  identity_auth = user.authentication(:identity)
+  Authentication.create!( provider: args[:provider], uid: args[:uid], user_id: user.id)
+  Identity.find_by(:authentication_id, identity_auth.id).delete
+  user
+end
+
 def create_admin_user email, name, password
   u = create_valid_user email, name, password
   u.roles = [:admin]

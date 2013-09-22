@@ -8,8 +8,9 @@ class Authentication
   include Store::Timestamps
   key_method :id
   attribute  :id
-  attribute  :user_id
   attribute  :provider, default: :identity
+  attribute  :uid
+  attribute  :user_id
 
   def initialize *args
     set_attributes( *args )
@@ -40,6 +41,12 @@ class Authentication
   # @param [String] new_password
   def password= new_password
     Identity.create( authentication_id: self.id, password: new_password ) if identity
+  end
+
+  # Delete Identities before deleting self
+  def delete
+    Identity.where( authentication_id: id ).each { |i| i.delete }
+    super
   end
 
   private

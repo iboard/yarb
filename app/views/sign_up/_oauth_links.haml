@@ -1,0 +1,12 @@
+- if Secrets::secret[:omniauth]
+  %h2= t("sign_up.use_oauth_provider")
+  %ul
+    - Secrets::secret[:omniauth].each do |provider,_def|
+      %li= link_to t("sign_up.providers.#{provider}"), "/auth/#{provider}"
+
+  %h2
+    - if params[:controller] == "sign_up"
+      = t("sign_up.or_use_a_local_identity")
+    - else
+      = t("sign_in_view.or_use_a_local_identity")
+

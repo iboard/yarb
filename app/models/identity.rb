@@ -9,7 +9,7 @@ class Identity
   include BCrypt
 
   key_method :authentication_id
-  attribute  :authentication_id
+  attribute  :authentication_id, unique: true
   attribute  :password_digest
 
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)

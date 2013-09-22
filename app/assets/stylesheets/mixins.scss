@@ -8,3 +8,14 @@
   line-height: 100%;
 }
 
+@mixin rounded_button {
+  display: inline-block;
+  padding: 0.5em;
+  border: 1px solid darken( $tableBorderColor, 20% );
+  background: lighten( $tableBorderColor, 40% );
+  border-radius: 0.25em;
+  font-family: $btnFontFamily;
+  a { color: darken( $tableBorderColor, 40% ); }
+}
+
+

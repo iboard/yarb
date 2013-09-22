@@ -39,12 +39,25 @@ RSpec.configure do |config|
   config.order = 'random'
   config.color_enabled = true
 
-  # MAKE SURE WE START WITH A CLEAN/EMPTY DATA-PATH
   config.before(:all) do
+
+    # SET LOCALE
+    # during test locale comes from your workstation's user
+    # make sure it is :en even on german or other consoles
     I18n.locale = :en
+
+    # MAKE SURE WE START WITH A CLEAN/EMPTY DATA-PATH
     if Rails.env.test? || Rails.env.cucumber?
       FileUtils.rm_rf(Dir["#{pstore_path}/[^.]*"])
     end
+
+    # FAKE OMNIAUTH CALLS
+    OmniAuth.config.test_mode = true
+
+    OmniAuth.config.mock_auth[:twitter] = OmniAuth::AuthHash.new({
+      :provider => 'twitter',
+      :uid => '123545'
+    })
   end
 
 end

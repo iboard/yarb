@@ -113,6 +113,33 @@ describe UsersController do
         page_should_have_error page, "new_password: Password is to short. Minimum 4 characters."
         expect( @user.reload.authenticate( "oldpassword" ) ).to be_true
       end
+
+      context "for an OAuth-User" do
+
+        before :each do
+          User.delete_all!
+          Authentication.delete_all!
+          Identity.delete_all!
+          OmniAuth.config.add_mock(:twitter, {
+            :uid => "12345",
+            :provider => "twitter",
+            :info => { name: "Test User", nickname: "twitter-user", email: "test@example.com" }
+          })
+        end
+
+        it "doesn't offer to change the password" do
+          visit sign_in_path
+          click_link "Twitter"
+          click_link "Test User"
+          click_link "Edit"
+          page.should_not have_content "Change Your Password"
+          page.should_not have_field "Old Password"
+          page.should_not have_field "New Password"
+          page.should_not have_field "Confirmation"
+        end
+
+      end
+
     end
 
   end

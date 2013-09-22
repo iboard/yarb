@@ -11,7 +11,15 @@ de:
     email_exists: "Diese Email-Adresse existiert bereits."
     password_to_short: "Passwort zu kurz. Mindestlänge %{min} Zeichen."
     name_cant_be_blank: "Name kann nicht leer sein."
-
+    use_oauth_provider: "Benutze einen Authentifizierungs Provider"
+    or_use_a_local_identity: "oder neuen Benutzer anlegen"
+    sign_up_with: "Registrieren mit %{provider}"
+  sign_in_view:
+    oauth_failed: "Anmeldung fehlgeschlagen. Grund: <em>%{message}</em>"
+    or_use_a_local_identity: "oder melde dich mit deinem lokalen Benutzer an"
+  providers:
+    twitter: "Twitter"
+    google_oauth2: "Google / GMail"
 
   activemodel:
     errors:

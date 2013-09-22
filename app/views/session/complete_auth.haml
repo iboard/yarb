@@ -1,23 +1,18 @@
 .row
-  .span7.offset2
+  .span6.offset3
     #sign-up-form.gap-top.gap-bottom
 
       %h1= t("sign_up.welcome")
-      %br/
-
-      = render "oauth_links"
+      %h2= t("sign_up.sign_up_with", provider: t("providers.#{@sign_up.provider}"))
 
       = render_errors_for @sign_up
-      = simple_form_for @sign_up,
-        html: { class: 'form-horizontal'} do |f|
+      = simple_form_for @sign_up, url: "/sign_up/complete_auth", html: { class: 'form-horizontal'} do |f|
         %fieldset
+          = f.input :provider, as: :hidden
+          = f.input :uid, as: :hidden
           = f.input :name, label: t("sign_up.name")
           = f.input :email, as: 'email',
             label: t("sign_up.email")
-          = f.input :password, as: 'password',
-            label: t("sign_up.password")
-          = f.input :password_confirmation, as: 'password',
-            label: t("sign_up.password_confirmation")
 
         .form-actions
           = f.submit t("sign_up.register_button"), class: 'btn btn-primary'

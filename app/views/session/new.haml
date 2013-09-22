@@ -1,7 +1,9 @@
-.row
-  .span5.offset3
+#sign-in.row
+  .span7.offset2
     .gap-top.gap-bottom
       %h1=t(:sign_in)
+
+    = render "sign_up/oauth_links"
 
     = simple_form_for create_session_path,
       html: { class: 'form-horizontal'} do |f|

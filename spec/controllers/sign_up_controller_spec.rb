@@ -74,4 +74,62 @@ describe SignUpController do
     page_should_have_error page, "name: Name can't be blank."
   end
 
+  context "Using omniauth" do
+
+    before :each do
+      User.delete_all!
+      Authentication.delete_all!
+      Identity.delete_all!
+      OmniAuth.config.add_mock(:twitter, {
+        :uid => "12345",
+        :provider => "twitter",
+        :info => { name: "Test User", nickname: "twitter-user" }
+      })
+    end
+
+    context "Sign Up" do
+
+      def use_twitter
+        click_link "Twitter"
+        fill_in "e-mail", with: "twitter@iboard.cc"
+        click_button "Register"
+      end
+
+      it "creates a new user" do
+        expect { use_twitter }.to change{ User.all.count }.by(1)
+        page_should_have_notice page, "Successfully signed in as Test User"
+      end
+
+      it "creates a new authentication" do
+        expect { use_twitter }.to change{ Authentication.all.count }.by(1)
+        page_should_have_notice page, "Successfully signed in as Test User"
+      end
+
+      it "doesn't create an identity" do
+        expect { use_twitter }.to change{ Identity.all.count }.by(0)
+        page_should_have_notice page, "Successfully signed in as Test User"
+      end
+    end
+
+    context "Sign In" do
+
+      it "signs in an existng user" do
+        user = create_valid_user_with_authentication(provider: "twitter", uid: "12345",
+          :info => { name: "Test User", nickname: "twitter-user", email: "andi@test.cc" })
+        visit sign_in_path
+        click_link "Twitter"
+        page_should_have_notice page, "Successfully signed in as Test User"
+      end
+
+      it "catches OAuth::Unauthorized" do
+        OmniAuth.config.mock_auth[:twitter] = :invalid_credentials
+        visit sign_in_path
+        click_link "Twitter"
+        page_should_have_error page, "Authentication failed with, Invalid Credentials"
+      end
+
+    end
+
+  end
+
 end

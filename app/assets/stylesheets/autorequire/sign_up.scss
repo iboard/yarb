@@ -1,0 +1,16 @@
+@import "mixins";
+
+#sign-up-form, #sign-in {
+
+  h2 { font-size: $baseFontSize * 1.25 !important; }
+
+  ul {
+    list-style-type: none;
+    margin: 0px;
+    li {
+      @include rounded_button;
+    }
+  }
+
+}
+
