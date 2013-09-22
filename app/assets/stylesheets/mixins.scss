@@ -10,6 +10,7 @@
 
 @mixin rounded_button {
   display: inline-block;
+  margin: 0.25em;
   padding: 0.5em;
   border: 1px solid darken( $tableBorderColor, 20% );
   background: lighten( $tableBorderColor, 40% );

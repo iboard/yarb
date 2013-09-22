@@ -1,8 +1,8 @@
 - if Secrets::secret[:omniauth]
   %h2= t("sign_up.use_oauth_provider")
-  %ul
+  %ul.row
     - Secrets::secret[:omniauth].each do |provider,_def|
-      %li= link_to t("sign_up.providers.#{provider}"), "/auth/#{provider}"
+      %li.centered.span2= link_to t("providers.#{provider}"), "/auth/#{provider}"
 
   %h2
     - if params[:controller] == "sign_up"
