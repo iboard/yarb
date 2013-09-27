@@ -63,6 +63,15 @@ class User
   delegate "old_password",           to: :authentication
   delegate "old_password=",          to: :authentication
 
+  # Delete an existing authentication (for :identity) and create a new one
+  # @param [String|Symbol] provider
+  # @param [String] uid - user's id at provider
+  # @return [Authentication]
+  def recreate_authentication provider, uid
+    authentication.delete
+    Authentication.create! provider: provider, uid: uid, user_id: id
+  end
+
   private
   def ensure_authentication
     Authentication.find_by( :user_id, id ) || Authentication.create!(user_id: id)
