@@ -3,4 +3,5 @@
     .pull-right
       = presenter.delete_user_link
       = presenter.edit_user_link
-    = presenter.name_and_email
+    .name-and-email= presenter.name_and_email
+    .roles= presenter.user_roles if current_user.has_role?(:admin)

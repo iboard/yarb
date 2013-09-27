@@ -128,6 +128,16 @@ describe SignUpController do
         page_should_have_error page, "Authentication failed with, Invalid Credentials"
       end
 
+      it "catches exception when user/password is used for an existing twitter-user" do
+        user = create_valid_user_with_authentication(provider: "twitter", uid: "12345",
+          :info => { name: "Test User", nickname: "twitter-user", email: "andi@test.cc" })
+        visit sign_in_path
+        fill_in "EMail", with: "andi@test.cc"
+        fill_in "Password", with: "wrong login"
+        click_button "Sign In"
+        page_should_have_error page, "Invalid Credentials"
+      end
+
     end
 
   end

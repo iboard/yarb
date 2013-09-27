@@ -12,8 +12,24 @@
     li {
       display: block;
       padding: 0.5em;
-      height: 2em;
+      min-height: 2em;
       baseline: bottom;
+
+      .name-and-email {
+        display: inline-block;
+        .user-name {
+          display: inline-block;
+          min-width: 250px;
+        }
+        .user-email {
+          display: inline-block;
+        }
+      }
+      .roles {
+        margin-top: -0.75em;
+        padding: 0px;
+        font-size: $smallNoteFontSize;
+      }
     }
 
     li:nth-child(even) {

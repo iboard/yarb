@@ -24,8 +24,8 @@ class UserPresenter
   # @return [String] html-string "email@example.com  [envelope] email-link"
   def name_and_email
     [
-      view.content_tag(:strong, user.name),
-      view.content_tag(:small,  view.mail_link_to( user.email, user.email ))
+      view.content_tag(:strong, user.name, class: 'user-name'),
+      view.content_tag(:small,  view.mail_link_to( user.email, user.email ), class: 'user-email')
     ].join( '&nbsp;'*3).html_safe
   end
 

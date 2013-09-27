@@ -72,6 +72,9 @@ class SessionController < ApplicationController
       flash.now[:error] = t(:invalid_credentials)
       render :new
     end
+  rescue
+    flash.now[:error] = t(:invalid_credentials)
+    render :new
   end
 
 end
