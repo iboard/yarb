@@ -1,0 +1,42 @@
+# -*- encoding : utf-8 -*-"
+
+# Where to read Settings-values from
+$SETTINGS_FILE = "../config/environments/application_#{Rails.env}_settings"
+require_relative $SETTINGS_FILE
+
+# Settings Module reads settings from config/environment/application_:env_settings.rb
+# and provides a method fetch to support easy access to deeply nested hashes.
+module Settings
+
+  # SettingsError is thrown when trying to fetch a not defined setting.
+  # It reports the missing key and the file where it should be defined.
+  class SettingsError < RuntimeError
+
+    # @param [Symbol] missing_entry
+    def initialize missing_entry
+      @missing_entry = missing_entry
+      super "Missing Setting #{missing_entry}. See #{$SETTINGS_FILE}"
+    end
+
+  end
+
+  # @example
+  #   from = Settings.fetch :mailers, :user_mailer, :default_from
+  # Access Settings.settings[:symbol][:symbol]... and throws an error
+  # if not defined.
+  # @param [Array] symbols
+  # @return [Object]
+  # @raise SettingsError if key not defined
+  def self.fetch *symbols
+    get_setting( settings, symbols.shift, symbols )
+  end
+
+  private
+  def self.get_setting( top, symbol, hash )
+    _new_hash = top.fetch(symbol) {
+      raise SettingsError.new symbol
+    }
+    hash.empty? ? _new_hash : get_setting(_new_hash, hash.shift, hash)
+  end
+
+end

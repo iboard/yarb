@@ -1,4 +1,6 @@
 config/secrets.rb
+config/environments/application_development_settings.rb
+config/environments/application_production_settings.rb
 
 .DS_Store
 .ruby-*
