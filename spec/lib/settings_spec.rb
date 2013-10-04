@@ -8,10 +8,16 @@ describe "Settings module" do
     expect(Settings.settings).to be_a(Hash)
   end
 
-  it "thorws an exception if setting is not available" do
+  it "thorws an exception if top-level setting is not defined" do
     expect{
       Settings.fetch( :not_available )
-    }.to raise_error(Settings::SettingsError, "Missing Setting not_available. See ../config/environments/application_test_settings")
+    }.to raise_error(Settings::SettingsError, 'Missing Setting not_available in {:mailers=>{:user_mailer=>{:default_from=>"noreply@example.com"}}}. See ../config/environments/application_test_settings')
+  end
+
+  it "throws an exception if nested value is not defined" do
+    expect{
+      Settings.fetch( :mailers, :user_mailer, :not_existing )
+    }.to raise_error(Settings::SettingsError, 'Missing Setting not_existing in {:default_from=>"noreply@example.com"}. See ../config/environments/application_test_settings')
   end
 
   it "returns a given value" do

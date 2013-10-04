@@ -13,9 +13,9 @@ module Settings
   class SettingsError < RuntimeError
 
     # @param [Symbol] missing_entry
-    def initialize missing_entry
-      @missing_entry = missing_entry
-      super "Missing Setting #{missing_entry}. See #{$SETTINGS_FILE}"
+    def initialize symbol, keys
+      _keys = keys.empty? ? symbol.to_s : "#{symbol.to_s} in #{keys}"
+      super "Missing Setting #{_keys}. See #{$SETTINGS_FILE}"
     end
 
   end
@@ -34,7 +34,7 @@ module Settings
   private
   def self.get_setting( top, symbol, hash )
     _new_hash = top.fetch(symbol) {
-      raise SettingsError.new symbol
+      raise SettingsError.new symbol, top
     }
     hash.empty? ? _new_hash : get_setting(_new_hash, hash.shift, hash)
   end
