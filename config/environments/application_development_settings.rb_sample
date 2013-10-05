@@ -5,9 +5,24 @@ module Settings
 
   def self.settings
     {
+      app: {
+        hostname: "YARB DEVELOPMENT",
+      },
+      smtp: {
+        host: "localhost:3000",
+        server: "your.mail.server",
+        port: 25,
+        domain: "your.domain",
+        default_from: "noreply@your.domain",
+        authentication: 'plain',
+        enable_starttls_auto: true,
+        user: 'smtpusername',
+        password: 'smtpuser-password', # Make sure this is not in your repository!
+      },
       mailers: {
+        developer_email: "your-email@gmail.com",
         user_mailer: {
-          default_from: "noreply@example.com",
+          default_from: "noreply@your.domain",
         }
       },
     }

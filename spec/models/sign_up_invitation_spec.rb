@@ -61,8 +61,9 @@ describe SignUpInvitation do
     end
 
     it "includes the correct link to accept the invitation" do
-      pending "refactor Settings first"
-      assert false, "not implemented yet"
+      invitation.deliver
+      expect( last_mail.body ).to include( Settings.fetch( :app, :hostname ) )
+      expect( last_mail.body ).to include( "http://example.com/sign_up/accept_invitation/#{invitation.token}" )
     end
   end
 

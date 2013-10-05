@@ -12,11 +12,13 @@ Yarb::Application.routes.draw do
 
   match 'sign_up'            => 'sign_up#new',                 via: 'GET',  as: 'sign_up'
   match 'sign_ups'           => 'sign_up#create',              via: 'POST', as: 'sign_ups'
+  match 'sign_up/accept_invitation/:token' => 'sign_up#accept_invitation', via: 'GET', as: 'accept_sign_up_invitation'
 
   match '/auth/:provider/callback' => 'session#create',        via: 'GET'
   match '/auth/identity/register'  => 'users#create',          via: 'POST'
   match '/auth/failure'            => 'session#failure',       via: 'GET'
   match '/sign_up/complete_auth'   => 'session#complete_auth', via: 'POST'
+
 
   resources :users
 

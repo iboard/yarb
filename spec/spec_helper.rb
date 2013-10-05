@@ -7,6 +7,7 @@ SimpleCov.start do
   add_filter 'spec/support/matchers'
   add_filter 'spec/support/warning_suppressor'
   add_filter 'spec/spec_helper'
+  add_filter 'lib/development_mail_interceptor.rb'
   add_group "App", 'app/'
   add_group "Library", 'lib/'
 end
