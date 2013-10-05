@@ -45,16 +45,21 @@ Ready to be used with
 
   * `brew install phantomjs`
 
-**Start**
+## Start
 
   * [Clone from github](https://github.com/iboard/yarb)
   * Make sure you use ruby1.9.3 or (better) ruby2.0.0 (`ruby -v`)
   * bundle with `bundle`
+  * do the configuration as mentioned below
   * sart Guard with `guard`
   * start your development and stay clean ;-)
 
-**Configuration**
+## Configuration
 
+    cp config/environments/application_development_settings.rb_sample \
+    config/environments/application_development_settings.rb
+
+  * Edit the file `application_development_settings.rb` to fit your needs.
   * Edit files `config/locales/site.*.yml` to setup your copyright and URL
 
 # What You Can do
@@ -110,6 +115,8 @@ tested rubies and the current Travis-state on top of this page._
   * `/pages` lists all pages with Edit- and Delete- Buttons.
   * At `/pages/new` you can create new pages.
   * It implements a responsive design using Twitter-bootstrap and sass.
+  * It implements omniauth-identity and omniauth-* (several providers.
+  see `config/secrets.rb_sample` and `Gemfile`
 
 ## Users
 
