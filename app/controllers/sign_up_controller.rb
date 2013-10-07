@@ -4,6 +4,9 @@
 # Sign Up A New User
 class SignUpController < ApplicationController
 
+  before_filter :check_invitation, only: [:create]
+  helper_method :needs_invitation?
+
   # GET /sign_up
   def new
     @sign_up = SignUp.new
@@ -21,5 +24,29 @@ class SignUpController < ApplicationController
       end
     end
   end
+
+  # GET /sign_up/accept_invitation/:token
+  def accept_invitation
+    @sign_up = SignUp.new
+    @sign_up.invitation_token = params[:token]
+    session[:invitation_token] = params[:token]
+    render :new
+  end
+
+  private
+
+  def needs_invitation?
+    ApplicationHelper::needs_invitation?
+  end
+
+  def check_invitation
+    @sign_up = ApplicationHelper::build_sign_up params[:sign_up]
+    unless @sign_up
+      flash.now[:alert] = t("sign_up.invitation_token_invalid")
+      @sign_up = SignUp.new
+      render :new
+    end
+  end
+
 end
 

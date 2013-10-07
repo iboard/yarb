@@ -7,6 +7,8 @@ en:
     password: "Password"
     email: "e-mail"
     successfully_created: "User %{email} successfully created."
+    invitation_token: "Invitation"
+    invitation_token_invalid: "Invalid invitation token."
     confirmation_does_not_match: "Confirmation doesn't match."
     email_exists: "e-mail already exists."
     password_to_short: "Password is to short. Minimum %{min} characters."
@@ -14,6 +16,7 @@ en:
     use_oauth_provider: "Use an authentication provider"
     or_use_a_local_identity: "or create a new user"
     sign_up_with: "Sign up with %{provider}"
+    can_not_create_user: "Can't create user."
   sign_in_view:
     or_use_a_local_identity: "or log in with your local identity"
     oauth_failed: "Authentication failed with, <em>%{message}</em>"

@@ -18,6 +18,9 @@
             label: t("sign_up.password")
           = f.input :password_confirmation, as: 'password',
             label: t("sign_up.password_confirmation")
+          = f.input :invitation_token, value: session[:invitation_token],
+            label: t("sign_up.invitation_token"),
+            placeholder: 'xxxxxxxx-xxxxxxxx' if needs_invitation?
 
         .form-actions
           = f.submit t("sign_up.register_button"), class: 'btn btn-primary'

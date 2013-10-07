@@ -5,9 +5,10 @@ class AuthenticationService
 
   attr_reader :user
 
-  def initialize controller, auth
+  def initialize controller, auth, _session={}
     @controller = controller
     @auth = auth
+    @session = _session
     @user = find_or_create_user_from_auth(auth)
   end
 
@@ -25,7 +26,9 @@ class AuthenticationService
   private
 
   def create_from_auth auth
-    User.create_from_auth auth
+    if !ApplicationHelper.needs_invitation? || ApplicationHelper.find_invitation(@session)
+      User.create_from_auth auth
+    end
   end
 
 end

@@ -6,7 +6,8 @@ module Settings
   def self.settings
     {
       app: {
-        hostname: "EXAMPLE.COM"
+        hostname: "EXAMPLE.COM",
+        needs_invitation: false,
       },
       smtp: {
         host: "example.com",

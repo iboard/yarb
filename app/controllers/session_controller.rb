@@ -22,8 +22,11 @@ class SessionController < ApplicationController
   # POST /sign_up/complete_auth
   def complete_auth
     user = create_and_sign_in_user_with_authentication
-    redirect_to root_path,
-      notice: t(:successfully_logged_in_as, user: user.name).html_safe
+    if user
+      redirect_to root_path, notice: t(:successfully_logged_in_as, user: user.name).html_safe
+    else
+      redirect_to root_path, alert: t("sign_up.can_not_create_user")
+    end
   end
 
 
@@ -49,19 +52,21 @@ class SessionController < ApplicationController
   end
 
   def create_with_omniauth
-    user = AuthenticationService.new(self,@auth).user
+    user = AuthenticationService.new(self,@auth,session).user
     if user && user.valid?
       session[:user_id] = user.id
       redirect_to root_path, notice: t("successfully_logged_in_as", user: user.name).html_safe
     else
       user.delete if user
-      @sign_up = OAuthSignUp.new(@auth)
+      @sign_up = OAuthSignUp.new(@auth,session)
       render :complete_auth
     end
   end
 
   def create_and_sign_in_user_with_authentication
-    create_and_sign_in_user *extract_oauth_params(params[:o_auth_sign_up])
+    if !ApplicationHelper.needs_invitation? || ApplicationHelper.find_invitation(params[:o_auth_sign_up])
+      create_and_sign_in_user *extract_oauth_params(params[:o_auth_sign_up])
+    end
   end
 
   def create_and_sign_in_user email, name, provider, uid

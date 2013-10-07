@@ -13,6 +13,7 @@
           = f.input :name, label: t("sign_up.name")
           = f.input :email, as: 'email',
             label: t("sign_up.email")
+          = f.input :invitation_token if ApplicationHelper.needs_invitation?
 
         .form-actions
           = f.submit t("sign_up.register_button"), class: 'btn btn-primary'

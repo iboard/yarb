@@ -6,6 +6,8 @@ de:
     password_confirmation: "Wiederholen"
     password: "Passwort"
     email: "E-Mail"
+    invitation_token: "Einladung"
+    invitation_token_invalid: "Der Einladungs-code ist ungültig."
     successfully_created: "Benutzer %{email} wurde erfolgreich erzeugt."
     confirmation_does_not_match: "Bestätigung stimmt nicht überein."
     email_exists: "Diese Email-Adresse existiert bereits."
@@ -14,6 +16,7 @@ de:
     use_oauth_provider: "Benutze einen Authentifizierungs Provider"
     or_use_a_local_identity: "oder neuen Benutzer anlegen"
     sign_up_with: "Registrieren mit %{provider}"
+    can_not_create_user: "Benutzer kann nicht erzeugt werden."
   sign_in_view:
     oauth_failed: "Anmeldung fehlgeschlagen. Grund: <em>%{message}</em>"
     or_use_a_local_identity: "oder melde dich mit deinem lokalen Benutzer an"

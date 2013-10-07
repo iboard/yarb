@@ -16,8 +16,22 @@ module ApplicationHelper
     render_alert_box_for object if object.errors.any?
   end
 
+  def self.build_sign_up sign_up_params
+    if !self.needs_invitation? || self.find_invitation( sign_up_params )
+      SignUp.new sign_up_params
+    end
+  end
+
+  def self.needs_invitation?
+    Settings.fetch( :app, :needs_invitation )
+  end
 
   private
+
+  def self.find_invitation _params
+    token = _params[:invitation_token].present? ? _params[:invitation_token] : session[:invitation_token]
+    SignUpInvitation.find( token )
+  end
 
   def alert_box &block
     content_tag :div, class: 'alert alert-error' do

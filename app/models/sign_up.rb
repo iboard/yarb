@@ -8,7 +8,7 @@ class SignUp
 
   include  ActiveModel::Model
   extend   ActiveModel::Naming
-  attr_accessor :name, :email, :password, :password_confirmation
+  attr_accessor :name, :email, :password, :password_confirmation, :invitation_token
   validates_presence_of :name
   validates_presence_of :email
   validates_presence_of :password

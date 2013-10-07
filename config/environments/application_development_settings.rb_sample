@@ -7,6 +7,7 @@ module Settings
     {
       app: {
         hostname: "YARB DEVELOPMENT",
+        needs_invitation: true, # Sign up with invitation only. Set to false for public signup
       },
       smtp: {
         host: "localhost:3000",

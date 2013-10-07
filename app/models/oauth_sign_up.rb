@@ -5,15 +5,16 @@ class OAuthSignUp
 
   include  ActiveModel::Model
   extend   ActiveModel::Naming
-  attr_accessor :uid, :provider, :name, :email
+  attr_accessor :uid, :provider, :name, :email, :invitation_token
   validates_presence_of :name
   validates_presence_of :email
 
-  def initialize auth
+  def initialize auth, session={}
     @provider = auth[:provider]
     @uid = auth[:uid]
     @name = auth[:info][:name]
     @email = auth[:info][:email]
+    @invitation_token = session[:invitation_token]
   end
 
 
