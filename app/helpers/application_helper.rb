@@ -16,12 +16,16 @@ module ApplicationHelper
     render_alert_box_for object if object.errors.any?
   end
 
+  # Build a SignUp object from parameters
+  # @param [Hash] sign_up_params as posted from form
   def self.build_sign_up sign_up_params
     if !self.needs_invitation? || self.find_invitation( sign_up_params )
       SignUp.new sign_up_params
     end
   end
 
+  # @return [Boolean] true if invitations are configured in
+  # config/enviromnments/application_:env_settings.yml
   def self.needs_invitation?
     Settings.fetch( :app, :needs_invitation )
   end

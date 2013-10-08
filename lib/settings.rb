@@ -12,7 +12,8 @@ module Settings
   # It reports the missing key and the file where it should be defined.
   class SettingsError < RuntimeError
 
-    # @param [Symbol] missing_entry
+    # @param [Symbol] symbol to search for
+    # @param [Hash] keys provided in settings
     def initialize symbol, keys
       _keys = keys.empty? ? symbol.to_s : "#{symbol.to_s} in #{keys}"
       super "Missing Setting #{_keys}. See #{$SETTINGS_FILE}"
