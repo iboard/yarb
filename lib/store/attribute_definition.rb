@@ -2,6 +2,9 @@
 #
 module Store
 
+  # Validators exists for ... as UniqueValidator, EMailValidator, ...
+  REGISTERED_VALIDATIONS = [:unique,:email]
+
   # An AttributeDefinition holds information about a Store-attribute
   # definition, as defined in a Store-class by
   # `attribute :name, default: 'some default', type: AnyClass
@@ -77,7 +80,7 @@ module Store
 
     def get_validations_from _attr
       return [] unless _attr
-      _attr.select { |key, _value| [:unique].include?(key) }
+      _attr.select { |key, _value| REGISTERED_VALIDATIONS.include?(key) }
     end
 
     def get_default_from _attr

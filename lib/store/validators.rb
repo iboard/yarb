@@ -2,6 +2,11 @@
 
 module Store
 
+
+  # Regular expression to proof email-entries
+  EMAIL_FORMAT_REGEXP = /\A[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]+\z/
+
+
   # BaseClass for Validators
   class Validator
 
@@ -36,6 +41,18 @@ module Store
       object.errors[field.to_sym].empty?
     end
 
+  end
+
+  # Validate format of emails
+  class EmailValidator < Validator
+
+    # Validates field against EMAIL_FORMAT_REGEXP
+    def validate hash
+      unless hash.fetch(field.to_s) =~ EMAIL_FORMAT_REGEXP
+        object.errors.add(field.to_sym, :not_a_valid_email_address)
+      end
+      object.errors[field.to_sym].empty?
+    end
   end
 
 end

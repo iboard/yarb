@@ -5,9 +5,10 @@
 class SignUpInvitation
   include Store
   key_method :token
-  attribute :token
+  attribute :token, :unique => true
+  attribute :to,    :unique => true, :email => true
   validates_presence_of   :token
-  validate :unique => true
+  validates_presence_of   :to
 
   def initialize sender, receiver, *options
     @sender_id      = sender.id

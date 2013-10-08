@@ -2,6 +2,11 @@ de:
   activemodel:
     errors:
       models:
+        sign_up_invitation:
+          attributes:
+            to:
+              already_exists: "Diese EMail-Adresse hat bereits eine Einladung erhalten"
+              not_a_valid_email_address: "Ungültige EMail-Adresse"
         validated_object:
           attributes:
             name:

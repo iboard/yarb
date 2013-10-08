@@ -21,6 +21,7 @@ Yarb::Application.routes.draw do
 
 
   resources :users
+  resources :sign_up_invitations, only: [:index, :new, :create, :destroy]
 
   resources :pages do
     collection do

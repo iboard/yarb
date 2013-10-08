@@ -53,3 +53,20 @@
 
 }
 
+.form-vertical {
+
+  .field_with_errors {
+    input {
+      border: 1px solid $alertColor;
+    }
+    .error {
+      font-size: $btnFontSize * 0.75;
+      font-family: $btnFontFamily;
+      color: $alertColor;
+      padding: 0px;
+      margin: 0px;
+      margin-bottom: 2em;
+      display: block;
+    }
+  }
+}

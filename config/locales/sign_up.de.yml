@@ -17,6 +17,11 @@ de:
     or_use_a_local_identity: "oder neuen Benutzer anlegen"
     sign_up_with: "Registrieren mit %{provider}"
     can_not_create_user: "Benutzer kann nicht erzeugt werden."
+    new_sign_up_invitation: "Benutzereinladung versenden."
+    send_invitation: "Absenden"
+    send_invitation_help: "Du kannst eine Einladung zum erstellen eines Accounts versenden. Gib die EMail-Adresse des Empfängers und (optional) eine Mitteilung ein."
+    invite_user: "Einladung versenden"
+    invitation_sent_to: "Einladung wurde an <em><strong>%{email}</strong></em> gesandt."
   sign_in_view:
     oauth_failed: "Anmeldung fehlgeschlagen. Grund: <em>%{message}</em>"
     or_use_a_local_identity: "oder melde dich mit deinem lokalen Benutzer an"

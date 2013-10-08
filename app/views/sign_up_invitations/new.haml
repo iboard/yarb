@@ -1,0 +1,11 @@
+%h1= t("sign_up.new_sign_up_invitation")
+
+.alert.alert-info= t("sign_up.send_invitation_help")
+
+= simple_form_for @sign_up_invitation, html: {class: standard_form_classes}  do |f|
+  .fieldset
+    = f.input :to, input_html: { class: "full-width" }, as: :email, placeholder: "your@friend.com"
+    = f.input :message, as: :text, class: "full-width", input_html: { class: "full-width", rows: 10 }
+  .form-actions
+    = f.submit t("sign_up.send_invitation"),  class: save_button_classes
+

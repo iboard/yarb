@@ -17,6 +17,11 @@ en:
     or_use_a_local_identity: "or create a new user"
     sign_up_with: "Sign up with %{provider}"
     can_not_create_user: "Can't create user."
+    new_sign_up_invitation: "Invite User By EMail"
+    send_invitation: "Deliver"
+    send_invitation_help: "You can send an invitation to sign up a user to a friend. Enter your friend's email and optionally a text-message."
+    invitation_sent_to: "Invitation sent to <em><strong>%{email}</strong></em>."
+    invite_user: "Send invitation"
   sign_in_view:
     or_use_a_local_identity: "or log in with your local identity"
     oauth_failed: "Authentication failed with, <em>%{message}</em>"

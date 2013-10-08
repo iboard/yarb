@@ -6,6 +6,9 @@
         .btn.btn-default
           = link_to icon_with_text('icon-list', t("user.listing")), users_path
         .btn.btn-default
-          = link_to icon_with_text('icon-plus-sign', t("user.new")), sign_up_path
+          - if ApplicationHelper.needs_invitation?
+            = link_to icon_with_text('icon-plus-sign', t("sign_up.invite_user")), new_sign_up_invitation_path
+          - else
+            = link_to icon_with_text('icon-plus-sign', t("user.new")), sign_up_path
 
 

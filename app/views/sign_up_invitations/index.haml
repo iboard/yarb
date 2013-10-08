@@ -1,0 +1,18 @@
+%h1=t("sign_up.sent_invitations_list")
+
+.pull-right
+  = new_button_tag t("sign_up.new_invitation"), new_sign_up_invitation_path
+
+%table
+  %thead
+    %th From
+    %th To
+    %th Message
+    %th &nbsp;&nbsp;&nbsp;&nbsp&nbsp;Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+  %tbody
+  - @sign_up_invitations.each do |invitation|
+    %tr
+      %td= invitation.sender ? invitation.sender.email : "n/a"
+      %td= invitation.to ? invitation.to : "n/a"
+      %td= invitation.message
+      %td= delete_link_tag sign_up_invitation_path(invitation)

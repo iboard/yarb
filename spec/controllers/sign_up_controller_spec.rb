@@ -148,10 +148,11 @@ describe SignUpController do
 
   end
 
-  context "With invitations enabelde" do
+  context "With invitations enabled" do
 
     before(:each) do
       User.delete_all!
+      SignUpInvitation.delete_all!
       @host_user = create_admin_user "host@example.com", "Host", "secret"
       @invitation = SignUpInvitation.new @host_user, "guest@example.com"
       @invitation.save
