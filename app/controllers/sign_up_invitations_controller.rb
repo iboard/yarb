@@ -19,6 +19,7 @@ class SignUpInvitationsController < ApplicationController
   def create
     @sign_up_invitation = create_invitation
     deliver_valid_invitation(@sign_up_invitation)
+    SignUpInvitation.expire_selector
   end
 
   # DELETE /sign_up_invitations/:token
