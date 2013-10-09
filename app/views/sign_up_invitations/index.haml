@@ -9,6 +9,7 @@
   %thead
     %th{colspan: 2} From
     %th{colspan: 2} To
+    %th Token
     %th{colspan: 2} Message
   %tbody.table
   - @sign_up_invitations.each do |invitation|
@@ -17,6 +18,7 @@
       %td= invitation.sender ? invitation.sender.email : "n/a"
       %td.avatar= invitation.to ? gravatar_tag(invitation.to).html_safe : ""
       %td= invitation.to ? invitation.to : "n/a"
+      %td= invitation.token
       %td
         %span{ title: invitation.message }
           = invitation.message.truncate(120,ommit: '...')
