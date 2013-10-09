@@ -13,11 +13,15 @@ module ApplicationHelper
 
   def gravatar_tag email
     _hash = Digest::MD5.hexdigest email
-    "<img src='http://www.gravatar.com/avatar/#{_hash}' " +
-    "class='avatar'   " +
-    "title='#{email}' " +
-    "alt='User Avatar'" +
-    "/>".html_safe
+    <<-EOHTML
+    <a href='http://www.gravatar.com/#{_hash}'>
+      <img src='http://www.gravatar.com/avatar/#{_hash}'
+      class='avatar'
+      title='#{email}'
+      alt='User Avatar'
+      />
+    </a>
+    EOHTML
   end
 
   # Render markdown-text
