@@ -199,7 +199,6 @@ module Store
       @selector = nil
     end
 
-
     # Validate all attributes of object if a validation is defined for an attribute.
     # @param [Object] object - the object to be validated
     def validate_object object

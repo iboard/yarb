@@ -17,10 +17,16 @@ class Page
   end
 
   private
+
   def ensure_defaults _attributes
+    defaults = initialize_defaults
+    defaults.merge!( _attributes )
+    defaults
+  end
+
+  def initialize_defaults
     (defaults||={})[:title] ||= ''
     defaults.fetch(:draft) { defaults[:draft] = true }
-    defaults.merge!( _attributes )
     defaults
   end
 

@@ -10,6 +10,11 @@ class SignUpInvitation
   validates_presence_of   :token
   validates_presence_of   :to
 
+  # @param [User] sender
+  # @param [String] receiver (email-address)
+  # @param [Hash] options (optional)
+  # @option options [String] :subject Subject for the email
+  # @option options [String] :message (optional message for the body of the email)
   def initialize sender, receiver, *options
     @sender_id      = sender.id
     @receiver_email = receiver

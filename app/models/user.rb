@@ -25,14 +25,22 @@ class User
 
   # Create a user without Identity but with an OAuth-provider
   # @param [Hash] auth OmniAuth authentication-hash
+  # @return [User] the user created
   def self.create_from_auth auth
-     [ User, Identity, Authentication ].each { |_model| _model.expire_selector }
+     Store::expire_selectors_for User, Identity, Authentication
      _user = create name: auth[:info][:name], email: auth[:info][:email]
-     unless auth[:provider] == :identity
-       _user.authentication.delete
-       Authentication.create provider: auth[:provider], uid: auth[:uid], user_id: _user.id
-     end
-     _user
+     _user.replace_old_authentication(auth) unless auth[:provider] == :identity
+  end
+
+  # Replace an existing authentication(:identity) - don't call if current authentication is :identity
+  # @param [Hash] auth - the authentication-hash
+  # @option auth [String|Symbol] :provider (eg :identity, 'twitter', ...)
+  # @option auth [String|Symbol] :uid - Unique ID for provider
+  # @return [Autentication] newly created authentication
+  def replace_old_authentication auth
+    authentication.delete
+   Authentication.create provider: auth[:provider], uid: auth[:uid], user_id: id
+    self
   end
 
   # Creates a unique id for the user.

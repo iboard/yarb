@@ -2,6 +2,13 @@
 module Store
 
 
+  # Expire caches for given classes
+  # @param [Array] classnames
+  def self.expire_selectors_for *classnames
+    classnames.each { |_model| _model.expire_selector }
+  end
+
+
   # A Selector is a wrapper for Store-objects.
   # The most important method is where() which returns another Selector,
   # thus one can cascade where() to filter the Store-objects in steps.

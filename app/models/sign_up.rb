@@ -1,6 +1,6 @@
 # -*- encoding : utf-8 -*-"
 
-# A non persistent model to collect sign-up information
+# A non persistent model to collect and validate sign-up information
 class SignUp
 
   # Sets the minimum length of password for sign_up and change_password.
@@ -14,6 +14,12 @@ class SignUp
   validates_presence_of :password
   validates_presence_of :password_confirmation
 
+  # Initialize SignUp with params from the sign-up form.
+  # @param [Hash] _args (default {})
+  # @option _args [String] :name - Name of the user
+  # @option _args [String] :email - Users email-address
+  # @option _args [String] :password
+  # @option _args [String] :password_confirmation
   def initialize _args={}
     @name = _args.fetch(:name){nil}
     @email = _args.fetch(:email){nil}

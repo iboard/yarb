@@ -24,6 +24,11 @@ describe "Selector" do
     Selectable.create id: 4, value: 'Five', character: 'f', draft: false
   end
 
+  it "expires caches for classes" do
+    Selectable.should_receive :expire_selector
+    Store::expire_selectors_for Selectable
+  end
+
   it "selects all objects" do
     selector = Store::Selector.new Selectable, Selectable.send(:roots)
     expect(selector.all.map(&:id)).to eq(Selectable.all.map(&:id))
