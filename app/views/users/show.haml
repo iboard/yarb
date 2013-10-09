@@ -2,8 +2,15 @@
 
 - UserPresenter.present(@user,self) do |presenter|
   = presenter.user_listing_tag do
-    %h1= @user.name
-    %small
+    %h1= gravatar_tag(@user.email).html_safe
+    %h2.small-subtitle= @user.name
+    %p.small
+      %strong UID:
       =presenter.user_id
-    %h2= presenter.user_email
-    %p.small=presenter.user_roles
+
+    %small
+      %strong E-Mail:
+      = presenter.user_email
+    %hr/
+    %p.small-subtitle=presenter.user_roles
+    %p.small-subtitle=presenter.authentications

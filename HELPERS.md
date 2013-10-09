@@ -28,3 +28,5 @@ layout_helper.rb      | def model_date_information _model     | CSS-Wrap, define
 pages_helper.rb       | def page_list_css_sort_options        | CSS-Wrap, define
 pages_helper.rb       | def allow_page_sort_class             | true if user can sort
 users_helper.rb       | def user_role_checkbox_selection      | String - concatinate translated roles
+application_helper    | dev gravatar_tag(email)               | img-tag
+to gravatar

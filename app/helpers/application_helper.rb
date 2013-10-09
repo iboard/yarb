@@ -3,6 +3,23 @@
 # Define global accessible view-helpers here.
 module ApplicationHelper
 
+  # List all available oauth-providers
+  # @return [Array]
+  def self.available_authentication_providers
+    Secrets.secret.fetch(:omniauth){ [] }.map do |provider,_definitions|
+      provider.to_s unless provider == :identity
+    end
+  end
+
+  def gravatar_tag email
+    _hash = Digest::MD5.hexdigest email
+    "<img src='http://www.gravatar.com/avatar/#{_hash}' " +
+    "class='avatar'   " +
+    "title='#{email}' " +
+    "alt='User Avatar'" +
+    "/>".html_safe
+  end
+
   # Render markdown-text
   # @param [String] text - Plaintext markdown
   # @return [String] html-formated text

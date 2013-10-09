@@ -1,6 +1,8 @@
 de:
   users: "Benutzerliste"
   user:
+    authentications_label: "<strong>Authentifizierung(en):</strong>&nbsp;"
+    roles_label: "<strong>Rolle(n):</strong>&nbsp;"
     edit_user_title: "Benutzerprofil ändern"
     password_confirmation: "Bestätigung"
     password: "Passwort"

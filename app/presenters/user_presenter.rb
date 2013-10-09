@@ -60,7 +60,16 @@ class UserPresenter
   end
 
   # @return [String] html-string, user-roles
+  def authentications
+    view.t("user.authentications_label").html_safe +
+    ApplicationHelper.available_authentication_providers.map { |provider|
+      provider if user.authentication(provider)
+    }.compact.join(", ")
+  end
+
+  # @return [String] html-string, user-roles
   def user_roles
+    view.t("user.roles_label").html_safe +
     user.roles.map { |r| view.t("roles.#{r}") }.join(", ")
   end
 

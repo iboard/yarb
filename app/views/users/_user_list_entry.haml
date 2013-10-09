@@ -3,5 +3,10 @@
     .pull-right
       = presenter.delete_user_link
       = presenter.edit_user_link
-    .name-and-email= presenter.name_and_email
-    .roles= presenter.user_roles if current_user.has_role?(:admin)
+    .pull-left
+      .gap-right.small= gravatar_tag(user.email).html_safe
+    .pad-left
+      .name-and-email= presenter.name_and_email
+      .small-subtitle= presenter.user_roles
+      .small-subtitle= presenter.authentications
+    .clear-both &nbsp;

@@ -19,6 +19,7 @@ describe UsersController do
         page.should have_content user.name
         page.should have_content user.id
         page.should have_content user.email
+        page.should have_content user.authentication.provider
       end
     end
 
