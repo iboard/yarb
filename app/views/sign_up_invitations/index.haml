@@ -5,16 +5,17 @@
 
 %h1=t("sign_up.sent_invitations_list")
 
-%table
+%table.table
   %thead
-    %th From
-    %th To
-    %th Message
-    %th &nbsp;&nbsp;&nbsp;&nbsp&nbsp;Action&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  %tbody
+    %th{colspan: 2} From
+    %th{colspan: 2} To
+    %th{colspan: 2} Message
+  %tbody.table
   - @sign_up_invitations.each do |invitation|
     %tr
+      %td.avatar= invitation.sender ? gravatar_tag(invitation.from).html_safe : ""
       %td= invitation.sender ? invitation.sender.email : "n/a"
+      %td.avatar= invitation.to ? gravatar_tag(invitation.to).html_safe : ""
       %td= invitation.to ? invitation.to : "n/a"
       %td
         %span{ title: invitation.message }
