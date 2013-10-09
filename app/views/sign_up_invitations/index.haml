@@ -1,5 +1,8 @@
 .pull-right
-  = new_button_tag t("sign_up.new_invitation"), new_sign_up_invitation_path
+  .btn-group
+    - if ApplicationHelper::needs_invitation?
+      = new_button_tag t("sign_up.new_invitation"), new_sign_up_invitation_path
+    = list_button_tag t("users"), users_path
 
 %h1=t("sign_up.sent_invitations_list")
 
