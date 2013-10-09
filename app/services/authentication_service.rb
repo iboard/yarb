@@ -15,6 +15,7 @@ class AuthenticationService
   # @param [Hash] auth OmniAuth-authentication-hash
   # @return [User]
   def find_or_create_user_from_auth auth
+    Authentication.expire_selector
     authentication = Authentication.where( provider: auth[:provider], uid: auth[:uid] ).all.first
     if authentication
       User.find( authentication.user_id )
