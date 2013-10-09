@@ -1,3 +1,7 @@
+= right_admin_box do
+  = list_button_tag t(:users), users_path
+  = list_button_tag t("sign_up.invitations"), sign_up_invitations_path
+
 %h1= t("sign_up.new_sign_up_invitation")
 
 .alert.alert-info= t("sign_up.send_invitation_help")

@@ -1,4 +1,5 @@
 en:
+  users: "Users"
   user:
     edit_user_title: "Edit User Profile"
     password_confirmation: "Confirmation"

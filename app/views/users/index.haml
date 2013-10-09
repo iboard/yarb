@@ -1,9 +1,8 @@
 - if ApplicationHelper.needs_invitation?
-  .pull-right
-    .btn-group
-      .btn.btn-default= link_to icon_with_text('icon-list', t("sign_up.invitation_list")), sign_up_invitations_path
-      - if ApplicationHelper::needs_invitation?
-        = new_button_tag t("sign_up.new_invitation"), new_sign_up_invitation_path
+  = right_admin_box do
+    .btn.btn-default= link_to icon_with_text('icon-list', t("sign_up.invitation_list")), sign_up_invitations_path
+    - if ApplicationHelper::needs_invitation?
+      = new_button_tag t("sign_up.new_invitation"), new_sign_up_invitation_path
 
 %h1= t("user.index_title")
 

@@ -1,14 +1,15 @@
 - if current_user.has_role?(:admin)
   .pull-right
     %span.pad-left
-      &nbsp;
-      .btn-group
-        .btn.btn-default
-          = link_to icon_with_text('icon-list', t("user.listing")), users_path
-        .btn.btn-default
-          - if ApplicationHelper.needs_invitation?
-            = link_to icon_with_text('icon-list', t("sign_up.invitation_list")), sign_up_invitations_path
-          - else
-            = link_to icon_with_text('icon-plus-sign', t("user.new")), sign_up_path
+      .well.inline
+        &nbsp;Admin
+        .btn-group
+          .btn.btn-default
+            = link_to icon_with_text('icon-list', t("user.listing")), users_path
+          .btn.btn-default
+            - if ApplicationHelper.needs_invitation?
+              = link_to icon_with_text('icon-list', t("sign_up.invitation_list")), sign_up_invitations_path
+            - else
+              = link_to icon_with_text('icon-plus-sign', t("user.new")), sign_up_path
 
 

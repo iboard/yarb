@@ -51,11 +51,15 @@
 }
 
 .pad-left {
-  padding-top: $padLeft;
+  padding-left: $padLeft;
 }
 
 .pad-right {
-  padding-top: $padRight;
+  padding-right: $padRight;
+}
+
+.inline {
+  display: inline !important;
 }
 
 .draft {

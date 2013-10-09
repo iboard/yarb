@@ -3,6 +3,7 @@ en:
     label: "Sign Up"
     welcome: "Sign Up"
     register_button: "Register"
+    invitations: "Invitations"
     password_confirmation: "Confirmation"
     password: "Password"
     email: "e-mail"

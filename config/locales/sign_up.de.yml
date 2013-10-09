@@ -2,6 +2,7 @@ de:
   sign_up:
     label: "Registrieren"
     welcome: "Neue Anmeldung"
+    invitations: "Einladungen"
     register_button: "Registrieren"
     password_confirmation: "Wiederholen"
     password: "Passwort"

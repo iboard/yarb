@@ -110,4 +110,20 @@ module LayoutHelper
     _str = t(:created_at, time: c.to_s(:short))
     _str << ", " << t(:updated_at, time: m.to_s(:short)) unless c == m
   end
+
+  # insert a right-floating admin-menu box
+  # @return [String] html div-tags
+  def right_admin_box &block
+    content_tag :div, class: "pull-right"  do
+      content_tag :div, class: "well inline"  do
+        content_tag :span  do
+          "Admin: ".html_safe +
+          content_tag(:div, class: "btn-group") do
+            yield
+          end
+        end
+      end
+    end
+  end
+
 end
