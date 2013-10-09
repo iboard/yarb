@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe "Change Password Service" do
+describe ChangePasswordService do
 
   it "is tested through UsersController" do
     # Make sure guard will run it

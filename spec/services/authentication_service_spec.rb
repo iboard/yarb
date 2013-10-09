@@ -1,6 +1,6 @@
 require_relative '../spec_helper'
 
-describe "Authentication Service" do
+describe AuthenticationService do
 
   it "is tested through SignUp" do
     # Make sure guard will run it
