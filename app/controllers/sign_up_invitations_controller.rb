@@ -25,6 +25,7 @@ class SignUpInvitationsController < ApplicationController
   def destroy
     invitation = SignUpInvitation.find( params[:id] )
     invitation.delete
+    SignUpInvitation.expire_selection
     redirect_to sign_up_invitations_path, notice: t("sign_up.invitation_rejected")
   end
 
