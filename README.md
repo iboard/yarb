@@ -1,5 +1,7 @@
 <div id='page-index'></div>
 
+![](http://dav.iboard.cc/container/yarb/yarb_Pulp-O-Mizer_Cover_Image.jpg)
+
 # README
 
 This is a Rails4-Starter-Application.
