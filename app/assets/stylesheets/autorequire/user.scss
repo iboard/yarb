@@ -1,5 +1,11 @@
 @import "_variables";
 
+img.avatar {
+    width: 4em;
+    height: 4em;
+    border-radius: 2em;
+}
+
 #user-list {
   font-family: $btnFontFamily;
   font-size:   $btnFontSize;

@@ -17,7 +17,7 @@ module ApplicationHelper
     <a href='http://www.gravatar.com/#{_hash}'>
       <img src='http://www.gravatar.com/avatar/#{_hash}'
       class='avatar'
-      title='#{email}'
+      title='Gravatar-Profile: #{email}'
       alt='User Avatar'
       />
     </a>
