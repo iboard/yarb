@@ -12,18 +12,13 @@ class SignUpInvitationsController < ApplicationController
 
   # GET /sign_up_invitations/new
   def new
-    @sign_up_invitation = SignUpInvitation.new(current_user, '', message: '')
+    @sign_up_invitation = build_new_invitation
   end
 
   # POST /sign_up_invitations
   def create
-    (@sign_up_invitation = SignUpInvitation.new(current_user, *sign_up_params)).save
-    if @sign_up_invitation.valid?
-      @sign_up_invitation.deliver
-      redirect_to sign_up_invitations_path, notice: t("sign_up.invitation_sent_to", email: @sign_up_invitation.to).html_safe
-    else
-      render :new
-    end
+    @sign_up_invitation = create_invitation
+    deliver_valid_invitation(@sign_up_invitation)
   end
 
   # DELETE /sign_up_invitations/:token
@@ -38,6 +33,24 @@ class SignUpInvitationsController < ApplicationController
     receiver = params[:sign_up_invitation][:to]
     message  = params[:sign_up_invitation][:message]
     [receiver, message: message]
+  end
+
+  def build_new_invitation
+    SignUpInvitation.new(current_user, '', message: '')
+  end
+
+  def create_invitation
+    invitation = SignUpInvitation.new(current_user, *sign_up_params)
+    invitation.save or invitation
+  end
+
+  def deliver_valid_invitation(invitation)
+    if invitation.valid?
+      invitation.deliver
+      redirect_to sign_up_invitations_path, notice: t("sign_up.invitation_sent_to", email: invitation.to).html_safe
+    else
+      render :new
+    end
   end
 
   def ensure_admin!

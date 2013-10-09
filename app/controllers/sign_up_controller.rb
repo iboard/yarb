@@ -13,19 +13,16 @@ class SignUpController < ApplicationController
   end
 
   # POST /sign_up
+  # Redirects to root_path on success otherwise render :new again
   def create
     @sign_up = SignUp.new params[:sign_up]
     SignUpService.new @sign_up, self do |_service|
-      if _service.create_user
-        redirect_to sign_in_path,
-          notice: t("sign_up.successfully_created", email: params[:sign_up][:email])
-      else
-        render :new
-      end
+      create_user_with_service _service
     end
   end
 
   # GET /sign_up/accept_invitation/:token
+  # Sets the invitation cookie and renders :new
   def accept_invitation
     @sign_up = SignUp.new
     @sign_up.invitation_token = params[:token]
@@ -37,6 +34,15 @@ class SignUpController < ApplicationController
 
   def needs_invitation?
     ApplicationHelper::needs_invitation?
+  end
+
+  def create_user_with_service _service
+    if _service.create_user
+      redirect_to sign_in_path,
+        notice: t("sign_up.successfully_created", email: params[:sign_up][:email])
+    else
+      render :new
+    end
   end
 
   def check_invitation
