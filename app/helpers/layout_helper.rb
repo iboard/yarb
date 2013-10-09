@@ -114,8 +114,8 @@ module LayoutHelper
   # insert a right-floating admin-menu box
   # @return [String] html div-tags
   def right_admin_box &block
-    content_tag :div, class: "pull-right"  do
-      content_tag :div, class: "well inline"  do
+    content_tag :div, class: "admin-menu pull-right pad-left"  do
+      content_tag :div, class: "well gap-left inline"  do
         content_tag :span  do
           "Admin: ".html_safe +
           content_tag(:div, class: "btn-group") do

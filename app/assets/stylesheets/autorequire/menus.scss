@@ -1,0 +1,15 @@
+@import "_variables";
+
+.admin-menu {
+  position: fixed;
+  z-index: 1000;
+  top: 50px;
+  right: 0em;
+
+  font-family: $btnFontFamily;
+  font-size: $btnFontSize;
+
+  .well {
+    border-radius: 0 0 0 0.25em;
+  }
+}
