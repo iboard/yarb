@@ -88,6 +88,8 @@ in the root-path of the application.
 If you create a User with admin-role on the console (see below) you'll
 be able to add, edit, and delete pages.
 
+When `needs_invitation` in `config/environments/application_developemnt_settings.rb` is enabled, you can invite other users (by sending email).
+
 # TDD
 
 The project follows 100% TDD. Run `rake` to run all test.
