@@ -31,6 +31,7 @@ Ready to be used with
   * HAML
   * SimpleCov
   * YARD
+  * OmniAuth2
   * _Code-Highlighting with
     [Highlight.js](https://github.com/isagalaev/highlight.js)_
 
@@ -116,7 +117,9 @@ tested rubies and the current Travis-state on top of this page._
   * At `/pages/new` you can create new pages.
   * It implements a responsive design using Twitter-bootstrap and sass.
   * It implements omniauth-identity and omniauth-* (several providers.
-  see `config/secrets.rb_sample` and `Gemfile`
+    see `config/secrets.rb_sample` and `Gemfile`
+  * You can configure if sign-up is public or with invitation only.
+    see `config/environments/application_:env_settings.rb`
 
 ## Users
 
@@ -149,6 +152,7 @@ needs.
 
 # Contribution
 
+  * Read [Collaboration](http://yarb.iboard.cc/pages/collaboration)
   * Pull-requests are appreciated if full test-covered, clean, and in
     their own branch.
   * Story tracking is maintained at:
