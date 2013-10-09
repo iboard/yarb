@@ -58,10 +58,16 @@ Ready to be used with
 ## Configuration
 
     cp config/environments/application_development_settings.rb_sample \
-    config/environments/application_development_settings.rb
+       config/environments/application_development_settings.rb
+    cp config/secrets.rb_sample config/secrets.rb
 
-  * Edit the file `application_development_settings.rb` to fit your needs.
+  * Edit the file `application_development_settings.rb` to fit your
+  needs. In production-mode you'll need a file
+  `application_production_settings.rb` as well. DONT'T MODIFY
+  `application_test_settings.rb` otherwise you'll break the tests.
   * Edit files `config/locales/site.*.yml` to setup your copyright and URL
+  * Edit `config/secrets.rb` to configure your smtp-host and other settings.
+
 
 # What You Can do
 
