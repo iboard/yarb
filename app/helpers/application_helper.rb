@@ -11,6 +11,14 @@ module ApplicationHelper
     end
   end
 
+  # Generate an img-tag to gravatar.
+  # If user has no gravatar, the gravatar-logo will be returned
+  # TODO: If the email exists on gravatar but isn't the default-email
+  #       of the user, the link to the profile on gravatar doesn't work.
+  #       Is there a way to check this first and use the a href only if
+  #       a profile exists for the adress?
+  # @param [String] email
+  # @return [String] HTML image tag to the gravatar
   def gravatar_tag email
     _hash = Digest::MD5.hexdigest email
     <<-EOHTML

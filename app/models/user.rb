@@ -18,6 +18,9 @@ class User
   validates_presence_of :name
 
 
+  # @param [Hash] args
+  # @option args [String] :name - The username
+  # @option args [String] :email - User's email
   def initialize args={}
     set_attributes args
     ensure_authentication
