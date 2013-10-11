@@ -15,15 +15,23 @@ Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/pr
    as an Integer, .find(1) will not find the entry. Types for
    key-fields?!
 
+2. model/identity: implements noop (virtual attributes) `old_password`
+   This is to handle updating the password through the controller.
+   So I wonder if this really belongs to the entity _Itentity_?
+   Class `SignUp` could be a better place for this.
 
 # Todos and Questions to answer
 
+1. TODO: Draw a dependency-diagram for the application.
 1. TODO: See if `Store::update_attributes` can be implemented more 'rails-like'
 1. TODO: Should landing-page display the 'Welcome-page' if one with this
-         title exists?
+         title exists? (Default `Page` for landings-controller should be
+         configurable in `Settings`)
 1. TODO: Investigate in 'invalid hash error' with "rbx-19mode", and
          "jruby-19mode" on Travis-CI (disabled at the moment)
-1. TODO: Localize Error Messages in exceptions
+1. TODO: Localize Error Messages in exceptions?
+         Yes, if exeption-messages are displayed to the users. No, if
+         they are for devops and logs only.
 1. TODO: Redirect to the page where 'Sign In' was clicked.
 1. TODO: There is a dependency we should get rid of. Store depends on
          Rails ActiveModel::**.

@@ -42,7 +42,7 @@ class User
   # @return [Autentication] newly created authentication
   def replace_old_authentication auth
     authentication.delete
-   Authentication.create provider: auth[:provider], uid: auth[:uid], user_id: id
+    Authentication.create provider: auth[:provider], uid: auth[:uid], user_id: id
     self
   end
 
