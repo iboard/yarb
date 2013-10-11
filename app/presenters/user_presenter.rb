@@ -48,8 +48,9 @@ class UserPresenter
   # @return [String] html-string, div-tag with user-id
   def user_listing_tag &block
     view.content_tag(:div, id: "user-#{user.id}") do
-      right_edit_button + view.content_tag(:div, class: 'user-fields') do
-        yield
+      view.content_tag(:div, class: 'user-fields') do
+        view.content_tag(:span) { yield } +
+        edit_user_button
       end
     end
   end
@@ -82,8 +83,8 @@ class UserPresenter
 
   attr_reader :view
 
-  def right_edit_button
-    view.content_tag(:div, class: 'pull-right' ) do
+  def edit_user_button
+    view.content_tag(:div ) do
       view.edit_button_tag(view.t(:edit),view.edit_user_path(user)) if view.allow_edit_user?(user)
     end
   end
