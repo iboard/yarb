@@ -11,5 +11,6 @@
     = f.input :to, input_html: { class: "full-width" }, as: :email, placeholder: "your@friend.com"
     = f.input :message, as: :text, class: "full-width", input_html: { class: "full-width", rows: 10 }
   .form-actions
-    = f.submit t("sign_up.send_invitation"),  class: save_button_classes
+    = f.submit deliver_button(t("sign_up.send_invitation")), class: save_button_classes
+    = cancel_button_tag t(:cancel), :back
 

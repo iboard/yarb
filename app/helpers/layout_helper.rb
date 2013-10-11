@@ -17,14 +17,14 @@ module LayoutHelper
   # @param [Symbol|String] symbol - the twitter-bootstrap icon-class(es)
   # @return [String] html-safe string representing twitter-bootstrap-code for the icon
   def icon symbol
-    "<i class='#{symbol.to_s}'></i>&nbsp;".html_safe
+    "<i class='#{symbol.to_s}'></i>"
   end
 
   # @param [Symbol|String] symbol - the twitter-bootstrap icon-class(es)
   # @param [String] text - the text to be displayed after the icon
   # @return [String] html-safe string representing twitter-bootstrap-code for the icon
   def icon_with_text symbol, text
-    icon(symbol) + "&nbsp;".html_safe + text
+    [icon(symbol),text].join("&nbsp;").html_safe
   end
 
   # Insert a delete-button with data-confirm
@@ -79,6 +79,15 @@ module LayoutHelper
   # @return [String] html-link
   def cancel_button_tag label, path, classes="btn btn-default"
     link_to icon_with_text('icon-remove',label), path, class: classes
+  end
+
+  # @return [String] html-button
+  # NOTE: This method is thought to insert a <i class='ok'></i> infront
+  # of the label. But since simple_form.button uses this string in
+  # value='...' it will not be rendered through html.
+  # TODO: Find a way to prefix with an icon
+  def deliver_button label
+    label
   end
 
   # @param [Symbol] locale
