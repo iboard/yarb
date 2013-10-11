@@ -77,10 +77,8 @@ module LayoutHelper
   # @param [String] label
   # @param [String] path
   # @return [String] html-link
-  def cancel_button_tag label, path
-    link_to icon_with_text('icon-remove',label),
-      path,
-      class: 'btn btn-default'
+  def cancel_button_tag label, path, classes="btn btn-default"
+    link_to icon_with_text('icon-remove',label), path, class: classes
   end
 
   # @param [Symbol] locale
