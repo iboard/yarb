@@ -1,9 +1,22 @@
 @import "_variables";
 
 img.avatar {
-    width: 4em;
-    height: 4em;
+    width: 3em;
+    height: 3em;
     border-radius: 2em;
+    padding: 0.2em;
+    background: white;
+    border: 0.2em solid $standardShadowColor;
+}
+
+td.avatar {
+    width: 3.25em;
+    height: 3.25em;
+}
+
+td.buttons {
+  min-width: 10em;
+  text-align: center;
 }
 
 #user-list {

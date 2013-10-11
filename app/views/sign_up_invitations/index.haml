@@ -22,4 +22,4 @@
       %td
         %span{ title: invitation.message }
           = invitation.message.truncate(120,ommit: '...')
-      %td= delete_link_tag sign_up_invitation_path(invitation)
+      %td.buttons= delete_link_tag sign_up_invitation_path(invitation)

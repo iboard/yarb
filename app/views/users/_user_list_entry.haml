@@ -4,7 +4,7 @@
       = presenter.delete_user_link
       = presenter.edit_user_link
     .pull-left
-      .gap-right.small= gravatar_tag(user.email).html_safe
+      .gap-right= gravatar_tag(user.email).html_safe
     .pad-left
       .name-and-email= presenter.name_and_email
       .small-subtitle= presenter.user_roles
