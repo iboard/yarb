@@ -4,6 +4,7 @@ en:
     welcome: "Sign Up"
     register_button: "Register"
     invitations: "Invitations"
+    new_invitation: "New Invitation"
     password_confirmation: "Confirmation"
     password: "Password"
     email: "e-mail"

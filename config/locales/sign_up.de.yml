@@ -3,6 +3,7 @@ de:
     label: "Registrieren"
     welcome: "Neue Anmeldung"
     invitations: "Einladungen"
+    new_invitation: "Neue Einladung"
     register_button: "Registrieren"
     password_confirmation: "Wiederholen"
     password: "Passwort"
