@@ -9,7 +9,7 @@ de:
   invalid_credentials: "Anmeldung ungültig"
   successfully_logged_in_as: "Erfolgreich als <strong>%{user}</strong> angemeldet."
   successfully_signed_out: "Du hast dich erfolgreich abgemeldet."
-  are_you_sure: "Bist Du sicher?"
+  are_you_sure: "%{what}\nBist Du sicher?"
   sign_in: "Anmelden"
   sign_out: "Abmelden"
   email: "E-Mail"

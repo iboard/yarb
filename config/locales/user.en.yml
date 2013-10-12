@@ -2,9 +2,11 @@ en:
   users: "Users"
   user:
     authentications_label: "<strong>Authentication(s):</strong>&nbsp;"
+    name: "Name"
     roles_label: "<strong>Role(s):</strong>&nbsp;"
     edit_user_title: "Edit User Profile"
     password_confirmation: "Confirmation"
+    delete_user: "DELETE USER"
     password: "Password"
     email: "e-mail"
     successfully_updated: "User Profile for %{email} successfully updated."

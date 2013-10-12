@@ -31,7 +31,7 @@ class UserPresenter
 
   # @return [String] html-string, link to delete user
   def delete_user_link
-    view.delete_link_tag view.user_path(user)
+    view.delete_link_tag view.user_path(user), view.t("user.delete_user")
   end
 
 

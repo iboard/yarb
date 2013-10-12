@@ -6,4 +6,7 @@ de:
   listing_of_pages: 'Alle Seiten'
   page_does_not_exists: "404 - Die Seite %{title} existiert nicht."
   add_new_page: 'Neue Seite erzeugen'
-
+  is_a_draft: "Entwurf"
+  save_as_draft: "Als Entwurf speichern"
+  edit_page: "Seite bearbeiten"
+  delete_page: "SEITE LÖSCHEN"
