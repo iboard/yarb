@@ -17,7 +17,7 @@ module LayoutHelper
   # @param [Symbol|String] symbol - the twitter-bootstrap icon-class(es)
   # @return [String] html-safe string representing twitter-bootstrap-code for the icon
   def icon symbol
-    "<i class='#{symbol.to_s}'></i>"
+    "<i class='#{symbol.to_s}'></i>".html_safe
   end
 
   # @param [Symbol|String] symbol - the twitter-bootstrap icon-class(es)
