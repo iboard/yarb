@@ -21,7 +21,10 @@
     display: inline-block;
     width: 30%;
   }
-  input {
+
+  input[type=email],
+  input[type=checkbox],
+  input[type=text] {
     margin-left: 7%;
     width: 60%;
   }
