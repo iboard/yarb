@@ -152,8 +152,8 @@ password. As an admin you can invite other users and modify their roles
 in _Edit User_.
 
 For more information read
-[USER_AND_SESSION](http://dav.iboard.cc/container/yard/file.USER_AND_SESSION.html)
 
+[USER_AND_SESSION](http://dav.iboard.cc/container/yarb See/doc/file.USER_AND_SESSION.html)
 # Deploy
 
 There are two rake-tasks in `lib/tasks/deploy.rake` which alows to
