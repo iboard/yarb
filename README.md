@@ -134,7 +134,7 @@ tested rubies and the current Travis-state on top of this page._
 ## Users
 
 Though, you can create a new user at `/sign_up`. There is no way
-to make this new user an admin. You have to do this through the console.
+to make the first user an admin. You have to do this through the console.
 
 ```ruby
 
@@ -147,7 +147,12 @@ user.save
 
 ```
 
-Once this is done you can sign-in with email and password.
+Once this is done for the first user, you can sign-in with email and
+password. As an admin you can invite other users and modify their roles
+in _Edit User_.
+
+For more information read
+[USER_AND_SESSION](http://dav.iboard.cc/container/yard/file.USER_AND_SESSION.html)
 
 # Deploy
 

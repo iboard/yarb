@@ -29,7 +29,7 @@ module LayoutHelper
 
   # Insert a delete-button with data-confirm
   # @param [String] path
-  # @param [String] what - %{what} Are you sure?
+  # @param [String] what - %what Are you sure?
   # @return [String] html
   def delete_link_tag path, what=''
     link_to icon_with_text('icon-trash icon-white', t(:delete)),
