@@ -1121,7 +1121,7 @@
 			<key>OrthogonalBarPoint</key>
 			<string>{0, 0}</string>
 			<key>OrthogonalBarPosition</key>
-			<real>51</real>
+			<real>25</real>
 			<key>Points</key>
 			<array>
 				<string>{401.125, 241.51937103271484}</string>
@@ -1773,7 +1773,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-10-12 09:05:47 +0000</string>
+	<string>2013-10-12 09:48:21 +0000</string>
 	<key>Modifier</key>
 	<string>Andreas Altendorfer</string>
 	<key>NotesVisible</key>
