@@ -1,3 +1,5 @@
+<div id='page-index'></div>
+
 # User And Session Handling In YARB
 
 In YARB a _[User]_ has one or more _[Authentication]s_. Where an
