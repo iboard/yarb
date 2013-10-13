@@ -1,5 +1,9 @@
-View and Application Helpers
-============================
+Also   | available| at
+-------|----------|---------
+[YARB] | [GITHUB] | [IBOARD]
+
+
+# View and Application Helpers
 
 Please use the following helpers instead defining your own.
 Find the definition of this functions in `helpers/application_helper.rb`
@@ -30,3 +34,8 @@ pages_helper.rb       | def allow_page_sort_class             | true if user can
 users_helper.rb       | def user_role_checkbox_selection      | String - concatinate translated roles
 application_helper    | dev gravatar_tag(email)               | img-tag
 to gravatar
+
+
+[YARB]: http://yarb.iboard.cc/pages/helpers
+[GITHUB]: https://github.com/iboard/yarb/blob/master/HELPERS.md
+[IBOARD]: http://dav.iboard.cc/container/yarb/doc/file.HELPERS.html
