@@ -2,6 +2,10 @@
 
 # YARB Page
 
+Also   | available| at
+-------|----------|---------
+[YARB] | [GITHUB] | [IBOARD]
+
 [Page] is a simple entity with a title and a body.
 The body will be rendered as _Markdown_.
 
@@ -50,7 +54,11 @@ _Terminators_ can delete any [Page]
 ![YARB Page Dependency Map](http://dav.iboard.cc/container/yarb/doc/assets/page.png)
 
 
+[YARB]: http://yarb.iboard.cc/pages/page
+[GITHUB]: https://github.com/iboard/yarb/blob/master/PAGE.md
+[IBOARD]: http://dav.iboard.cc/container/yarb/doc/file.PAGE.html
 [User]: http://dav.iboard.cc/container/yarb/doc/User.html
+[Role]: http://dav.iboard.cc/container/yarb/doc/Roles.html
 [Page]: http://dav.iboard.cc/container/yarb/doc/Page.html
 [PagesController]: http://dav.iboard.cc/container/yarb/doc/PagesController.html
 [StaticPageUpdateService]: http://dav.iboard.cc/container/yarb/doc/StaticPageUpdateService.html

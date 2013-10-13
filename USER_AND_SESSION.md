@@ -2,6 +2,12 @@
 
 # User And Session Handling In YARB
 
+Also   | available| at
+-------|----------|---------
+[YARB] | [GITHUB] | [IBOARD]
+
+_see on [yard.iboard.cc](http://yard.iboard.cc/pages/user_and_session)
+
 In YARB a _[User]_ has one or more _[Authentication]s_. Where an
 _[Authentication]_ can refer to an external _OmniAuth Provider_ (Twitter,
 Google, LinkedIn, ...) or can have a local _[Identity]_
@@ -43,6 +49,9 @@ not create a new _[User]_ but will respond with "Invalidate Credentials"
 ![YARB User/Session/Authenticaton Dependency Map](http://dav.iboard.cc/container/yarb/doc/assets/user-and-session.png)
 
 
+[YARB]: http://yarb.iboard.cc/pages/user_and_session
+[GITHUB]: https://github.com/iboard/yarb/blob/master/USER_AND_SESSION.md
+[IBOARD]: http://dav.iboard.cc/container/yarb/doc/file.USER_AND_SESSION.html
 [User]: http://dav.iboard.cc/container/yarb/doc/User.html
 [SignUp]: http://dav.iboard.cc/container/yarb/doc/SignUp.html
 [Invitation]: http://dav.iboard.cc/container/yarb/doc/SignUpInvitation.html

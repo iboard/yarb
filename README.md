@@ -4,6 +4,10 @@
 
 # README
 
+Also   | available| at
+-------|----------|---------
+[YARB] | [GITHUB] | [IBOARD]
+
 This is a Rails4-Starter-Application.
 
 * [See in Action](http://yarb.iboard.cc/)
@@ -84,11 +88,11 @@ Ready to be used with
 ## With the Application
 
 Start `rails server` and visit `http://0.0.0.0:3000`. You'll see a list
-of "Pages" which are the html-representation of all markdown-files found
+of "[Page]s" which are the html-representation of all markdown-files found
 in the root-path of the application.
 
 If you create a User with admin-role on the console (see below) you'll
-be able to add, edit, and delete pages.
+be able to add, edit, and delete [Page]s.
 
 When `needs_invitation` in `config/environments/application_developemnt_settings.rb` is enabled, you can invite other users (by sending email).
 
@@ -115,14 +119,14 @@ tested rubies and the current Travis-state on top of this page._
 
 # The Starter App
 
-  * The root-path goes to LandingsController#index
+  * The root-path goes to `LandingsController#index`
   * The main menu is defined in `app/views/layouts/_navigation.haml` add your menu-items there.
   * Define your Bootstrap-variables in `app/assets/stylesheets/_variables.scss`
   * Overwrite Bootstrap-css in `app/assets/stylesheets/_bootstrap_overwrite.scss`
 
 ## APP-Features
 
-  * Reads all *md-files from project's root and stores them as Pages.
+  * Reads all *md-files from project's root and stores them as [Page]s.
   * `/pages` lists all pages with Edit- and Delete- Buttons.
   * At `/pages/new` you can create new pages.
   * It implements a responsive design using Twitter-bootstrap and sass.
@@ -151,9 +155,8 @@ Once this is done for the first user, you can sign-in with email and
 password. As an admin you can invite other users and modify their roles
 in _Edit User_.
 
-For more information read
+For more information read [USER_AND_SESSION]
 
-[USER_AND_SESSION](http://dav.iboard.cc/container/yarb/doc/file.USER_AND_SESSION.html)
 # Deploy
 
 There are two rake-tasks in `lib/tasks/deploy.rake` which alows to
@@ -229,4 +232,8 @@ DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
 TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE
 OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
-
+[Page]: http://dav.iboard.cc/container/yarb/doc/file.PAGE.html
+[USER_AND_SESSION]: http://dav.iboard.cc/container/yarb/doc/file.USER_AND_SESSION.html
+[YARB]: http://yarb.iboard.cc/pages/readme
+[GITHUB]: https://github.com/iboard/yarb/blob/master/README.md
+[IBOARD]: http://dav.iboard.cc/container/yarb/doc/file.README.html
