@@ -6,7 +6,7 @@ Also   | available| at
 -------|----------|---------
 [YARB] | [GITHUB] | [IBOARD]
 
-_see on [yard.iboard.cc](http://yard.iboard.cc/pages/user_and_session)
+
 
 In YARB a _[User]_ has one or more _[Authentication]s_. Where an
 _[Authentication]_ can refer to an external _OmniAuth Provider_ (Twitter,

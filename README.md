@@ -8,7 +8,8 @@ Also   | available| at
 -------|----------|---------
 [YARB] | [GITHUB] | [IBOARD]
 
-This is a Rails4-Starter-Application.
+
+## This is a Rails4-Starter-Application.
 
 * [See in Action](http://yarb.iboard.cc/)
 * [API-Documentation](http://dav.iboard.cc/container/yarb/doc/index.html)

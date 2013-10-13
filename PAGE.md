@@ -6,6 +6,8 @@ Also   | available| at
 -------|----------|---------
 [YARB] | [GITHUB] | [IBOARD]
 
+
+
 [Page] is a simple entity with a title and a body.
 The body will be rendered as _Markdown_.
 
