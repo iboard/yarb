@@ -30,7 +30,7 @@ class PagesController < ApplicationController
 
   # Redirect with access denied if action is not allowed
   before_filter :authorize_creators, only: [ :new, :create ]
-  before_filter :authorize_editors,  only: [ :edit, :update ]
+  before_filter :authorize_editors,  only: [ :edit, :update, :update_order ]
   before_filter :authorize_terminators, only: [ :destroy ]
 
   # GET /pages
