@@ -36,7 +36,10 @@ de:
     facebook: "Facebook"
     foursquare: "Foursquare"
     github: "Github"
-    google_oauth2: "Google / GMail"
+    tumblr: "Tumblr"
+    google_oauth2: "Google"
+    "37signals": "37Signals"
+
 
   activemodel:
     errors:
