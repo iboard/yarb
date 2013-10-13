@@ -657,6 +657,8 @@
 					<string>Arrow</string>
 					<key>Legacy</key>
 					<true/>
+					<key>Pattern</key>
+					<integer>1</integer>
 					<key>TailArrow</key>
 					<string>0</string>
 				</dict>
@@ -1194,7 +1196,7 @@ PageIndex}</string>
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-10-13 07:56:08 +0000</string>
+	<string>2013-10-13 10:17:03 +0000</string>
 	<key>Modifier</key>
 	<string>Andreas Altendorfer</string>
 	<key>NotesVisible</key>
