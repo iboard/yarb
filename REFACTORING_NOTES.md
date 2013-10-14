@@ -5,6 +5,27 @@
 <!-- Place this tag where you want the +1 button to render. -->
 <div style='height: 35px; min-height: 35px;' class="g-plusone" data-annotation="inline" data-width="300"></div>
 
+## Optimize for fast reading
+
+### Commit: [Refactored user and user_specs](https://github.com/iboard/yarb/commit/265a1d408d34c7b407604958cfa55f173444a44a)
+
+Remember, you write code for your pair and other programmers. Even when
+you write it for yourself (in a year), your code will be much more
+maintainable if you can read it fast.
+
+```ruby
+
+def self.create_from_auth auth
+  Store::expire_selectors_for User, Identity, Authentication
+  create_user_with_auth auth
+end
+
+```
+
+Now you can read **and understand** this mehtod faster than you can
+type it. If you're interested in how a user is created, that's a detail,
+right? Just jump to the definition of create_user_with_auth and read on.
+
 ## Move into the right place
 
 ### Commit: [Moved sign-up-validation to model SignUp](https://github.com/iboard/yarb/commit/53e37c372f829d9bb88c6ed0c4f61f4a3c82ec66)
