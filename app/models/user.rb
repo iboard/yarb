@@ -17,7 +17,6 @@ class User
   attribute  :name
   validates_presence_of :name
 
-
   # @param [Hash] args
   # @option args [String] :name - The username
   # @option args [String] :email - User's email
@@ -31,19 +30,7 @@ class User
   # @return [User] the user created
   def self.create_from_auth auth
      Store::expire_selectors_for User, Identity, Authentication
-     _user = create name: auth[:info][:name], email: auth[:info][:email]
-     _user.replace_old_authentication(auth) unless auth[:provider] == :identity
-  end
-
-  # Replace an existing authentication(:identity) - don't call if current authentication is :identity
-  # @param [Hash] auth - the authentication-hash
-  # @option auth [String|Symbol] :provider (eg :identity, 'twitter', ...)
-  # @option auth [String|Symbol] :uid - Unique ID for provider
-  # @return [Autentication] newly created authentication
-  def replace_old_authentication auth
-    authentication.delete
-    Authentication.create provider: auth[:provider], uid: auth[:uid], user_id: id
-    self
+     create_user_with_auth auth
   end
 
   # Creates a unique id for the user.
@@ -69,14 +56,6 @@ class User
     Authentication.where(user_id: id, provider: provider).all.first
   end
 
-  delegate "password",               to: :authentication
-  delegate "password=",              to: :authentication
-  delegate "password_confirmation",  to: :authentication
-  delegate "password_confirmation=", to: :authentication
-  delegate "authenticate",           to: :authentication
-  delegate "old_password",           to: :authentication
-  delegate "old_password=",          to: :authentication
-
   # Delete an existing authentication (for :identity) and create a new one
   # @param [String|Symbol] provider
   # @param [String] uid - user's id at provider
@@ -86,9 +65,42 @@ class User
     Authentication.create! provider: provider, uid: uid, user_id: id
   end
 
+  # Replace an existing authentication(:identity)
+  # @param [Hash] auth - the authentication-hash
+  # @option auth [String|Symbol] :provider (eg :identity, 'twitter', ...)
+  # @option auth [String|Symbol] :uid - Unique ID for provider
+  # @return [User] user with newly created authentication
+  def recreate_authentication_with_hash auth
+    recreate_authentication auth[:provider], uid: auth[:uid]  unless identity?(auth)
+    self
+  end
+
   private
+
+  def self.create_user_with_auth auth
+    _user = create auth_user_params(auth)
+    _user.recreate_authentication_with_hash(auth)
+  end
+
+  def self.auth_user_params(auth)
+    { name: auth[:info][:name], email: auth[:info][:email] }
+  end
+
+  def identity? auth
+    auth[:provider] == :identity
+  end
+
   def ensure_authentication
     Authentication.find_by( :user_id, id ) || Authentication.create!(user_id: id)
   end
+
+  # delegate password-methods to Authentication
+  delegate "password",               to: :authentication
+  delegate "password=",              to: :authentication
+  delegate "password_confirmation",  to: :authentication
+  delegate "password_confirmation=", to: :authentication
+  delegate "authenticate",           to: :authentication
+  delegate "old_password",           to: :authentication
+  delegate "old_password=",          to: :authentication
 
 end

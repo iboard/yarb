@@ -1,6 +1,12 @@
 # -*- encoding : utf-8 -*-
 require_relative "../spec_helper"
 
+describe "Run also" do
+  it "is tested through SignUpController" do
+    touch_dependency "app/models/user.rb", "controllers/sign_up_controller_spec.rb"
+  end
+end
+
 describe User do
 
   before :all do

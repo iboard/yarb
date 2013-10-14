@@ -1,6 +1,14 @@
 # -*- encoding : utf-8 -*-"
 
 
+# touch specfile when source is modified
+# @param [String] source - the source-file relative to app's root
+# @param [String] specfile - the spec covering the source - relative to spec/
+# @return [Boolean] true if source file is 'younger' than the spec file
+def touch_dependency source, specfile
+  expect( cover_source_by( source, specfile)).to be_true
+end
+
 # Touch the spec-file if the source covered by the spec is modified
 # after spec's mtime.
 # @param [String] source - the source-file relative to app's root
