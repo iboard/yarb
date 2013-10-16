@@ -64,6 +64,8 @@ Ready to be used with
 
 ## Configuration
 
+### For development
+
     cp config/environments/application_development_settings.rb_sample \
        config/environments/application_development_settings.rb
     cp config/secrets.rb_sample config/secrets.rb
@@ -74,6 +76,23 @@ Ready to be used with
   `application_test_settings.rb` otherwise you'll break the tests.
   * Edit files `config/locales/site.*.yml` to setup your copyright and URL
   * Edit `config/secrets.rb` to configure your smtp-host and other settings.
+
+### For production
+
+    cp config/environments/application_development_settings.rb_sample \
+       config/environments/application_production_settings.rb
+
+  * Edit settings listed above for your production environment
+  * Edit [PRIVACY].md and explain how you will treat user-data on your
+    system.
+  * Modify lib/task/deploy to fit your needs.
+
+## For testing
+
+No setup is neccessary for testing. Just run
+
+    $ rake
+    $ rake -T
 
 
 # What You Can do
@@ -235,6 +254,7 @@ OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 [Page]: http://dav.iboard.cc/container/yarb/doc/file.PAGE.html
 [USER_AND_SESSION]: http://dav.iboard.cc/container/yarb/doc/file.USER_AND_SESSION.html
+[PRIVACY]: http://dav.iboard.cc/container/yarb/doc/file.PRIVACY.html
 [YARB]: http://yarb.iboard.cc/pages/readme
 [GITHUB]: https://github.com/iboard/yarb/blob/master/README.md
 [IBOARD]: http://dav.iboard.cc/container/yarb/doc/file.README.html
