@@ -13,6 +13,8 @@ describe SignUpController do
       visit sign_up_path
     end
 
+    let(:last_mail)  { ActionMailer::Base.deliveries.last }
+
     it "renders a new user form" do
       page.should have_field("Name")
       page.should have_field("e-mail")
@@ -31,6 +33,18 @@ describe SignUpController do
         click_button "Register"
       }.to change{ User.all.count }.by(1)
       page_should_have_notice page, "User valid@example.com successfully created."
+    end
+
+    it "sends email to admin when a new user is created" do
+      fill_in "Name", with: "Frank Friend"
+      fill_in "e-mail", with: "new_user@example.com"
+      fill_in "Password", with: "secret"
+      fill_in "Confirmation", with: "secret"
+      click_button "Register"
+      expect( last_mail.subject ).to eq(
+        "New user created at #{Settings.fetch(:app,:hostname)}"
+      )
+      expect( last_mail.to ).to include( Settings.fetch(:app,:admin_notification_email))
     end
 
     it "doesn't create an already existing user" do

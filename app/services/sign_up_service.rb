@@ -5,16 +5,20 @@ class SignUpService
 
   # @param [SignUp] sign_up - the model containing user, password,...
   # @param [ActionController|ActionView] view - used to access I18n
-  def initialize sign_up, view, &block
+  # @param [Object] _request - http-request logged in admin-email
+  def initialize sign_up, view, _request, &block
     @sign_up = sign_up
     @view = view
+    @request = _request
     yield self if block_given?
   end
 
   # Try to create the user
   # @return [User|nil|false] the just created user or false
   def create_user
-    create_valid_user
+    create_valid_user.tap do |_user|
+      UserMailer.new_user_signed_up( _user, @request ).deliver
+    end
   end
 
   private

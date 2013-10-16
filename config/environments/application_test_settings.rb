@@ -8,6 +8,7 @@ module Settings
       app: {
         hostname: "EXAMPLE.COM",
         needs_invitation: false,
+        admin_notification_email: "admin@example.com",
       },
       smtp: {
         host: "example.com",

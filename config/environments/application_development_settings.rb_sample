@@ -7,6 +7,7 @@ module Settings
     {
       app: {
         hostname: "YARB DEVELOPMENT",
+        admin_notification_email: "admin@example.com",
         needs_invitation: true, # Sign up with invitation only. Set to false for public signup
       },
       smtp: {

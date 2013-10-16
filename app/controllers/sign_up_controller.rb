@@ -16,7 +16,7 @@ class SignUpController < ApplicationController
   # Redirects to root_path on success otherwise render :new again
   def create
     @sign_up = SignUp.new params[:sign_up]
-    SignUpService.new @sign_up, self do |_service|
+    SignUpService.new @sign_up, self, request do |_service|
       create_user_with_service _service
     end
   end
