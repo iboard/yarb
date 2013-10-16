@@ -2000,7 +2000,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-10-16 09:32:12 +0000</string>
+	<string>2013-10-16 09:36:37 +0000</string>
 	<key>Modifier</key>
 	<string>Andreas Altendorfer</string>
 	<key>NotesVisible</key>
@@ -2081,7 +2081,7 @@
 			</dict>
 		</array>
 		<key>Frame</key>
-		<string>{{513, 4}, {900, 1004}}</string>
+		<string>{{397, 8}, {1081, 1004}}</string>
 		<key>ListView</key>
 		<true/>
 		<key>OutlineWidth</key>
@@ -2095,7 +2095,7 @@
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-103, -33}, {765, 849}}</string>
+		<string>{{-194, -33}, {946, 849}}</string>
 		<key>Zoom</key>
 		<real>1</real>
 		<key>ZoomValues</key>
