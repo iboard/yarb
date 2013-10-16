@@ -6,6 +6,7 @@ en:
     invitations: "Invitations"
     new_invitation: "New Invitation"
     sent_invitations_list: "Active Invitations"
+    privacy_link: "Privacy"
     delete_invitation: "DELETE INVITATION"
     invitation_list: "List Invitations"
     password_confirmation: "Confirmation"

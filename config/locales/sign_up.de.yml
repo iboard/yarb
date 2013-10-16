@@ -7,6 +7,7 @@ de:
     invitation_list: "Alle Einladungen"
     sent_invitations_list: "Aktive Einladungen"
     delete_invitation: "EINLADUNG LÖSCHEN"
+    privacy_link: "Datenschutz"
     register_button: "Registrieren"
     password_confirmation: "Wiederholen"
     password: "Passwort"

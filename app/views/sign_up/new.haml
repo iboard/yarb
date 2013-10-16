@@ -23,6 +23,8 @@
             placeholder: 'xxxxxxxx-xxxxxxxx' if needs_invitation?
 
         .form-actions
+          .pull-right
+            = link_to t("sign_up.privacy_link"), page_path('privacy'), target: :_blank
           = f.submit t("sign_up.register_button"), class: 'btn btn-primary'
 
 .row
