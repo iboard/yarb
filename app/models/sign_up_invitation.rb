@@ -4,6 +4,7 @@
 # User will need an invitation to sign up.
 class SignUpInvitation
   include Store
+  include Store::Timestamps
   key_method :token
   attribute :token, :unique => true
   attribute :to,    :unique => true, :email => true

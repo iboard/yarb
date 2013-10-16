@@ -1,0 +1,9 @@
+The invitation you've sent to <%= @invitation.to -%>
+ at <%= (@invitation.created_at||"n/a").to_s -%>), was just used by
+
+  <%= @user.name -%> <<%= @user.email -%>>
+
+No action needed
+
+-- <%= Settings.fetch :app, :hostname %>
+

@@ -17,7 +17,7 @@ class SignUpController < ApplicationController
   def create
     @sign_up = SignUp.new params[:sign_up]
     SignUpService.new @sign_up, self, request do |_service|
-      create_user_with_service _service
+      create_user_with_service( _service )
     end
   end
 
@@ -37,12 +37,14 @@ class SignUpController < ApplicationController
   end
 
   def create_user_with_service _service
-    if _service.create_user
-      redirect_to sign_in_path,
-        notice: t("sign_up.successfully_created", email: params[:sign_up][:email])
-    else
-      render :new
-    end
+    _user = _service.create_user
+    redirect_on_user _user
+    invitation_service_with_user(_user) if ApplicationHelper.needs_invitation?
+    _user
+  end
+
+  def invitation_service_with_user(_user)
+    InvitationUsedService.new( _user, params[:sign_up]) if _user
   end
 
   def check_invitation
@@ -54,5 +56,13 @@ class SignUpController < ApplicationController
     end
   end
 
+  def redirect_on_user _user
+    if _user
+      redirect_to sign_in_path,
+        notice: t("sign_up.successfully_created", email: params[:sign_up][:email])
+    else
+      render :new
+    end
+  end
 end
 

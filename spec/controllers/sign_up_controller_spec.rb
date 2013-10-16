@@ -175,6 +175,8 @@ describe SignUpController do
 
     let(:host)       { @host_user  }
     let(:invitation) { @invitation }
+    let(:last_mail)  { ActionMailer::Base.deliveries.last }
+    let(:invitation_mail)  { ActionMailer::Base.deliveries[-1] }
 
     it "renders a new user form" do
       visit sign_up_path
@@ -192,6 +194,16 @@ describe SignUpController do
         click_button "Register"
       }.to change{ User.all.count }.by(1)
       page_should_have_notice page, "User valid@example.com successfully created."
+    end
+
+    it "sends notification mail when invitation is used" do
+      visit accept_sign_up_invitation_path( invitation.token )
+      fill_in "Name", with: "Invited User"
+      fill_in "e-mail", with: "invited@example.com"
+      fill_in "Password", with: "secret"
+      fill_in "Confirmation", with: "secret"
+      click_button "Register"
+      expect( invitation_mail.subject).to eq( "Your invitation to guest@example.com was just used" )
     end
 
     it "doesn't create a user with invalid invitation" do
@@ -217,6 +229,8 @@ describe SignUpController do
         })
       end
 
+      let(:invitation_mail)  { ActionMailer::Base.deliveries[-1] }
+
       def use_twitter_with_token _token
         visit accept_sign_up_invitation_path( _token )
         click_link "Twitter"
@@ -227,6 +241,11 @@ describe SignUpController do
       it "creates a new user" do
         expect { use_twitter_with_token(invitation.token) }.to change{ User.all.count }.by(1)
         page_should_have_notice page, "Successfully signed in as Test User"
+      end
+
+      it "sends notification mail when invitation is used" do
+        use_twitter_with_token(invitation.token)
+        expect( invitation_mail.subject).to eq( "Your invitation to #{invitation.to} was just used" )
       end
 
       it "doesn't create a user with invalid token" do

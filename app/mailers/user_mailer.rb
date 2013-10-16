@@ -26,6 +26,19 @@ class UserMailer < ActionMailer::Base
     )
   end
 
+  # Send Notificaion to invitor if invitation is used
+  # @param [User] user - the new user signed up
+  # @param [SignUpInvitation] invitation used
+  def invitation_used user, invitation
+    if invitation
+      @user = user
+      @invitation = invitation
+      mail( to: invitation.from,
+            subject: "Your invitation to #{invitation.to} was just used"
+          )
+    end
+  end
+
   private
 
   def build_request_info(_request)
