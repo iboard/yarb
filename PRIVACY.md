@@ -6,8 +6,10 @@ Also   | available| at
 [YARB] | [GITHUB] | [IBOARD]
 
 
-> If you sign up at YARB your information is can be accessed by the owner of the
-server.
+>
+> If you sign up at YARB your information is accessible
+> by the owner of the server.
+>
 
 * Your password get stored encrypted.
 * Your name get stored.
@@ -18,7 +20,7 @@ server.
   sender of this invitation
 * If you cancel your account all your user information will be destroyed.
   Anyhow, there maybe entries in the server's log-file which remains
-  even you have deleted your account.
+  there even when you have deleted your account.
 
 At **iboard.cc** this information will not be visible to anybody expect
 for the admins of the server. We will not use this information for anything.
