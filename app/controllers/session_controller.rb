@@ -80,12 +80,8 @@ class SessionController < ApplicationController
     user = User.create! email: email, name: name
     user.recreate_authentication provider, uid
     session[:user_id] = user.id
-    user.tap do |_user|
-      InvitationUsedService.new(
-        _user,
-        params[:o_auth_sign_up]
-      ) if ApplicationHelper.needs_invitation?
-    end
+    ApplicationHelper.invitation_service_for(user,params[:o_auth_sign_up])
+    user
   end
 
   def extract_params _params
