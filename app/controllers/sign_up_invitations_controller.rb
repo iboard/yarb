@@ -7,6 +7,7 @@ class SignUpInvitationsController < ApplicationController
 
   # GET /sign_up_invitations
   def index
+    SignUpInvitation.expire_selector
     @sign_up_invitations = SignUpInvitation.all
   end
 
@@ -19,14 +20,12 @@ class SignUpInvitationsController < ApplicationController
   def create
     @sign_up_invitation = create_invitation
     deliver_valid_invitation(@sign_up_invitation)
-    SignUpInvitation.expire_selector
   end
 
   # DELETE /sign_up_invitations/:token
   def destroy
     invitation = SignUpInvitation.find( params[:id] )
     invitation.delete
-    SignUpInvitation.expire_selector
     redirect_to sign_up_invitations_path, notice: t("sign_up.invitation_rejected")
   end
 
