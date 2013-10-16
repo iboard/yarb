@@ -87,7 +87,7 @@ Ready to be used with
     system.
   * Modify lib/task/deploy to fit your needs.
 
-## For testing
+### For testing
 
 No setup is neccessary for testing. Just run
 
