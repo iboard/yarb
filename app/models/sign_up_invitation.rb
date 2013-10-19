@@ -3,8 +3,8 @@
 # If configured in `config/environments/application_:env_settings.rb` a new
 # User will need an invitation to sign up.
 class SignUpInvitation
-  include Store
-  include Store::Timestamps
+  include Persistable
+
   key_method :token
   attribute :token, :unique => true
   attribute :to,    :unique => true, :email => true

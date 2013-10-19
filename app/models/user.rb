@@ -6,8 +6,7 @@
 # * key :id is equal to :email but used parameterized by module Store
 class User
 
-  include Store
-  include Store::Timestamps
+  include Persistable
   include Roles
 
   key_method :id

@@ -4,8 +4,7 @@ require 'bcrypt'
 
 # Identity belongs to an Authentication and stores the password_digest
 class Identity
-  include Store
-  include Store::Timestamps
+  include Persistable
   include BCrypt
 
   key_method :authentication_id

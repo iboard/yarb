@@ -2,9 +2,8 @@
 #
 # Object Page acts as an ActiveModel and uses Store for persistence.
 class Page
+  include Persistable
 
-  include Store
-  include Store::Timestamps
   key_method :title
   attribute  :title
   attribute  :body
