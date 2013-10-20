@@ -5,7 +5,7 @@ class EmailConfirmationController < ApplicationController
 
   # GET /confirm_email:token
   def confirm
-    EmailConfirmationController.expire_selector
+    EmailConfirmation.expire_selector
     confirmation = EmailConfirmation.find_by(:token, params[:token])
     @message = if confirmation
                  confirmation.confirm!
