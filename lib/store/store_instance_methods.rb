@@ -55,6 +55,7 @@ module Store
         store.transaction() { |s| s[self.key] = self }
         self.send(:after_save)
       end
+      self.class.expire_selector
       self.valid_without_errors? and return self
     end
 
