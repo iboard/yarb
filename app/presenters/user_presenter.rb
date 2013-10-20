@@ -29,10 +29,11 @@ class UserPresenter
     ].join('&nbsp;'*3).html_safe
   end
 
+  # @return [String] html-string "confirmed at DATE"
   def email_confirmed_at
     [
       view.content_tag(:strong, view.t("user.confirmed_at")),
-      view.content_tag(:small,  user.confirmed_at, class: 'user-email')
+      view.content_tag(:small,  user.confirmed_at.to_s, class: 'user-email')
     ].join('&nbsp;'*3).html_safe
   end
 

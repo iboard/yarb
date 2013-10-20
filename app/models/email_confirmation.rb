@@ -23,6 +23,7 @@ class EmailConfirmation
   # Sets the EmailConfirmation to be confirmed
   def confirm!
     self.confirmed_at = Time.now
+    save
   end
 
   # @return [Boolean] true if confirmed_at is set

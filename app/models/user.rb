@@ -80,8 +80,9 @@ class User
     @confirmation && @confirmation.confirmed?
   end
 
+  # @return [Time|String] time of confirmed_at or 'n/a'
   def confirmed_at
-    email_confirmed? ? @confirmation.confirmed_at.to_s : "n/a"
+    email_confirmed? ? @confirmation.confirmed_at : "n/a"
   end
 
   private
