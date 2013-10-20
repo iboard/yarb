@@ -11,5 +11,11 @@ en:
           attributes:
             name:
               already_exists: "Name already exists"
-
-
+        page:
+          attributes:
+            title:
+              blank: "can't be blank"
+        user:
+          attributes:
+            email:
+              already_exists: "EMail already exists"

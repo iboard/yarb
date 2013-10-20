@@ -2,8 +2,16 @@
 PLEASE CONFIRM YOUR EMAIL
 
 You just signed up or changed your e-mail at <%= Settings.fetch( :app, :hostname ) -%>.
-
 Please confirm this by clicking the link below.
+
+<%= confirm_email_url(@confirmation.token) -%>
+
+
+EMAIL BESTÄTIGUNG
+
+Du hast dich gerade bei <%= Settings.fetch( :app, :hostname) -%> angemeldet
+oder deine EMail-Adresse geändert. Bitte bestätige deine Adresse durck
+Klick auf den Link.
 
 <%= confirm_email_url(@confirmation.token) -%>
 

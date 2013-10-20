@@ -15,4 +15,7 @@ de:
           attributes:
             title:
               blank: 'Kann nicht leer sein'
-
+        user:
+          attributes:
+            email:
+              already_exists: "EMail already exists"
