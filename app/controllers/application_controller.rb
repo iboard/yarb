@@ -71,7 +71,6 @@ class ApplicationController < ActionController::Base
 
   def user_from_session
     if session[:user_id].present?
-      User.expire_selector
       User.find_by(:id, session[:user_id])
     end
   end

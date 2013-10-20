@@ -7,7 +7,6 @@ class SignUpInvitationsController < ApplicationController
 
   # GET /sign_up_invitations
   def index
-    SignUpInvitation.expire_selector
     @sign_up_invitations = SignUpInvitation.all
   end
 
