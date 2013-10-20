@@ -26,4 +26,7 @@ describe NilUser, "(A replacement for current_user == nil)" do
     expect( user.has_role?(:some) ).to be_false
   end
 
+  it "always return an empty array to has_any_role?" do
+    expect( user.has_any_role?([:some,:other])).to be_false
+  end
 end

@@ -25,6 +25,12 @@ class NilUser
     false
   end
 
+  # @param [Array] _ (doesn't matter)
+  # @return false no matter what _role is
+  def has_any_role? _
+    false
+  end
+
   # @param [Object] _ (doesn't matter)
   # @return false no matter what _role is
   def has_role? _

@@ -38,11 +38,14 @@ td.buttons {
         display: inline-block;
         .user-name {
           display: inline-block;
-          min-width: 250px;
         }
         .user-email {
-          display: inline-block;
+          display: block;
         }
+      }
+      .email-confirmed-at {
+        display: inline;
+        font-size: smaller;
       }
     }
 

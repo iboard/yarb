@@ -31,10 +31,22 @@ class UserPresenter
 
   # @return [String] html-string "confirmed at DATE"
   def email_confirmed_at
-    [
-      view.content_tag(:strong, view.t("user.confirmed_at")),
-      view.content_tag(:small,  user.confirmed_at.to_s, class: 'user-email')
-    ].join('&nbsp;'*3).html_safe
+    if user.email_confirmed?
+      "(%s)".html_safe % [
+        view.content_tag(:small, view.t("user.confirmed_at")),
+        confirmed_at_time,
+      ].join('&nbsp;'*3).html_safe
+    else
+      "(%s)".html_safe % [ view.t("user.email_not_confirmed") ]
+    end
+  end
+
+  # return a content-tag containing the confirmed_at-time
+  # @return [String] html-string "%small confirmed at DATE"
+  def confirmed_at_time
+    if user.email_confirmed?
+      view.content_tag(:small,  Time.zone.parse(user.confirmed_at.to_s), class: 'user-email')
+    end
   end
 
   # @return [String] html-string, link to delete user

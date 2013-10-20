@@ -67,3 +67,14 @@
   font-size: $smallNoteFontSize * 0.5;
   color: $alertColor;
 }
+
+.clear-left {
+  clear: left;
+}
+
+.clear-right {
+  clear: right;
+}
+.clear-both {
+  clear: both;
+}

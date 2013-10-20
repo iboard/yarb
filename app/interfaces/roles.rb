@@ -18,6 +18,9 @@ module Roles
   # Ruby 2.0 only # ROLES = %i(guest confirmed author editor maintainer admin)
   ROLES = [ :guest, :confirmed, :author, :editor, :maintainer, :admin ]
 
+  # Roles necessary to see foreign user's user-information (eg. email)
+  SEE_USER_INFORMATION_ROLES = [ :maintainer, :admin ]
+
   def self.included base
     base.class_eval do
       attribute :roles, type: Array, default: []
@@ -33,6 +36,12 @@ module Roles
     # @return [Boolean] true if attribute roles includes role
     def has_role? role
       roles.map(&:to_sym).include?(role.to_sym)
+    end
+
+    # @param [Array] roles
+    # @return [Boolean] true if any role in roles matches
+    def has_any_role? roles
+      roles.any? { |r| has_role?(r) }
     end
 
   end

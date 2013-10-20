@@ -5,6 +5,7 @@ de:
     email_confirmed_message: "Danke! Der Account ist nun vollständig aktiviert."
     email_confirmation_failed: "Die Email-Adresse kann leider nicht bestätigt werden."
     confirmed_at: "Bestätigt am:"
+    email_not_confirmed: "Noch nicht bestätigt"
     authentications_label: "<strong>Authentication(s):</strong>&nbsp;"
     authentications_label: "<strong>Authentifizierung(en):</strong>&nbsp;"
     name: "Name"

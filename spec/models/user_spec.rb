@@ -39,10 +39,18 @@ describe User do
     expect( user.errors.messages[:name] ).to include("can't be blank")
   end
 
-  it "has roles" do
+  it "has a single role" do
     u = User.new email: "admin@example.com", name: "Admin", roles: [:admin]
     expect(u.has_role?(:admin)).to be_true
     expect(u.has_role?(:root)).to be_false
+  end
+
+  it "has any of the given roles" do
+    u = User.new email: "admin@example.com", name: "Admin", roles: [:admin, :guest, :author]
+    expect(u.has_any_role?([:admin])).to be_true
+    expect(u.has_any_role?([:guest,:author])).to be_true
+    expect(u.has_any_role?([:undefined,:author])).to be_true
+    expect(u.has_any_role?([:undefined,:nothing])).to be_false
   end
 
   it "creates an authentication entry on create" do
@@ -53,6 +61,16 @@ describe User do
   it ".email_confirmed? is false for new users with identiy" do
     user = create_valid_user "test@example.com", "Tester", "secret"
     expect( user.email_confirmed? ).to be_false
+  end
+
+  it ".confirmed_at is nil for unconfirmed emails" do
+    user = create_valid_user "test@example.com", "Tester", "secret"
+    expect( user.confirmed_at ).to be_nil
+  end
+
+  it ".confirmed_at is a time in the current time-zone" do
+    user = create_confirmed_user "test@example.com", "Tester", "secret"
+    expect( user.confirmed_at ).to be_a(Time)
   end
 
   it "creates a confirmation-request on create with identity" do

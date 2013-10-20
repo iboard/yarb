@@ -5,9 +5,9 @@
       = presenter.edit_user_link
     .pull-left
       .gap-right= gravatar_tag(user.email).html_safe
-    .pad-left
+    .user-information
       .name-and-email= presenter.name_and_email
-      .small-subtitle= presenter.user_roles
-      .small-subtitle= presenter.authentications
-      .small-subtitle= presenter.email_confirmed_at
-    .clear-both &nbsp;
+      .email-confirmed-at= presenter.email_confirmed_at if current_user.can_see_foreign_user_information?
+      .inline-block.small-subtitle= presenter.user_roles unless user.roles.empty?
+      .inline-block.small-subtitle= presenter.authentications if user.has_oauth_authentications?
+    .clear-left

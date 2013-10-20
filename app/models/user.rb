@@ -54,6 +54,18 @@ class User
     Authentication.where(user_id: id, provider: provider).all.first
   end
 
+  # @return [Array] all user's authentications
+  def authentications
+    Authentication.where(user_id: id).all
+  end
+
+
+  # @return [Array] all user's authentications but local identity
+  def oauth_autentications
+    self.authentications.reject {|a| a.provider == :identity}
+  end
+
+
   # Delete an existing authentication (for :identity) and create a new one
   # @param [String|Symbol] provider
   # @param [String] uid - user's id at provider
@@ -81,7 +93,17 @@ class User
 
   # @return [Time|String] time of confirmed_at or 'n/a'
   def confirmed_at
-    email_confirmed? ? @confirmation.confirmed_at : "n/a"
+    email_confirmed? ? Time.zone.parse(@confirmation.confirmed_at.to_s) : nil
+  end
+
+  # @return [Boolean] true if roles matches
+  def can_see_foreign_user_information?
+    has_any_role?(Roles::SEE_USER_INFORMATION_ROLES)
+  end
+
+  # @return [Boolean] true if any authentication but local identity
+  def has_oauth_authentications?
+    oauth_autentications.any?
   end
 
   private
