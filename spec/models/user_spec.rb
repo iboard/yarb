@@ -15,7 +15,10 @@ describe User do
 
   before :each do
     User.delete_all!
+    EmailConfirmation.delete_all!
   end
+
+  let(:last_mail)  { ActionMailer::Base.deliveries.last }
 
   it "requires a non-blank email" do
     u = User.new email: "", name: "me"
@@ -46,4 +49,27 @@ describe User do
     u1 = User.create! email: "test@example.com", name: "Me"
     expect( Authentication.find_by( :user_id,  u1.id ) ).not_to be_nil
   end
+
+  it ".email_confirmed? is false for new users with identiy" do
+    user = create_valid_user "test@example.com", "Tester", "secret"
+    expect( user.email_confirmed? ).to be_false
+  end
+
+  it "creates a confirmation-request on create with identity" do
+    user = create_valid_user "test@example.com", "Tester", "secret"
+    expect( last_mail.subject ).to eq("Please confirm your email address")
+  end
+
+  it ".email_confirmed? is true when confirmed_at is set" do
+    user = create_confirmed_user "test@example.com", "Tester", "secret"
+    expect( user.email_confirmed? ).to be_true
+  end
+
+  it ".email_confirmed? is false when email changes" do
+    user = create_confirmed_user "test@example.com", "Tester", "secret"
+    expect( user.email_confirmed? ).to be_true
+    user.update_attributes email: "changed@example.com"
+    expect( user.email_confirmed? ).to be_false
+  end
+
 end

@@ -1,0 +1,10 @@
+
+PLEASE CONFIRM YOUR EMAIL
+
+You just signed up or changed your e-mail at <%= Settings.fetch( :app, :hostname ) -%>.
+
+Please confirm this by clicking the link below.
+
+<%= confirm_email_url(@confirmation.token) -%>
+
+

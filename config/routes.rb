@@ -19,9 +19,11 @@ Yarb::Application.routes.draw do
   match '/auth/failure'            => 'session#failure',       via: 'GET'
   match '/sign_up/complete_auth'   => 'session#complete_auth', via: 'POST'
 
+  match 'confirm_email/:token' => 'email_confirmation#confirm', via: 'GET', as: 'confirm_email'
 
   resources :users
   resources :sign_up_invitations, only: [:index, :new, :create, :destroy]
+
 
   resources :pages do
     collection do

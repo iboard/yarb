@@ -22,6 +22,18 @@ def create_valid_user email, name, password
   u.save
 end
 
+def create_confirmed_user email, name, password
+  user = create_valid_user email, name, password
+  confirm_from_last_email
+  user
+end
+
+def confirm_from_last_email
+  token= last_mail.body.to_s.scan(/confirm_email\/([0-9a-f]+)\s/).flatten.first
+  email_confirmation = EmailConfirmation.find_by(:token, token)
+  email_confirmation.confirm!
+end
+
 def create_valid_user_with_authentication args
   user = create_valid_user args[:info][:email], args[:info][:name], "notused"
   identity_auth = user.authentication(:identity)

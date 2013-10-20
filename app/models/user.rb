@@ -38,7 +38,7 @@ class User
     @id ||= "%x-%s" % [ Time.now.to_i, SecureRandom::hex(2) ]
   end
 
-  # ensure we have a valid id
+  # ensure we have a valid id and authentication
   def save
     id and ensure_authentication and super
   end
@@ -74,6 +74,12 @@ class User
     self
   end
 
+  # @return [Boolean] true if email is marked as confirmed
+  def email_confirmed?
+    confirmation = EmailConfirmation.find_by( :user_id, self.id )
+    confirmation && !confirmation.confirmed_at.nil?
+  end
+
   private
 
   def self.create_user_with_auth auth
@@ -101,5 +107,27 @@ class User
   delegate "authenticate",           to: :authentication
   delegate "old_password",           to: :authentication
   delegate "old_password=",          to: :authentication
+
+  def after_save
+    super
+    request_confirm_email
+    self
+  end
+
+  def request_confirm_email
+    UserMailer.request_confirm_email(self).deliver if needs_confirmation?
+  end
+
+  def needs_confirmation?
+    c = EmailConfirmation.find_by(:user_id, self.id)
+    if c && c.email != self.email
+      c.delete
+      true
+    elsif c.nil?
+      true
+    else
+      false
+    end
+  end
 
 end

@@ -35,11 +35,25 @@ class UserMailer < ActionMailer::Base
       @invitation = invitation
       mail( to: invitation.from,
             subject: "Your invitation to #{invitation.to} was just used"
-          )
+      )
     end
   end
 
+  # Update or create an EmailConfirmation and send email with token
+  def request_confirm_email user
+    @confirmation = find_or_create_for_user(user)
+    mail( to: user.email, subject: "Please confirm your email address")
+  end
+
   private
+
+  def find_or_create_for_user user
+    _c = EmailConfirmation.find_by(:user_id, user.id) || EmailConfirmation.create(
+      user_id: user.id,
+      email: user.email,
+      token: SecureRandom::hex(24)
+    )
+  end
 
   def build_request_info(_request)
     {
