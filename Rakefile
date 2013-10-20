@@ -13,8 +13,13 @@ task :all do
 end
 
 desc "Run specs without js (fast)"
-task :fast do
+task :nojs do
   system "rspec", "-t", "~js"
+end
+
+desc "Run specs without frontend (very fast)"
+task :fast do
+  system "rspec", "-t", "~js", "spec/helpers", "spec/lib", "spec/models", "spec/services"
 end
 
 desc "Run unit tests only"
