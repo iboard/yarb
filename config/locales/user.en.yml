@@ -4,6 +4,7 @@ en:
     confirm_email_header: "Email Confirmation"
     email_confirmed_message: "Thank you. Your account is fully enabled now."
     email_confirmation_failed: "Sorry, we can't verify your email."
+    confirmed_at: "Confirmed at:"
     authentications_label: "<strong>Authentication(s):</strong>&nbsp;"
     name: "Name"
     roles_label: "<strong>Role(s):</strong>&nbsp;"

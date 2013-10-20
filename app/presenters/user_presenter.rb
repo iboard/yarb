@@ -25,8 +25,15 @@ class UserPresenter
   def name_and_email
     [
       view.content_tag(:strong, user.name, class: 'user-name'),
-      view.content_tag(:small,  view.mail_link_to( user.email, user.email ), class: 'user-email')
-    ].join( '&nbsp;'*3).html_safe
+      view.content_tag(:small,  view.mail_link_to( user.email, user.email ), class: 'user-email'),
+    ].join('&nbsp;'*3).html_safe
+  end
+
+  def email_confirmed_at
+    [
+      view.content_tag(:strong, view.t("user.confirmed_at")),
+      view.content_tag(:small,  user.confirmed_at, class: 'user-email')
+    ].join('&nbsp;'*3).html_safe
   end
 
   # @return [String] html-string, link to delete user
