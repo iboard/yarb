@@ -1,6 +1,8 @@
 # -*- encoding : utf-8 -*-"
 
 
+# EmailConfirmations generates a random token for a user and email
+# When confirmed! the attribute confirmed_at is set to now.
 class EmailConfirmation
   include Persistable
 
@@ -21,6 +23,11 @@ class EmailConfirmation
   # Sets the EmailConfirmation to be confirmed
   def confirm!
     self.confirmed_at = Time.now
+  end
+
+  # @return [Boolean] true if confirmed_at is set
+  def confirmed?
+    !self.confirmed_at.nil?
   end
 
 end

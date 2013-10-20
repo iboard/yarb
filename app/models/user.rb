@@ -77,7 +77,7 @@ class User
   # @return [Boolean] true if email is marked as confirmed
   def email_confirmed?
     confirmation = EmailConfirmation.find_by( :user_id, self.id )
-    confirmation && !confirmation.confirmed_at.nil?
+    confirmation && confirmation.confirmed?
   end
 
   private
