@@ -6,6 +6,7 @@ en:
   access_denied: "Access denied."
   cancel: "Cancel"
   canceled: "Canceled."
+  continue: "Continue"
   are_you_sure: "%{what}\nAre you sure?"
   could_not_be_saved: "%{what} couldn't be saved."
   can_not_be_changed: "Can't be changed."

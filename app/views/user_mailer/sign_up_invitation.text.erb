@@ -1,9 +1,22 @@
+ENGLISH
+
 <%= @invitation.sender.name -%> (<%= @invitation.from -%>) invites you
 to sign up at <%= Settings.fetch( :app, :hostname ) -%>.
 
 <%= @invitation.message -%>
 
 You can either ignore this invitation or sign up at
+
+<%= accept_sign_up_invitation_url(@invitation.token) -%>
+
+GERMAN
+
+<%= @invitation.sender.name -%> (<%= @invitation.from -%>) hat dich eingeladen,
+dich bei <%= Settings.fetch( :app, :hostname ) -%> anzumelden.
+
+<%= @invitation.message -%>
+
+Du kannst diese Einladung ignorieren oder mit dem Link unten annehmen.
 
 <%= accept_sign_up_invitation_url(@invitation.token) -%>
 

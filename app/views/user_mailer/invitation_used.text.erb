@@ -1,9 +1,19 @@
+ENGLISH
+
 The invitation you've sent to <%= @invitation.to -%>
  at <%= (@invitation.created_at||"n/a").to_s -%>), was just used by
 
   <%= @user.name -%> <<%= @user.email -%>>
 
 No action needed
+
+GERMAN
+
+Die Einladung an <%= @invitation.to -%> (gesandt am <%= (@invitation.created_at||"n/a").to_s -%>)
+wurde gerade angenommen.
+
+Keine weiteren Schritte notwendig.
+
 
 -- <%= Settings.fetch :app, :hostname %>
 
