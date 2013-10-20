@@ -28,10 +28,19 @@ def create_confirmed_user email, name, password
   user
 end
 
+def create_unconfirmed_user email, name, password
+  user = create_valid_user email, name, password
+  expect(user.email_confirmed?).to be_false
+  user
+end
+
 def confirm_from_last_email
-  token= last_mail.body.to_s.scan(/confirm_email\/([0-9a-f]+)\s/).flatten.first
-  email_confirmation = EmailConfirmation.find_by(:token, token)
+  email_confirmation = EmailConfirmation.find_by(:token, get_last_email_confirmation_token)
   email_confirmation.confirm!
+end
+
+def get_last_email_confirmation_token
+  last_mail.body.to_s.scan(/confirm_email\/([0-9a-f]+)\s/).flatten.first
 end
 
 def create_valid_user_with_authentication args

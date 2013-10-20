@@ -9,7 +9,10 @@ describe UsersController do
 
     before :each do
       User.delete_store!
+      EmailConfirmation.delete_store!
     end
+
+    let(:last_mail)  { ActionMailer::Base.deliveries.last }
 
     it "GET /users/:id shows the user name on the user's page" do
       user = create_valid_user "test@example.com", "Testuser", "secret"
@@ -63,8 +66,22 @@ describe UsersController do
       page_should_have_error page, "name: can't be blank"
     end
 
-    context "Changing the password" do
+    it "GET /confirm_email:token confirms the EmailConfirmation" do
+      user = create_unconfirmed_user "test@example.com", "Testuser", "secret"
+      token = get_last_email_confirmation_token
+      visit confirm_email_path(token)
+      page.should have_content( "Thank you. Your account is fully enabled now.")
+      expect(user.email_confirmed?).to be_true
+    end
 
+    it "GET /confirm_email:invalid_token doesn't confirm the EMailConfirguration" do
+      user = create_unconfirmed_user "test@example.com", "Testuser", "secret"
+      visit confirm_email_path("this-is-invalid")
+      page.should have_content( "Sorry, we can't verify your email." )
+      expect(user.email_confirmed?).to be_false
+    end
+
+    context "Changing the password" do
       before :each do
         @user = create_valid_user "test@example.com", "Testuser", "oldpassword"
         sign_in_as "test@example.com", "oldpassword"
@@ -140,7 +157,6 @@ describe UsersController do
         end
 
       end
-
     end
 
   end
