@@ -28,7 +28,6 @@ class User
   # @param [Hash] auth OmniAuth authentication-hash
   # @return [User] the user created
   def self.create_from_auth auth
-     Store::expire_selectors_for User, Identity, Authentication
      create_user_with_auth auth
   end
 

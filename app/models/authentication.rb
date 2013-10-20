@@ -4,8 +4,8 @@
 # A User can have more authentications (Identity, Google, Twitter, ...)
 class Authentication
 
-  include Store
-  include Store::Timestamps
+  include Persistable
+
   key_method :id
   attribute  :id
   attribute  :provider, default: :identity
