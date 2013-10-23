@@ -12,8 +12,8 @@ class AuthenticationService
     @user = find_or_create_user_from_auth(auth)
   end
 
-  # @param [Hash] auth OmniAuth-authentication-hash
-  # @return [User]
+  private
+
   def find_or_create_user_from_auth auth
     authentication = Authentication.where( provider: auth[:provider], uid: auth[:uid] ).all.first
     if authentication
@@ -22,8 +22,6 @@ class AuthenticationService
       create_from_auth(auth)
     end
   end
-
-  private
 
   def create_from_auth auth
     if !ApplicationHelper.needs_invitation? || ApplicationHelper.find_invitation(@session)
