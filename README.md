@@ -1,6 +1,7 @@
 <div id='page-index'></div>
-
-![](http://dav.iboard.cc/container/yarb/yarb_Pulp-O-Mizer_Cover_Image.jpg)
+<div style="float:right;margin:0 10px 10px 0;border: 0.5em solid #ddd; padding: 0.5em;" markdown="1">
+  ![](http://dav.iboard.cc/container/yarb/yarb_Pulp-O-Mizer_Cover_Image.jpg "YARB Cover")
+</div>
 
 # README
 
@@ -10,6 +11,9 @@ Also   | available| at
 
 
 ## This is a Rails4-Starter-Application.
+
+It's made for Rails and Ruby developers. So, you should be familiar with
+Rails when you'll read on. _Have Fun!_
 
 * [See in Action](http://yarb.iboard.cc/)
 * [API-Documentation](http://dav.iboard.cc/container/yarb/doc/index.html)
