@@ -11,6 +11,9 @@ Also   | available| at
 
 ## This is a Rails4-Starter-Application.
 
+It's made for Rails and Ruby developers. So, you should be familiar with
+Rails when you'll read on. _Have Fun!_
+
 * [See in Action](http://yarb.iboard.cc/)
 * [API-Documentation](http://dav.iboard.cc/container/yarb/doc/index.html)
 * [Test-Coverage](http://dav.iboard.cc/container/yarb/coverage/index.html)
