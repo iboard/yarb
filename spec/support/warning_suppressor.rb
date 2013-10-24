@@ -1,8 +1,9 @@
 class WarningSuppressor
 
   SUPPRESS_THESE_WARNINGS = [
-    'QFont::setPixelSize: Pixel size <= 0 (0)',
-    'content-type missing in HTTP POST, defaulting to'
+    'QFont::setPixelSize: Pixel size',
+    'content-type missing in HTTP POST, defaulting to',
+    'CoreText performance note'
   ]
 
   class << self
@@ -30,7 +31,9 @@ class WarningSuppressor
     private
 
     def suppress_warning? message
-      SUPPRESS_THESE_WARNINGS.any? { |suppressable_warning| message.try(:strip).try(:include?, suppressable_warning) }
+      SUPPRESS_THESE_WARNINGS.any? do |suppressable_warning|
+        message.try(:strip) =~ /#{suppressable_warning}/
+      end
     end
 
   end

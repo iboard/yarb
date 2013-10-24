@@ -1,6 +1,6 @@
 <div id='page-index'></div>
 
-![](http://dav.iboard.cc/container/yarb/yarb_Pulp-O-Mizer_Cover_Image.jpg)
+<img src=http://dav.iboard.cc/container/yarb/yarb_Pulp-O-Mizer_Cover_Image.jpg style="float: right; border: 0.25em solid #ddd; padding: 0.25em;" />
 
 # README
 
