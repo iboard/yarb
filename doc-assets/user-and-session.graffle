@@ -1216,7 +1216,7 @@
 			<array>
 				<string>{117.25, 484.51934432983398}</string>
 				<string>{50, 463.99263763427734}</string>
-				<string>{97.125, 200.51934814453125}</string>
+				<string>{108, 201}</string>
 				<string>{125.31769181876619, 92.01934814453125}</string>
 			</array>
 			<key>Style</key>
@@ -1460,7 +1460,7 @@
 			<key>OrthogonalBarPoint</key>
 			<string>{0, 0}</string>
 			<key>OrthogonalBarPosition</key>
-			<real>25</real>
+			<real>2.5</real>
 			<key>Points</key>
 			<array>
 				<string>{401.125, 217.77902603149414}</string>
@@ -2114,7 +2114,7 @@
 	<key>MasterSheets</key>
 	<array/>
 	<key>ModificationDate</key>
-	<string>2013-10-24 07:33:28 +0000</string>
+	<string>2013-10-26 08:08:01 +0000</string>
 	<key>Modifier</key>
 	<string>Andreas Altendorfer</string>
 	<key>NotesVisible</key>
@@ -2209,14 +2209,14 @@
 		<key>SidebarWidth</key>
 		<integer>120</integer>
 		<key>VisibleRegion</key>
-		<string>{{-194, -21}, {946, 826}}</string>
+		<string>{{42, 151}, {473, 413}}</string>
 		<key>Zoom</key>
-		<real>1</real>
+		<real>2</real>
 		<key>ZoomValues</key>
 		<array>
 			<array>
 				<string>Canvas 1</string>
-				<real>1</real>
+				<real>2</real>
 				<real>1</real>
 			</array>
 		</array>
