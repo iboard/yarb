@@ -6,6 +6,15 @@ Bugs, Features, and Milestones are tracked at
 [Github](https://github.com/iboard/yarb/issues)
 This TODO.md-file is used for quick-notes and brainstorming only.
 
+## Big Steps
+
+1. Extract Store to a Gem (Problem – ActiveModel dependency in Gem?)
+2. Extract User, SignUp, EMailConfirmation, and SignUpInvitation to an Account-Gem
+3. Split Page/PageController thus Page is in a RAILS-independent applicaton
+   and the Rails-App is accessing Page through a clean structure using
+   interactors and boundaries.
+
+
 Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/891652)
 
 ## Smells
