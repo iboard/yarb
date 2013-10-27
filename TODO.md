@@ -17,6 +17,11 @@ This TODO.md-file is used for quick-notes and brainstorming only.
 
 Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/891652)
 
+### Packages to extracted
+
+![YARB Packages Draft](http://dav.iboard.cc/container/yarb/doc/assets/packages.png)
+
+
 ## Smells
 
 1. Since the key-method prepares the key to be useable in URLs and as
