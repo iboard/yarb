@@ -17,7 +17,7 @@ This TODO.md-file is used for quick-notes and brainstorming only.
 
 Current work is tracked by [Pivotal Tracker](https://www.pivotaltracker.com/s/projects/891652)
 
-### Packages to extracted
+### Packages to be extracted
 
 ![YARB Packages Draft](http://dav.iboard.cc/container/yarb/doc/assets/packages.png)
 
