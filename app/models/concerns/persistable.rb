@@ -3,8 +3,8 @@ module Persistable
   extend ActiveSupport::Concern
 
   included do
-    include Store
-    include Store::Timestamps
+    include Store::MongoStore
+    include Mongoid::Timestamps
   end
 
 end

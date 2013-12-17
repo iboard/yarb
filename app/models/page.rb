@@ -2,17 +2,23 @@
 #
 # Object Page acts as an ActiveModel and uses Store for persistence.
 class Page
-  include Persistable
+  include Store::MongoStore
 
-  key_method :title
-  attribute  :title
-  attribute  :body
-  attribute  :position, type: Integer, default: 0
-  default_order :position, :asc
-  attribute  :draft, type: Boolean, default: true
+  field :title
+  field :_id, type: String, default: ->{ title }
+
+  validates_presence_of :title
+  validates_uniqueness_of :title
+
+  field :body
+  field :position, type: Integer, default: 0
+  #default_order :position, :asc
+  default_scope asc(:position)
+
+  field :draft, type: Boolean, default: true
 
   def initialize _attributes={}
-    set_attributes ensure_defaults(_attributes)
+    super ensure_defaults(_attributes)
   end
 
   private

@@ -27,7 +27,7 @@ class StaticPageUpdateService
   end
 
   def find_or_create_page _title, file
-    Page.find(_title) || Page.create( title: _title.upcase, updated_at: File.mtime(file) )
+    Page.where(title: _title.upcase).first || Page.create( title: _title.upcase, updated_at: File.mtime(file) )
   end
 
   def title_of_md_file _file

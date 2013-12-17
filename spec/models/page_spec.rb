@@ -8,7 +8,7 @@ describe Page do
   end
 
   before :each do
-    Page.delete_store!
+    Page.delete_all
   end
 
   it "requires a non-blank title" do
@@ -21,7 +21,7 @@ describe Page do
     p1 = Page.create! title: "T One"
     p2 = Page.create  title: "T One"
     expect( p2.errors.any? ).to be_true
-    expect{ Page.create! title: "T One" }.to raise_error DuplicateKeyError
+    expect{ Page.create! title: "T One" }.to raise_error Mongoid::Errors::Validations
   end
 
   it "has a draft flag" do
