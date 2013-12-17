@@ -52,6 +52,9 @@ RSpec.configure do |config|
       FileUtils.rm_rf(Dir["#{pstore_path}/[^.]*"])
     end
 
+    # CLEAN MONGO DB
+    Mongoid.purge!
+
     # FAKE OMNIAUTH CALLS
     OmniAuth.config.test_mode = true
 

@@ -11,6 +11,10 @@ gem 'bootstrap-sass'
 gem "jquery-rails"
 gem 'jquery-ui-rails'
 
+gem 'mongoid', github: "mongoid/mongoid"
+gem "mongoid-paperclip", :require => "mongoid_paperclip"
+gem 'bson_ext'
+
 group :doc do
   gem 'yard', require: false
 end
