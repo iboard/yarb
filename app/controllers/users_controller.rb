@@ -12,6 +12,7 @@ class UsersController < ApplicationController
     if !current_user.has_role?( :admin )
       redirect_back_or_to root_path, status: 404
     else
+      User.expire_selector
       @users = User.asc(:name)
     end
   end
@@ -74,6 +75,7 @@ class UsersController < ApplicationController
   end
 
   def load_resource
+    User.expire_selector
     @user = User.find( params[:id] )
   end
 
