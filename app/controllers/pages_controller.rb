@@ -65,7 +65,7 @@ class PagesController < ApplicationController
 
   # PUT /pages/:id
   def update
-    if @page.update_attributes( params[:page] )
+    if @page.update_attributes( page_params )
       redirect_to pages_path, notice: t(:page_successfully_updated)
     else
       render :edit
@@ -88,6 +88,12 @@ class PagesController < ApplicationController
 
 
   private
+
+  def page_params
+    _params = params.require(:page).permit(:body,:title,:draft)
+    _params.delete(:title) if params[:action] == "update"
+    _params
+  end
 
   def visible_pages
     is_page_editor? ? Page : Page.where( draft: false )

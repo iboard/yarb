@@ -1,5 +1,7 @@
 # -*- encoding : utf-8 -*-
 
+require "spec_helper"
+
 describe StaticPageUpdateService do
 
   before :each do
@@ -11,7 +13,7 @@ describe StaticPageUpdateService do
       StaticPageUpdateService.new file
       _fname = File.basename(file,".md").downcase
       _title = _fname.upcase
-      _page = Page.find _title
+      _page = Page.find _title.downcase
       expect(_page).to be_a(Page)
       expect(_page.title).to eq(_title)
     end
