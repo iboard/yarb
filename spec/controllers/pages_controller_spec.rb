@@ -150,8 +150,7 @@ describe PagesController do
           fill_in "Title", with: "I am the winner"
           fill_in "Body",  with: "Some Header\n=======\nAnd some text"
           click_button "Save"
-          # page.should have_content "An object of class Page with key 'i-am-the-winner' already exists."
-          page.should have_content "title: is already taken"
+          page.should have_content "An object of class Page with key 'i-am-the-winner' already exists."
           should render_template "new"
           fill_in "Title", with: "I am the loser"
           click_button "Save"
@@ -181,19 +180,18 @@ describe PagesController do
         it "saves modifications" do
           page.find("#page-page-one a", text: "Edit", match: :prefer_exact ).click()
           should render_template "edit"
-          #fill_in "Title", with: "I am the first Page"
+          fill_in "Title", with: "I am the first Page"
           fill_in "Body", with: "Loremsum firstum"
           click_button "Save"
           should render_template "index"
           page_should_have_notice page, "Page successfully updated"
-          #Page.find("page-one").should be_nil
-          _page = Page.find("page-one")
-          #page.should_not be_nil
+          Page.find("page-one").should be_nil
+          _page = Page.find("i-am-the-first-page")
+          _page.should_not be_nil
           _page.body.should eq("Loremsum firstum")
         end
 
         it "doesn't store invalid pages on update" do
-          pending "Changing ID doesn't work with Mongo"
           _page = Page.create! title: "I am valid", body: "Valid page"
           visit edit_page_path(_page)
           fill_in "Title", with: ""
@@ -203,7 +201,6 @@ describe PagesController do
         end
 
         it "doesn't allow to update the key if it already exists" do
-          pending "Doesn't work with Mongo"
           Page.create! title: "existing key", body: "Do not touch"
           _page = Page.create! title: "any key", body: "Valid page"
 

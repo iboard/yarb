@@ -91,7 +91,7 @@ class PagesController < ApplicationController
 
   def page_params
     _params = params.require(:page).permit(:body,:title,:draft)
-    _params.delete(:title) if params[:action] == "update"
+    _params.delete(:title) if params[:action] == "update" && STORE_GATEWAY == :mongoid
     _params
   end
 

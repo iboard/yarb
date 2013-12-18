@@ -31,8 +31,12 @@ class Page
     def to_param
       permalink(self.title)
     end
+
+    def permalink str
+      str.gsub(/\s+/, "-").downcase
+    end
+
   when :store
-    key_method :title
     key_method :title
     attribute  :title
     attribute  :body
@@ -59,10 +63,6 @@ class Page
     (defaults||={})[:title] ||= ''
     defaults.fetch(:draft) { defaults[:draft] = true }
     defaults
-  end
-
-  def permalink str
-    str.gsub(/\s+/, "-").downcase
   end
 
 end
