@@ -9,19 +9,38 @@ class User
   include Persistable
   include Roles
 
-  key_method :id
-  attribute  :email, unique: true
-  validates_presence_of :email
+  case STORE_GATEWAY
+  when :mongoid
+    field :email
+    validates_uniqueness_of :email
+    validates_presence_of :email
 
-  attribute  :name
-  validates_presence_of :name
+    field :name
+    validates_presence_of :name
 
-  # @param [Hash] args
-  # @option args [String] :name - The username
-  # @option args [String] :email - User's email
-  def initialize args={}
-    set_attributes args
-    ensure_authentication
+    # @param [Hash] args
+    # @option args [String] :name - The username
+    # @option args [String] :email - User's email
+    def initialize args={}
+      super
+      ensure_authentication
+    end
+  when :store
+    key_method :id
+    attribute  :email, unique: true
+    validates_presence_of :email
+    attribute  :name
+    validates_presence_of :name
+
+    # @param [Hash] args
+    # @option args [String] :name - The username
+    # @option args [String] :email - User's email
+    def initialize args={}
+      set_attributes args
+      ensure_authentication
+    end
+  else
+    raise StoreGatewayNotDefinedError.new
   end
 
   # Create a user without Identity but with an OAuth-provider
@@ -87,7 +106,7 @@ class User
 
   # @return [Boolean] true if email is marked as confirmed
   def email_confirmed?
-    @confirmation = EmailConfirmation.find_by( :user_id, self.id )
+    @confirmation = STORE_GATEWAY == :mongoid ? EmailConfirmation.where(user_id: self.id ).first : EmailConfirmation.find_by( :user_id, self.id )
     @confirmation && @confirmation.confirmed?
   end
 
@@ -122,7 +141,8 @@ class User
   end
 
   def ensure_authentication
-    Authentication.find_by( :user_id, id ) || Authentication.create!(user_id: id)
+    _existing = STORE_GATEWAY == :mongoid ? Authentication.where(user_id: id).first  : Authentication.find_by( :user_id, id )
+    _existing || Authentication.create!(user_id: id)
   end
 
   # delegate password-methods to Authentication
@@ -135,7 +155,6 @@ class User
   delegate "old_password=",          to: :authentication
 
   def after_save
-    super
     request_confirm_email
     self
   end
@@ -145,7 +164,7 @@ class User
   end
 
   def needs_confirmation?
-    c = EmailConfirmation.find_by(:user_id, self.id)
+    c = STORE_GATEWAY == :mongoid ? EmailConfirmation.where(user_id: self.id).first : EmailConfirmation.find_by(:user_id, self.id)
     if c && c.email != self.email
       c.delete
       true

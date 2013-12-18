@@ -68,6 +68,10 @@ module Store
       store.transaction() { |s| s.delete(prepare_key(_key)) }
     end
 
+    def delete_all
+      delete_store!
+    end
+
     # List all keys
     # @return [Array] array of object-keys
     def keys

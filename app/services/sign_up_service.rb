@@ -28,6 +28,7 @@ class SignUpService
       _user = User.create email: @sign_up.email, name: @sign_up.name
       _user.password = @sign_up.password
       _user.save
+      _user
     end
   end
 

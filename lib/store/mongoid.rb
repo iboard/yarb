@@ -11,6 +11,7 @@ module Store
       base_class.send(:extend, ClassMethods)
       base_class.send(:include, Mongoid::Document )
       base_class.send(:include, Mongoid::Timestamps )
+      base_class.send(:include,  InstanceMethods)
     end
 
     module ClassMethods
@@ -30,6 +31,19 @@ module Store
         object = find(id)
         object.update_attributes( attr ) if object
       end
+
+      def delete_all!
+        delete_all
+      end
+
+    end
+
+    module InstanceMethods
+
+       def save *_
+         super
+         self.send(:after_save)
+       end
 
     end
   end

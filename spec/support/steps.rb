@@ -18,8 +18,9 @@ end
 
 def create_valid_user email, name, password
   u= User.new email: email, name: name
-  u.password = password
   u.save
+  u.password= password
+  u
 end
 
 def create_confirmed_user email, name, password
@@ -35,7 +36,14 @@ def create_unconfirmed_user email, name, password
 end
 
 def confirm_from_last_email
-  email_confirmation = EmailConfirmation.find_by(:token, get_last_email_confirmation_token)
+  email_confirmation = case STORE_GATEWAY
+                       when :store
+                         EmailConfirmation.find_by(:token, get_last_email_confirmation_token)
+                       when :mongoid
+                         EmailConfirmation.where(token: get_last_email_confirmation_token).first
+                       else
+                         raise StoreGatewayNotDefinedError.new
+                       end
   email_confirmation.confirm!
 end
 

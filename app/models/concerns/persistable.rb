@@ -3,8 +3,16 @@ module Persistable
   extend ActiveSupport::Concern
 
   included do
-    include Store
-    include Store::Timestamps
+    case STORE_GATEWAY
+    when :store
+      include Store
+      include Store::Timestamps
+    when :mongoid
+      include Store::MongoStore
+      include Mongoid::Timestamps
+    else
+      raise StoreGatewayNotDefinedError.new
+    end
   end
 
 end

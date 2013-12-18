@@ -7,14 +7,26 @@ class Identity
   include Persistable
   include BCrypt
 
-  key_method :authentication_id
-  attribute  :authentication_id, unique: true
-  attribute  :password_digest
+  case STORE_GATEWAY
+  when :store
+    key_method :authentication_id
+    attribute  :authentication_id, unique: true
+    attribute  :password_digest
+  when :mongoid
+    field :authentication_id, type: String
+    #validates_presence_of :authentication_id
+    #validates_uniqueness_of :authentication_id
+    field :password_digest
+    field :_id, type: String, default: -> { authentication_id }
+    def after_save
+      true
+    end
+  end
 
   # see [BCrypt Homepage](http://bcrypt-ruby.rubyforge.org/)
   # @return [String] the crypted password string
   def password
-     @password ||= Password.new(password_digest) unless password_digest.nil?
+    @password ||= Password.new(password_digest) unless password_digest.nil?
   end
 
   # Set new crypted password from plain_text parameter.
@@ -23,7 +35,7 @@ class Identity
   def password= new_password
     new_password ||= SecureRandom::hex(8)
     @password = Password.create new_password
-    self.password_digest = @password.to_s
+    self.password_digest= @password.to_s
     self.save
   end
 

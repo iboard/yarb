@@ -23,7 +23,15 @@ module Roles
 
   def self.included base
     base.class_eval do
-      attribute :roles, type: Array, default: []
+      case STORE_GATEWAY
+      when :store
+        attribute :roles, type: Array, default: []
+      when :mongoid
+        include Mongoid::Document if STORE_GATEWAY == :mongoid
+        field :roles, type: Array, default: []
+      else
+        raise StoreGatewayNotDefinedError.new
+      end
       include InstanceMethods
     end
   end

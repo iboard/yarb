@@ -9,6 +9,7 @@ describe Identity do
 
   before :each do
     Authentication.delete_all!
+    Identity.delete_all!
     User.delete_all!
   end
 

@@ -21,7 +21,7 @@ describe Page do
     p1 = Page.create! title: "T One"
     p2 = Page.create  title: "T One"
     expect( p2.errors.any? ).to be_true
-    expect{ Page.create! title: "T One" }.to raise_error Mongoid::Errors::Validations
+    expect{ Page.create! title: "T One" }.to raise_error (STORE_GATEWAY == :mongoid ? Mongoid::Errors::Validations : DuplicateKeyError)
   end
 
   it "has a draft flag" do

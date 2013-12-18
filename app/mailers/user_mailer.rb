@@ -48,7 +48,8 @@ class UserMailer < ActionMailer::Base
   private
 
   def find_or_create_for_user user
-    _c = EmailConfirmation.find_by(:user_id, user.id) || EmailConfirmation.create(
+    _c = STORE_GATEWAY == :mongoid ? EmailConfirmation.where(user_id: user.id).first : EmailConfirmation.find_by(:user_id, user.id)
+    _c ||= EmailConfirmation.create(
       user_id: user.id,
       email: user.email,
       token: SecureRandom::hex(24)
