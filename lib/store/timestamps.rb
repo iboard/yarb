@@ -27,22 +27,22 @@ module Store
         attribute :created_at, nil
         attribute :updated_at, nil
 
-          def save
-            update_timestamps
-            super
-          end
+        def save
+          update_timestamps
+          super
+        end
 
-          private
+        private
 
-          def update_timestamps
-            ts = Time.now
-            self.created_at ||= ts unless modified?(:created_at)
-            self.updated_at = ts   unless modified?(:updated_at)
-          end
+        def update_timestamps
+          ts = Time.now
+          self.created_at ||= ts unless modified?(:created_at)
+          self.updated_at = ts   unless modified?(:updated_at)
+        end
 
-          def modified? _attr
-            self.modified_attributes.include?(_attr)
-          end
+        def modified? _attr
+          self.modified_attributes.include?(_attr)
+        end
 
       end
 
