@@ -1,13 +1,4 @@
 <div id='page-index'></div>
-
-<address>
-  <b>It's no longer possible to authenticate through Facebook.</b>
-  <em>I canceled my Facebook-account and therefore I lost the API-key
-  for omniauth-authentication. Anyhow you can still use FB for your
-  installation of YARB. It just will not work at yarb.iboard.cc
-  anymore. </em>
-</address>
-
 <img src=http://dav.iboard.cc/container/yarb/yarb_Pulp-O-Mizer_Cover_Image.jpg style="float: right; border: 0.25em solid #ddd; padding: 0.25em;" />
 
 # README
