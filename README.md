@@ -102,9 +102,8 @@ No setup is neccessary for testing. Just run
 ## With the source
 
   * Run `rake` to run all specs and then `open coverage/index.html` to see your test-coverage.
-  * Run `rake full` will also run Jasmine-tests.
+  * Run `rake long` will also run Jasmine-tests.
   * Run `rake fast` will skip specs invoking javascript (they are slow)
-  * Run `rake long` will display not only dots but spec-descriptions.
   * Run `yard` to generate the current documentation and `open doc/index.html`
 
 ## With the Application
