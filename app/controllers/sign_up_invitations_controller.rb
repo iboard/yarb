@@ -3,6 +3,7 @@
 # Send SignUpInvitations
 class SignUpInvitationsController < ApplicationController
 
+  before_filter :clear_chache
   before_filter :ensure_admin!
 
   # GET /sign_up_invitations
@@ -55,6 +56,10 @@ class SignUpInvitationsController < ApplicationController
 
   def ensure_admin!
     redirect_back_or_to root_path, alert: t(:access_denied) unless current_user.has_role?(:admin)
+  end
+
+  def clear_cache
+    SignUpInvitation.expire_selector
   end
 
 end

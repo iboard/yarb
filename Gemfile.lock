@@ -66,6 +66,10 @@ GEM
       http_parser.rb (~> 0.5.3)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    evernote-thrift (1.25.1)
+    evernote_oauth (0.2.3)
+      evernote-thrift
+      oauth (>= 0.4.1)
     execjs (1.4.0)
       multi_json (~> 1.0)
     faraday (0.8.8)
@@ -291,6 +295,7 @@ DEPENDENCIES
   bootstrap-sass
   capybara-webkit
   coffee-rails (~> 4.0.0)
+  evernote_oauth
   github-markdown (~> 0.5.3)
   guard-jasmine
   guard-livereload
