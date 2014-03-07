@@ -3,7 +3,7 @@
 # Send SignUpInvitations
 class SignUpInvitationsController < ApplicationController
 
-  before_filter :clear_chache
+  before_filter :clear_cache
   before_filter :ensure_admin!
 
   # GET /sign_up_invitations
