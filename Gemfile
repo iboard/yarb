@@ -47,7 +47,6 @@ gem 'omniauth-google-oauth2'
 gem 'omniauth-tumblr'
 gem 'omniauth-foursquare'
 gem 'omniauth-identity'
-#gem 'omniauth-evernote'
 
 gem 'thin'
 
