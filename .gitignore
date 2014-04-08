@@ -24,3 +24,4 @@ db/production
 /tmp
 TAGS
 Session.vim
+.idea

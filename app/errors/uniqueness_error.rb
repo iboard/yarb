@@ -5,6 +5,10 @@ class UniquenessError < Exception
 
   attr_reader :object, :field
 
+  # Initializer
+  # @param [Object] _object the object
+  # @param [String] field field name
+  # @return [UniquenessError]
   def initialize _object, field
     @object = _object
     @field  = field

@@ -16,6 +16,11 @@ class UserPresenter
 
   attr_reader :user
 
+  # Initializer
+  # @param [User] _user - the user to be presented
+  # @param [ActionView|ApplicationController] _view - used for view-helpers
+  # @yield [UserPresenter]
+  # @return [UserPresenter] new instance
   def initialize _user, _view
     @user = _user
     @view = _view
@@ -25,7 +30,7 @@ class UserPresenter
   def name_and_email
     [
       view.content_tag(:strong, user.name, class: 'user-name'),
-      view.content_tag(:small,  view.mail_link_to( user.email, user.email ), class: 'user-email'),
+      view.content_tag(:small, view.mail_link_to(user.email, user.email), class: 'user-email'),
     ].join('&nbsp;'*3).html_safe
   end
 
@@ -37,7 +42,7 @@ class UserPresenter
         confirmed_at_time,
       ].join('&nbsp;'*3).html_safe
     else
-      "(%s)".html_safe % [ view.t("user.email_not_confirmed") ]
+      "(%s)".html_safe % [view.t("user.email_not_confirmed")]
     end
   end
 
@@ -45,7 +50,7 @@ class UserPresenter
   # @return [String] html-string "%small confirmed at DATE"
   def confirmed_at_time
     if user.email_confirmed?
-      view.content_tag(:small,  Time.zone.parse(user.confirmed_at.to_s), class: 'user-email')
+      view.content_tag(:small, Time.zone.parse(user.confirmed_at.to_s), class: 'user-email')
     end
   end
 
@@ -70,7 +75,7 @@ class UserPresenter
     view.content_tag(:div, id: "user-#{user.id}") do
       view.content_tag(:div, class: 'user-fields') do
         view.content_tag(:span) { yield } +
-        edit_user_button
+          edit_user_button
       end
     end
   end
@@ -83,15 +88,15 @@ class UserPresenter
   # @return [String] html-string, user-roles
   def authentications
     view.t("user.authentications_label").html_safe +
-    ApplicationHelper.available_authentication_providers.map { |provider|
-      provider if user.authentication(provider)
-    }.compact.join(", ")
+      ApplicationHelper.available_authentication_providers.map { |provider|
+        provider if user.authentication(provider)
+      }.compact.join(", ")
   end
 
   # @return [String] html-string, user-roles
   def user_roles
     view.t("user.roles_label").html_safe +
-    user.roles.map { |r| view.t("roles.#{r}") }.join(", ")
+      user.roles.map { |r| view.t("roles.#{r}") }.join(", ")
   end
 
   # @return [String] html-string, user's email
@@ -104,8 +109,8 @@ class UserPresenter
   attr_reader :view
 
   def edit_user_button
-    view.content_tag(:div ) do
-      view.edit_button_tag(view.t(:edit),view.edit_user_path(user)) if view.allow_edit_user?(user)
+    view.content_tag(:div) do
+      view.edit_button_tag(view.t(:edit), view.edit_user_path(user)) if view.allow_edit_user?(user)
     end
   end
 end

@@ -22,7 +22,8 @@ class SignUpInvitation
     @options        = options.first
   end
 
-  # @return [User]
+  # Returns the email's sending User
+  # @return [User] the email's sending User
   def sender
     @sender ||= User.find( @sender_id )
   end

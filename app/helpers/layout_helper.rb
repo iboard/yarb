@@ -1,8 +1,9 @@
 # some useful functions for views
 module LayoutHelper
 
+  # Joins all avaiable locales
   # @param [String] concatinator
-  # @return [String]
+  # @return [String] joined locale String
   # @yield [Symbol] locale
   def join_all_locales concatinator, &block
     if block_given?
@@ -39,9 +40,12 @@ module LayoutHelper
       class: 'btn btn-danger'
   end
 
+  # Inserts a mailto-button
+  # @param [String] _label link label
+  # @param [String] _email email address
   # @return [String] html
-  def mail_link_to label, email
-    link_to icon_with_text('icon-envelope', label), "mailto:#{email}"
+  def mail_link_to _label, _email
+    link_to icon_with_text('icon-envelope', _label), "mailto:#{_email}"
   end
 
   # Insert a 'green' button with a +-sign
@@ -97,9 +101,11 @@ module LayoutHelper
     link_to t(locale.to_sym), set_locale_path(locale)
   end
 
+  # Returns active css class when given current url
+  # @param [Uri] _path the url
   # @return [String] 'active' if path is current.
-  def active_class path
-    current_page?(path)  ? 'active' : ''
+  def active_class _path
+    current_page?(_path)  ? 'active' : ''
   end
 
   # @return [String] css-classes for standard forms
@@ -112,6 +118,10 @@ module LayoutHelper
    'btn btn-primary'
   end
 
+  # Returns a String reresenting the Models created_at and updated_at timestamp information
+  # @example
+  #   model_date_information(User.first) # => "Created at: ... , Updated at: ..."
+  # @param [Class] _model the model instance
   # @return [String] create_at and updated_at concatinated
   def model_date_information _model
     c,m = _model.created_at, _model.updated_at

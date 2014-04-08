@@ -20,10 +20,13 @@ module Store
       @modified_attributes ||= []
     end
 
-    # @param [Symbol|String] name of the attributed to be tracked
-    def track_attribute name, new_value
-      unless self.send(name).eql?(new_value)
-        self.modified_attributes << name.to_sym
+    # Tracks modification of attributes
+    # @param [Symbol|String] _name of the attributed to be tracked
+    # @param [Object] _new_value new attribute value
+    # @return [void]
+    def track_attribute _name, _new_value
+      unless self.send(_name).eql?(_new_value)
+        self.modified_attributes << _name.to_sym
       end
     end
 
@@ -83,11 +86,13 @@ module Store
       !self.new_record?
     end
 
+    # See ActiveModel::Conversion's to_key
     # @see ActiveModel::Conversion
     def to_key
       [self.key]
     end
 
+    # See ActiveModel::Conversion's to_model
     # @see ActiveModel::Conversion
     def to_model
       self

@@ -7,6 +7,7 @@ module Store
 
     attr_reader :attribute_definitions
 
+    # Initializes the attribute definitions
     # @param [Array|nil] definitions - pre-defined attribute-definitions
     def initialize definitions=[]
       @attribute_definitions = definitions

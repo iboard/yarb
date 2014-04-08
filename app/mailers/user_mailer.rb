@@ -40,9 +40,11 @@ class UserMailer < ActionMailer::Base
   end
 
   # Update or create an EmailConfirmation and send email with token
-  def request_confirm_email user
-    @confirmation = find_or_create_for_user(user)
-    mail( to: user.email, subject: "Please confirm your email address")
+  # @param [User] _user User to send confirmation to
+  # @return [Mail] Email
+  def request_confirm_email _user
+    @confirmation = find_or_create_for_user(_user)
+    mail( to: _user.email, subject: "Please confirm your email address")
   end
 
   private

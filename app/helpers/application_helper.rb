@@ -59,6 +59,9 @@ module ApplicationHelper
     Settings.fetch( :app, :needs_invitation )
   end
 
+  # Returns a new InvitationUsedService if invitation needed
+  # @example
+  #   ApplicationHelper.invitation_service_for _user, {} # => new InvitationUsedService
   # @param [User] _user the user used invitation
   # @param [Hash] _params from the sign-up service
   def self.invitation_service_for _user, _params

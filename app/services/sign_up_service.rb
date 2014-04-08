@@ -3,9 +3,11 @@
 # Try to create a new user and set errors of @sign_up if not possible.
 class SignUpService
 
+  # Initialized a new SignUpService instance
   # @param [SignUp] sign_up - the model containing user, password,...
   # @param [ActionController|ActionView] view - used to access I18n
   # @param [Object] _request - http-request logged in admin-email
+  # @param [Block] block a block to be executed
   def initialize sign_up, view, _request, &block
     @sign_up = sign_up
     @view = view
