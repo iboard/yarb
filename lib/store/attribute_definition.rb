@@ -12,6 +12,10 @@ module Store
 
     attr_reader :name, :type, :default, :validations
 
+    # Initializer
+    # @param [String] name name
+    # @param [Hash] attr attribute Hash
+    # @return [AttributeDefinition]
     def initialize name, *attr
       @name = name.to_sym
       _attr = attr.first
@@ -55,7 +59,8 @@ module Store
       end
     end
 
-    # @param [Boolean] true if one of the validators is an uniqueness-validator.
+    # Checks for existence of uniqueness validator
+    # @return [Boolean] true if one of the validators is an uniqueness-validator.
     def has_uniqueness_validator?
       validations.any? { |v| v[0] == :unique }
     end

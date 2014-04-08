@@ -10,12 +10,18 @@ class ChangePasswordService
   # @param [ActionView|ActionController] view
   # @param [User] user to change password for
   # @param [Hash] params
+  # @return [ChangePasswordService]
   def self.new view, user, params
     return true unless password_change_params_present?(params)
     service = super
     service.valid? ? service : false
   end
 
+  # Initializer
+  # @param [ActionView|ActionController] view
+  # @param [User] user to change password for
+  # @param [Hash] params
+  # @return [ChangePasswordService]
   def initialize view, user, params
     @view = view
     @user = user

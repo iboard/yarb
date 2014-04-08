@@ -10,8 +10,9 @@ module Store
     # This words are :true, any other string is :false
     NO_WORDS = %w(false no off disabled 0) + ['']
 
-    # @param [true|false|Integer] value
-    # @return [TrueClass|FalseClass]
+    # Returns a new Boolean
+    # @param [true|false|Integer] value the value
+    # @return [TrueClass|FalseClass] the outcome
     # @example
     #   0, -1, -2,... => false, 1,2,3... => true
     #   'false', '0', 'no', 'off', '' => false, any other string => true

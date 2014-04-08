@@ -5,6 +5,11 @@ class AuthenticationService
 
   attr_reader :user
 
+  # Initializer
+  # @param [ActionController] controller the controller
+  # @param [Authentication] auth Authentication object
+  # @param [Hash] _session the session Hash
+  # @return [AuthenticationService]
   def initialize controller, auth, _session={}
     @controller = controller
     @auth = auth

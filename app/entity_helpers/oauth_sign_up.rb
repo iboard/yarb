@@ -9,6 +9,10 @@ class OAuthSignUp
   validates_presence_of :name
   validates_presence_of :email
 
+  # Initializer
+  # @param [Authentication] auth authentication object
+  # @param [Hash] session session Hash
+  # @return [OAuthSignUp]
   def initialize auth, session={}
     @provider = auth[:provider]
     @uid = auth[:uid]

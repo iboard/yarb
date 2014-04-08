@@ -29,6 +29,8 @@ module Store
       e.object
     end
 
+    # Checks for existence of key
+    # @param [String|Symbol] _key key to check for
     # @return [Boolean] true if key exists
     def exist? _key
       store.transaction(:read_only) do |s|
@@ -129,9 +131,11 @@ module Store
     end
 
     # Define the default order
-    def default_order field, direction=:asc
-      @default_order_field = field
-      @default_order_direction = direction
+    # @param [Object] _field Field
+    # @param [Symbol] _direction either :asc or :desc
+    def default_order _field, _direction=:asc
+      @default_order_field = _field
+      @default_order_direction = _direction
     end
 
     # Deletes the entire store
@@ -147,6 +151,8 @@ module Store
       expire_selector
     end
 
+    # Checks for unique key
+    # @param [Object] object the object
     # @return [Boolean] true if object's key is unique
     def unique_key? object
       _check = self.find(object.key)
@@ -171,12 +177,14 @@ module Store
       @attribute_definitions ||= AttributeDefinitions.new
     end
 
+    # Returns the attribute definition of a given field
     # @param [String] field the name of the field to get the definition for
     # @return [AttributeDefinition]
     def attribute_definition_of(field)
       @attribute_definitions.find_field(field)
     end
 
+    # Finds by attribute/valuel
     # @param [Symbol] _attribute - the attribute to search for
     # @param [Object] _value - the value this attribute should have
     # @return [Object|nil]

@@ -48,6 +48,7 @@ class User
     super
   end
 
+  # Returns the User's Authentication object
   # @param [Symbol] provider (default :identity)
   # @return [Authentication]
   def authentication provider=:identity

@@ -12,6 +12,7 @@ module Settings
   # It reports the missing key and the file where it should be defined.
   class SettingsError < RuntimeError
 
+    # Initializer
     # @param [Symbol] symbol to search for
     # @param [Hash] keys provided in settings
     def initialize symbol, keys

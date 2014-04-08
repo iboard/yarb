@@ -23,6 +23,10 @@ module Store
 
     attr_reader :objects
 
+    # Initializer
+    # @param [Class] klass the class
+    # @param [Array[Object]] objects the objects
+    # @return [Selector]
     def initialize klass, objects
       @klass = klass
       @objects = objects
@@ -40,12 +44,17 @@ module Store
     end
 
     # Delegate .map() to the objects array
+    # @param [Hash] args arguments to be passed to .map()
+    # @param [Object] block block to be passed to .map()
+    # @return delegate execution of @object,map
     def map *args, &block
       @objects.map *args, &block
     end
 
     # Delegate .each() to the objects array
-    # @yield [Object]
+    # @param [Hash] args arguments to be passed to .map()
+    # @param [Object] block the block
+    # @return delegate execution of @object,map
     def each *args, &block
       @objects.each *args, &block
     end
@@ -61,6 +70,7 @@ module Store
     def all
       ordered @objects
     end
+
     alias_method :to_a, :all
 
     # The first entry in objects
@@ -69,6 +79,7 @@ module Store
       all.first
     end
 
+    # Fins by attribute/value
     # @param [Symbol] _attribute - the attribute to search for
     # @param [Object] _value - the value this attribute should have
     # @return [Object|nil]
@@ -79,7 +90,7 @@ module Store
     # @param [Object] _id
     # @return [Object|nil] the object found or nil
     def find _id
-      @objects.detect{ |entry| entry.send(:key).eql?(_id) }
+      @objects.detect { |entry| entry.send(:key).eql?(_id) }
     end
 
     # Sort Ascending
@@ -99,11 +110,11 @@ module Store
     private
 
     def sort_descending _objects, field
-      @objects.sort { |b,a| safe_compare(a,b, field) }
+      @objects.sort { |b, a| safe_compare(a, b, field) }
     end
 
     def sort_ascending _objects, field
-      @objects.sort { |a,b| safe_compare(a,b, field) }
+      @objects.sort { |a, b| safe_compare(a, b, field) }
     end
 
     def safe_compare a, b, field
@@ -113,12 +124,12 @@ module Store
 
     def ordered _objects
       case @klass.default_order_direction || :none
-      when :asc
-        sort_ascending(_objects, @klass.default_order_field )
-      when :desc
-        sort_descending(_objects, @klass.default_order_field )
-      else
-        _objects
+        when :asc
+          sort_ascending(_objects, @klass.default_order_field)
+        when :desc
+          sort_descending(_objects, @klass.default_order_field)
+        else
+          _objects
       end
     end
 

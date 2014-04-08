@@ -12,6 +12,7 @@ module Store
 
     attr_reader :object, :field
 
+    # Initializer
     # @param [Symbol] field to be validated
     # @param [Object] object to be validated
     def initialize field, object

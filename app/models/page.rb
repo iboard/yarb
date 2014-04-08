@@ -11,6 +11,9 @@ class Page
   default_order :position, :asc
   attribute  :draft, type: Boolean, default: true
 
+  # Initializer
+  # @param [Hash] _attributes attributes Hash
+  # @return [Page]
   def initialize _attributes={}
     set_attributes ensure_defaults(_attributes)
   end

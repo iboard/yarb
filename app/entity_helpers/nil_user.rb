@@ -6,17 +6,22 @@ class NilUser
 
   attr_reader  :id, :email, :name, :password_digest, :roles
 
+  # Initializer
+  # @param [Hash] args argument Hash
+  # @return [NilUser]
   def initialize args={}
     @name = '(no name)'
     @roles = []
   end
 
-  # @return [nil]
+  # Basically returns nil all the time
+  # @return [nil] nothing
   def password
   end
 
   # No op, you may pass in whatever you want
-  def password= new_password
+  # @param [String] _new_password arbitrary String
+  def password= _new_password
   end
 
   # @param [Object] _password (doesn't matter)

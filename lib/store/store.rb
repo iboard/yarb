@@ -42,6 +42,8 @@ module Store
   #   ActiveModel::Naming
   #   ActiveModel::Model
   #   ActiveModel::Validations
+  # @param [Object] base_class base class
+  # @return [void]
   def self.included base_class
     base_class.send(:include,  ActiveModel::Model)
     base_class.send(:extend,   ActiveModel::Naming)

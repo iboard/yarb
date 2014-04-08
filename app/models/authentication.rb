@@ -12,6 +12,9 @@ class Authentication
   attribute  :uid
   attribute  :user_id
 
+  # Initializer
+  # @param [Hash] args attribute Hash
+  # @return [Authentication]
   def initialize *args
     set_attributes( *args )
     ensure_identity
