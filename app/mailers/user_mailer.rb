@@ -47,6 +47,15 @@ class UserMailer < ActionMailer::Base
     mail( to: _user.email, subject: "Please confirm your email address")
   end
 
+  # Creates a new email for password reset link
+  # @param [String] _email the Email address to sent to
+  # @param [String] _token the edit token
+  # @return [Mail] Email
+  def password_change_token _email, _token
+    @token = _token
+    mail(to: _email, subject: "Please change your password")
+  end
+
   private
 
   def find_or_create_for_user user

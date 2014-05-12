@@ -46,6 +46,23 @@ class SessionController < ApplicationController
     render :new, status: :unauthorized
   end
 
+  # GET /forgot_password
+  def forgot_password
+  end
+
+  # POST /reset_password
+  def reset_password
+    _user = User.find_by(:email, extract_email_from_params(params['/reset_password']))
+
+    if _user
+      _user.create_edit_token!
+      redirect_to sign_in_path, notice: t('passwort_reset')
+    else
+      redirect_to sign_in_path, notice: t('passwort_reset')
+    end
+
+  end
+
   private
 
   def create_with_identity
@@ -86,6 +103,10 @@ class SessionController < ApplicationController
 
   def extract_params _params
     [ _params.fetch(:email), _params.fetch(:password) ]
+  end
+
+  def extract_email_from_params _params
+    _params.fetch(:email)
   end
 
   def extract_oauth_params hash

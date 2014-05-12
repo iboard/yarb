@@ -1,3 +1,6 @@
 en:
   welcome: 'Welcome'
   home: 'Home'
+  reset_password: "Email password reset instructions"
+  passwort_reset: "An email for resetting the password was sent"
+
