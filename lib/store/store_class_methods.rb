@@ -112,6 +112,7 @@ module Store
     def key_method method
       @key_method = method
       validates_presence_of method
+      validates_length_of method, minimum: 1
       define_method(:key) { prepare_key(self.send method) }
     end
 
