@@ -1,5 +1,5 @@
 - flash.each do |name, msg|
-  %div{ class: "alert alert-#{name == :notice ? 'success' : 'error' }" }
+  %div{ class: "alert alert-#{name == 'notice' ? 'success' : 'error' }" }
     = link_to '&#215;'.html_safe, '#', class: 'close', :'data-dismiss' => 'alert'
     = content_tag :div, msg, :id => "flash_#{name}"
 
