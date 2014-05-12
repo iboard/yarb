@@ -192,6 +192,7 @@ describe PagesController do
         end
 
         it "doesn't store invalid pages on update" do
+          pending "Make keys immutable"
           _page = Page.create! title: "I am valid", body: "Valid page"
           visit edit_page_path(_page)
           fill_in "Title", with: ""
