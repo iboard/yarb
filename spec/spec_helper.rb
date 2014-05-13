@@ -24,6 +24,7 @@ Dir[Rails.root.join("spec/support/**/*.rb")].each { |f| require f }
 
 # CONFIGURING RSPEC
 RSpec.configure do |config|
+  config.include FeatureTestHelper, type: :feature
 
   # CONFIG CAPYBARA
   config.include Capybara::DSL
