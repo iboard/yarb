@@ -58,7 +58,7 @@ class SessionController < ApplicationController
       _user.create_edit_token!
       redirect_to sign_in_path, notice: t('passwort_reset')
     else
-      redirect_to sign_in_path, notice: t('passwort_reset')
+      redirect_to sign_in_path
     end
 
   end

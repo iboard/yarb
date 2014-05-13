@@ -110,6 +110,10 @@ describe SessionController do
         it 'redirects to the sign in page' do
           expect(response).to redirect_to(sign_in_path)
         end
+
+        it 'DOES NOT display a notice upon redirect' do
+          expect(flash.notice).to be_nil
+        end
       end
     end
   end
