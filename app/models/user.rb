@@ -16,6 +16,8 @@ class User
   attribute  :name
   validates_presence_of :name
 
+  attribute :edit_token
+
   # @param [Hash] args
   # @option args [String] :name - The username
   # @option args [String] :email - User's email
@@ -66,6 +68,24 @@ class User
     self.authentications.reject {|a| a.provider == :identity}
   end
 
+  # Creates a one-time token for editing the User's password, sends out an email with a link
+  def create_edit_token!
+    self.edit_token = SecureRandom.hex
+    save
+    UserMailer.password_change_token(email, edit_token).deliver
+  end
+
+  def update_password_with_token!(_password, _token)
+    raise 'Unvalid Edit Token' unless edit_token == _token
+    self.password = _password
+    self.edit_token = nil
+    save
+  end
+
+  # Finds a User by his/her edit_token
+  def self.find_by_token(_token)
+    User.find_by(:edit_token, _token)
+  end
 
   # Delete an existing authentication (for :identity) and create a new one
   # @param [String|Symbol] provider

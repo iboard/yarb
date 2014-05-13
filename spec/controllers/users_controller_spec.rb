@@ -109,7 +109,6 @@ describe UsersController do
         expect( @user.reload.authenticate( "oldpassword" ) ).to be_true
       end
 
-
       it "PUT /user/:id doesn't update password when confirmation doesn't match" do
         within( "#edit-user-#{@user.id}" ) do
           fill_in "Old Password", with: "oldpassword"
@@ -214,6 +213,99 @@ describe UsersController do
 
   end
 
+  describe 'GET #edit_password /user/:token/edit_password' do
+    context 'for existing token' do
+      before(:each) do
+        create_valid_user "test@example.com", "Testuser", "oldpassword"
+        _user = User.find_by(:email, "test@example.com")
+        _user.create_edit_token!
+        get :edit_password, token: _user.edit_token
+      end
+
+      it 'returns with status 200' do
+        expect(response).to be_ok
+      end
+
+      it 'renders the #change_password template' do
+        expect(response).to render_template(:edit_password)
+      end
+
+      it 'assigns @password and @password_confirmation' do
+        expect(assigns(:password)).to be_blank
+        expect(assigns(:password_confirmation)).to be_blank
+      end
+    end
+
+    context 'for non-existing token' do
+      before(:each) { get :edit_password, token: SecureRandom.hex }
+
+      it 'renders a redirect' do
+        expect(response).to be_redirect
+      end
+
+      it 'redirects to root path' do
+        expect(response).to redirect_to root_path
+      end
+    end
+
+  end
+
+  describe 'POST #update_password /user/:token/update_password' do
+    context 'with existing token and matching password' do
+      before(:each) do
+        create_valid_user "test3@example.com", "Testuser", "oldpassword"
+        _user = User.find_by(:email, "test3@example.com")
+        _user.create_edit_token!
+        post :update_password, token: _user.edit_token, password: 'newpassword', password_confirmation: 'newpassword'
+      end
+
+      it 'returns with redirect' do
+        expect(response).to be_redirect
+      end
+
+      it 'redirects to the sign in path' do
+        expect(response).to redirect_to sign_in_path
+      end
+
+      it 'sets the flash' do
+        expect(flash[:notice]).to eq('Password changed')
+      end
+    end
+
+    context 'with existing token and no matching passwords' do
+      before(:each) do
+        create_valid_user "test@example.com", "Testuser", "oldpassword"
+        _user = User.find_by(:email, "test@example.com")
+        _user.create_edit_token!
+        post :update_password, token: _user.edit_token, password: 'newpassword', password_confirmation: 'asdadssa'
+      end
+
+      it 'returns with status 200' do
+        expect(response).to be_ok
+      end
+
+      it 'renders the :edit_password template' do
+        expect(response).to render_template(:edit_password)
+      end
+
+      it 'sets the flash' do
+        expect(flash[:warn]).to eq('Passwords did not match')
+      end
+    end
+
+    context 'with non-existing token' do
+      before(:each) { post :update_password, token: SecureRandom.hex, password: 'newpassword', password_confirmation: 'newpassword' }
+
+      it 'renders a redirect' do
+        expect(response).to be_redirect
+      end
+
+      it 'redirects to root path' do
+        expect(response).to redirect_to root_path
+      end
+    end
+
+  end
+
+
 end
-
-

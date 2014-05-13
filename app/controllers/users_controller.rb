@@ -3,8 +3,9 @@
 # Show and edit User's profile
 class UsersController < ApplicationController
 
-  before_filter :load_resource,     except: [:index]
-  before_filter :authenticate_user, except: [:index]
+  before_filter :load_resource, except: [:index, :edit_password, :update_password]
+  before_filter :authenticate_user, except: [:index, :edit_password, :update_password]
+  protect_from_forgery except: [:update_password]
   helper_method :allow_edit_user?
 
   # GET /users
@@ -23,6 +24,40 @@ class UsersController < ApplicationController
 
   # GET /users/:id/edit
   def edit
+  end
+
+  # GET /users/edit_password?token=_token
+  def edit_password
+    User.expire_selector
+    @user = User.find_by_token(params[:token])
+
+    if @user
+      @token = @user.edit_token
+      @password = @password_confirmation = ''
+    else
+      redirect_to root_path if @user.nil?
+    end
+
+  end
+
+  # POST /users/change_password
+  def update_password
+    User.expire_selector
+    @user = User.find_by_token(params[:token])
+
+    if @user
+      if params[:password] != params[:password_confirmation]
+        @password = @password_confirmation = ''
+        @token = @user.edit_token
+        flash[:warn] = 'Passwords did not match'
+        render :edit_password
+      else
+        @user.update_password_with_token!(params[:password], params[:token])
+        redirect_to sign_in_path, notice: 'Password changed'
+      end
+    else
+      redirect_to root_path
+    end
   end
 
   # PUT /users/:id

@@ -9,6 +9,8 @@ Yarb::Application.routes.draw do
   match 'sign_in'            => 'session#new',                 via: 'GET',  as: 'sign_in'
   match 'sign_in'            => 'session#create',              via: 'POST', as: 'create_session'
   match 'sign_out'           => 'session#delete',              via: 'GET',  as: 'sign_out'
+  match 'forgot_password'    => 'session#forgot_password',     via: 'GET',  as: 'forgot_password'
+  match 'reset_password'     => 'session#reset_password',      via: 'POST', as: 'reset_password'
 
   match 'sign_up'            => 'sign_up#new',                 via: 'GET',  as: 'sign_up'
   match 'sign_ups'           => 'sign_up#create',              via: 'POST', as: 'sign_ups'
@@ -20,6 +22,9 @@ Yarb::Application.routes.draw do
   match '/sign_up/complete_auth'   => 'session#complete_auth', via: 'POST'
 
   match 'confirm_email/:token' => 'email_confirmation#confirm', via: 'GET', as: 'confirm_email'
+
+  match 'users/:token/edit_password' => 'users#edit_password', via: 'GET', as: 'edit_password_users'
+  match 'users/:token/update_password' => 'users#update_password', via: 'POST', as: 'update_password_users'
 
   resources :users
   resources :sign_up_invitations, only: [:index, :new, :create, :destroy]

@@ -1,3 +1,5 @@
 de:
   welcome: 'Willkommen'
   home: 'Home'
+  reset_password: "Email mit Kennwortrücksetzung erzeugen"
+  passwort_reset: "Eine Email mit Anweisungen zur Kennwortrücksetzung wurde versandt"
