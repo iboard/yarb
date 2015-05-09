@@ -14,13 +14,13 @@ module Store
     # @param [true|false|Integer] value the value
     # @return [TrueClass|FalseClass] the outcome
     # @example
-    #   0, -1, -2,... => false, 1,2,3... => true
+    #   0, -1, -2,... => false, 0.1, 1, 2, 3, 3.1... => true
     #   'false', '0', 'no', 'off', '' => false, any other string => true
     def self.new value
       case value
       when String
         ! NO_WORDS.include?( value.strip )
-      when Integer
+      when Numeric
         value > 0
       else
         value

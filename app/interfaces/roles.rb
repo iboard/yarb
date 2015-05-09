@@ -35,7 +35,8 @@ module Roles
     # @param [Symbol|String] role
     # @return [Boolean] true if attribute roles includes role
     def has_role? role
-      roles.map(&:to_sym).include?(role.to_sym)
+      role_symbol = role.to_sym
+      roles.any? { |r| r.to_sym == role_symbol }
     end
 
     # @param [Array] roles

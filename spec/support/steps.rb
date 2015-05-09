@@ -17,7 +17,7 @@ def sign_out path=nil
 end
 
 def create_valid_user email, name, password
-  u= User.new email: email, name: name
+  u = User.new email: email, name: name
   u.password = password
   u.save
 end
