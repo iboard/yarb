@@ -25,3 +25,6 @@ db/production
 TAGS
 Session.vim
 .idea
+
+.ruby-version
+.ruby-gemset

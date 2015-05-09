@@ -29,12 +29,14 @@ module Settings
   # @param [Array] symbols
   # @return [Object]
   # @raise SettingsError if key not defined
-  def self.fetch *symbols
+  module_function
+  def fetch *symbols
     get_setting( settings, symbols.shift, symbols )
   end
 
   private
-  def self.get_setting( top, symbol, hash )
+  module_function
+  def get_setting( top, symbol, hash )
     _new_hash = top.fetch(symbol) {
       raise SettingsError.new symbol, top
     }

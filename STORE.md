@@ -111,7 +111,7 @@ Validations
 -----------
 
 Most of the validators are used from _ActiveModel_.
-E.g. _validate_presence_of_ is used from _ActiveModel_ where unuquiness
+E.g. _validate_presence_of_ is used from _ActiveModel_ where uniqueness
 must be implemented by Store itself (it's a method of ActiveRecord).
 
 ```ruby
